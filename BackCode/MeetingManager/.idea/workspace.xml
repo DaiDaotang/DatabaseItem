@@ -27,6 +27,7 @@
     <session id="534578453">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -165,10 +166,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -225,13 +226,14 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553054392828" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553054394991" />
     <property name="last_opened_file_path" value="D:/app/11209/product/11.2.0/dbhome_1/oui/jlib/classes12.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -362,16 +364,15 @@
       <option name="presentableId" value="Default" />
       <updated>1553049445734</updated>
       <workItem from="1553049456477" duration="65000" />
-      <workItem from="1553049579202" duration="4708000" />
+      <workItem from="1553049579202" duration="4798000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4773000" />
+    <option name="totallyTimeSpent" value="4863000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4992908" visible="true" weight="0.19504021" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
