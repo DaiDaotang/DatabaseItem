@@ -3,6 +3,7 @@ package com.bean;
 public class ResponseBean<T> {
     private String reqId = null;
     private T resData = null;
+    private String message = null;
     private boolean isSuccess;
 
     public void setReqId(String id){
@@ -17,16 +18,23 @@ public class ResponseBean<T> {
         this.resData = resData;
     }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
     public T getResData(){
         return resData;
     }
 
-    public void setSuccess(boolean isSuccess){
-        this.isSuccess = isSuccess;
-    }
-
-    public boolean getSuccess(){
+    public boolean isSuccess() {
         return isSuccess;
     }
 
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
 }
