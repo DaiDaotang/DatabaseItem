@@ -13,7 +13,7 @@ public class LoginDao {
     public String loginCheck(LoginBean loginBean){
         String account = loginBean.getAccount();
         String password = loginBean.getPassword();
-        String athority = loginBean.getAthority();
+        String authority = loginBean.getAuthority();
         try{
             connection = DBUtil.getConnection();
             connection.setAutoCommit(false);
@@ -21,7 +21,7 @@ public class LoginDao {
             prestatement.setString(1,account);
             resultSet = prestatement.executeQuery();
             if(resultSet.next()){
-               if(password == resultSet.getString("password")&& athority==resultSet.getString("athority")){
+               if(password == resultSet.getString("password")&& authority==resultSet.getString("authority")){
                    String id = resultSet.getString("id");
                    connection.commit();
                    return id;
@@ -49,12 +49,12 @@ public class LoginDao {
 
     public void getName(ResponseBean<LoginBean> loginResp){
         String id = loginResp.getReqId();
-        String athority = loginResp.getResData().getAthority();
+        String authority = loginResp.getResData().getAuthority();
         try {
             connection = DBUtil.getConnection();
             connection.setAutoCommit(false);
             String sql = "";
-            switch (athority){
+            switch (authority){
                 case "代表队":
                     sql = "select team_name from squad where team_id = ?";
                     break;
