@@ -5,6 +5,7 @@ import java.sql.*;
 import com.bean.LoginBean;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
+import sun.rmi.runtime.Log;
 
 public class LoginDao {
     private Connection connection = null;
@@ -57,6 +58,9 @@ public class LoginDao {
             switch (authority){
                 case "代表队":
                     sql = "select team_name from squad where team_id = ?";
+                    LoginBean loginBean = loginResp.getResData();
+                    boolean isSignUp = isSignUp(id,loginBean);
+                    loginBean.setSignUp(isSignUp);
                     break;
                 case "裁判":
                     sql = "select ref_name from referee where ref_id = ?";
@@ -89,6 +93,39 @@ public class LoginDao {
             }
         }
     }
+
+    public boolean isSignUp(String id, LoginBean loginBean){
+
+            try{
+                Connection connection = DBUtil.getConnection();
+                connection.setAutoCommit(false);
+                PreparedStatement statement = connection.prepareStatement("select c_name from captain where team_id = ?");
+                statement.setString(1,id);
+                ResultSet resultSet = statement.executeQuery();
+                if(resultSet.next()){
+                    return true;
+                }
+                return false;
+            }catch (SQLException e){
+                try{
+                    if(connection!=null) connection.rollback();
+                    return false;
+                }catch (SQLException e1){
+                    e1.printStackTrace();
+                }finally {
+                    return false;
+                }
+            }finally {
+                try {
+                    if (resultSet != null) resultSet.close();
+                    if (prestatement != null) prestatement.close();
+                    if (connection != null) connection.close();
+                } catch (SQLException e2) {
+                    e2.printStackTrace();
+                }
+            }
+    }
+
     public static void main(String[] args){
         LoginDao textDao = new LoginDao();
 

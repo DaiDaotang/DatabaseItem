@@ -5,6 +5,7 @@ public class LoginBean {
     private String account = null;
     private String password = null;
     private String authority = null;
+    private boolean isSignUp;
 
     public void setName(String name){
         this.name = name;
@@ -18,10 +19,6 @@ public class LoginBean {
         this.password = password;
     }
 
-    public void setAthority(String authority){
-        this.authority = authority;
-    }
-
     public String getName(){return name;}
 
     public String getAccount(){return account;}
@@ -29,4 +26,16 @@ public class LoginBean {
     public String getPassword(){return password;}
 
     public String getAuthority(){return authority;}
+
+    public boolean isSignUp() {
+        return isSignUp;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public void setSignUp(boolean signUp) {
+        isSignUp = signUp;
+    }
 }
