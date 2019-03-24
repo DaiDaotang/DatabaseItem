@@ -9,8 +9,31 @@
 <html>
   <head>
     <title>$Title$</title>
+    <script src="jquery-3.3.1.min.js"></script>
   </head>
   <body>
   $END$
   </body>
+  <script>
+  	$.ajax({
+  		type:"post",
+  		url:"http://localhost:1080/LoginServlet",
+  		async:true,
+  		data:JSON.stringify({
+  			"reqId":"",
+  			"reqParam":{
+  				"account":"000",
+  				"password":"12345687",
+  				"authority":"管理员"
+  			}
+  		}),
+  		dataType:"json",
+  		success:function(res){
+  			console.log(res);
+  		},
+  		err:function(err){
+  			console.log(err);
+  		}
+  	});
+  </script>
 </html>

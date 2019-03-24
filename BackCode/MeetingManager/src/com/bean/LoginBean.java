@@ -4,7 +4,7 @@ public class LoginBean {
     private String name = null;
     private String account = null;
     private String password = null;
-    private String athority = null;
+    private String authority = null;
 
     public void setName(String name){
         this.name = name;
@@ -18,8 +18,8 @@ public class LoginBean {
         this.password = password;
     }
 
-    public void setAthority(String athority){
-        this.athority = athority;
+    public void setAthority(String authority){
+        this.authority = authority;
     }
 
     public String getName(){return name;}
@@ -28,5 +28,5 @@ public class LoginBean {
 
     public String getPassword(){return password;}
 
-    public String getAthority(){return athority;}
+    public String getAuthority(){return authority;}
 }
