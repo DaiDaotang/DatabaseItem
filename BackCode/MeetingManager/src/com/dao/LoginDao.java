@@ -22,7 +22,7 @@ public class LoginDao {
             prestatement.setString(1,account);
             resultSet = prestatement.executeQuery();
             if(resultSet.next()){
-               if(password == resultSet.getString("password")&& authority==resultSet.getString("authority")){
+               if(password.equals(resultSet.getString("password"))&& authority.equals(resultSet.getString("authority"))){
                    String id = resultSet.getString("id");
                    connection.commit();
                    return id;

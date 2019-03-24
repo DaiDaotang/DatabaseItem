@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
             Type respType = new TypeToken<ResponseBean<LoginBean>>(){}.getType();
             if(id!=null){
                 loginResp.setSuccess(true);
+                System.out.println(loginResp.isSuccess());
                 loginDao.getName(loginResp);
                 loginResp.setReqId(id);
             }else{
