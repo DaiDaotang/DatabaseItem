@@ -1,8 +1,8 @@
 package com.bean;
 
 public class ReqPageInfo {
-    private int curPage;
-    private int pageSize;
+    private int curPage = 1;
+    private int pageSize = 10;
 
     public int getCurPage() {
         return curPage;

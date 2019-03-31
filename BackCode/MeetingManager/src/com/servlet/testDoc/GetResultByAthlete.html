@@ -8,16 +8,15 @@
   </body>
   <script>
   	$.ajax({
-  		type:"post",
-  		url:"http://localhost:8080/LoginServlet",
+  		type:"POST",
+  		url:"http://localhost:8080/GetResultByAthlete",
   		async:true,
   		data:JSON.stringify({
   			"reqId":"",
   			"reqParam":{
-  				"account":"000",
-  				"password":"12345687",
-  				"authority":"管理员"
-  			}
+  				"ath_name":"jeff"
+  			},
+  			"reqPageInfo":{"curPage":1}
   		}),
   		dataType:"json",
   		success:function(res){

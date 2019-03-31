@@ -8,7 +8,7 @@
   </body>
   <script>
   	$.ajax({
-  		type:"post",
+  		type:"POST",
   		url:"http://localhost:8080/LoginServlet",
   		async:true,
   		data:JSON.stringify({
@@ -17,7 +17,8 @@
   				"account":"000",
   				"password":"12345687",
   				"authority":"管理员"
-  			}
+  			},
+  			"reqPageInfo":{"curPage":2}
   		}),
   		dataType:"json",
   		success:function(res){

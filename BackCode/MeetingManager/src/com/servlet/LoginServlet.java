@@ -24,7 +24,6 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("start");
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setCharacterEncoding("utf-8");
 
@@ -32,11 +31,8 @@ public class LoginServlet extends HttpServlet {
 
         BufferedReader reader = request.getReader();
         String content = reader.readLine();
-        System.out.println(content);
         Gson gson = new Gson();
-        System.out.println("gson");
         Type requestType = new TypeToken<RequestBean<LoginBean>>(){}.getType();
-        System.out.println("type");
         RequestBean<LoginBean> loginRequest = gson.fromJson(content,requestType);
         try{
             LoginDao loginDao = new LoginDao();

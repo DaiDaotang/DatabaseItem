@@ -5,7 +5,6 @@ import java.sql.*;
 import com.bean.LoginBean;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
-import sun.rmi.runtime.Log;
 
 public class LoginDao {
     private Connection connection = null;
