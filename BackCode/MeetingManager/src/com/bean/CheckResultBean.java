@@ -8,6 +8,24 @@ public class CheckResultBean {
     private String com_id = null;
     private String ath_name = null;
     private List<ResultBean> list = null;
+    private String team_rank = null;
+    private String team_name = null;
+
+    public void setTeam_name(String team_name) {
+        this.team_name = team_name;
+    }
+
+    public String getTeam_name() {
+        return team_name;
+    }
+
+    public String getTeam_rank() {
+        return team_rank;
+    }
+
+    public void setTeam_rank(String team_rank) {
+        this.team_rank = team_rank;
+    }
 
     public List<ResultBean> getList() {
         return list;
