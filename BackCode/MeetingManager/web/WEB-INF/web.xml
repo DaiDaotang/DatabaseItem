@@ -19,4 +19,13 @@
         <servlet-name>GetResultByAthlete</servlet-name>
         <url-pattern>/GetResultByAthlete</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GetResultByTeam</servlet-name>
+        <servlet-class>com.servlet.GetResultByTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetResultByTeam</servlet-name>
+        <url-pattern>/GetResultByTeam</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -51,7 +51,7 @@ public class CheckResultDao {
         try{
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
-            pStatement = conn.prepareStatement("select ath_id,result,finals,rank from competition natural join participation where ath_id in(select ath_id from athletes where ath_name = ?)");
+            pStatement = conn.prepareStatement("select ath_id,result,finals,rank from competition natural join participation where ath_id in(select ath_id from athletes where athname = ?)");
             pStatement.setString(1,ath_name);
             resultSet = pStatement.executeQuery();
             ResultBean result;
