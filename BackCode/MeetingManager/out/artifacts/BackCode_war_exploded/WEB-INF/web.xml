@@ -27,5 +27,12 @@
         <servlet-name>GetResultByTeam</servlet-name>
         <url-pattern>/GetResultByTeam</url-pattern>
     </servlet-mapping>
-
+    <servlet>
+        <servlet-name>GetResultByItem</servlet-name>
+        <servlet-class>com.servlet.GetResultByItem</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetResultByItem</servlet-name>
+        <url-pattern>/GetResultByItem</url-pattern>
+    </servlet-mapping>
 </web-app>

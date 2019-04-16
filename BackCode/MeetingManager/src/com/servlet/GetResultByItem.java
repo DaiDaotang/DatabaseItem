@@ -1,5 +1,12 @@
 package com.servlet;
 
+import com.bean.CheckResultBean;
+import com.bean.RequestBean;
+import com.bean.ResponseBean;
+import com.dao.CheckResultDao;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,18 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-
-import com.bean.CheckResultBean;
-import com.bean.RequestBean;
-import com.bean.ResponseBean;
-import com.bean.ResultBean;
-import com.dao.CheckResultDao;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.util.List;
-@WebServlet(name = "GetResultByAthlete")
-public class GetResultByAthlete extends HttpServlet {
+
+@WebServlet(name = "GetResultByItem")
+public class GetResultByItem extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
@@ -36,10 +35,11 @@ public class GetResultByAthlete extends HttpServlet {
         ResponseBean<CheckResultBean> resBean = new ResponseBean<>();
         try {
             CheckResultDao dao = new CheckResultDao(reqBean.getReqParam(),reqBean.getReqPageInfo());
-            CheckResultBean listBean = reqBean.getReqParam();
-            listBean.setList(dao.GetResultByAthlete());
+            CheckResultBean listBean = new CheckResultBean();
+            listBean.setList(dao.GetResultByItem());
             resBean.setResData(listBean);
             resBean.setReqId(reqBean.getReqId());
+            listBean.setTeam_rank(dao.GetTeamRank());
             resBean.setSuccess(true);
             Type resType = new TypeToken<ResponseBean<CheckResultBean>>(){}.getType();
             out.print(gson.toJson(resBean,resType));

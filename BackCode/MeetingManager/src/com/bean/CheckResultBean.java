@@ -2,10 +2,10 @@ package com.bean;
 
 import java.util.List;
 public class CheckResultBean {
-    private String itemName = null;
-    private String sex = null;
-    private String ageDelivery = null;
-    private String com_id = null;
+    private String itemName = "%";
+    private String sex = "%";
+    private String ageDelivery = "%";
+    private String com_id = "%";
     private String ath_name = null;
     private List<ResultBean> list = null;
     private String team_rank = null;
@@ -73,6 +73,21 @@ public class CheckResultBean {
 
     public void setSex(String sex) {
         this.sex = sex;
+    }
+
+    public void clear(){
+        if(sex.equals("%")){
+            setSex(null);
+        }
+        if(ageDelivery.equals("%")){
+            setAgeDelivery(null);
+        }
+        if(itemName.equals("%")){
+            setItemName(null);
+        }
+        if(com_id.equals("%")){
+            setCom_id(null);
+        }
     }
 }
 
