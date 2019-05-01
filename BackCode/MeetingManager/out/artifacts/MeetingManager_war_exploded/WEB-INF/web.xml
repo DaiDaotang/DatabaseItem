@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetResultByAthlete</servlet-name>
+        <servlet-class>com.servlet.GetResultByAthlete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetResultByAthlete</servlet-name>
+        <url-pattern>/GetResultByAthlete</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetResultByTeam</servlet-name>
+        <servlet-class>com.servlet.GetResultByTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetResultByTeam</servlet-name>
+        <url-pattern>/GetResultByTeam</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetResultByItem</servlet-name>
+        <servlet-class>com.servlet.GetResultByItem</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetResultByItem</servlet-name>
+        <url-pattern>/GetResultByItem</url-pattern>
+    </servlet-mapping>
+</web-app>
