@@ -103,9 +103,9 @@ public class CheckResultDao {
         String team_id = result.getTeam_id();
         String sql;
         if(team_id==null){
-            sql = "select team_name,team_id from squad where team_id in(select team_id from athletes where athname = ?)";
+            sql = "select team_name,team_id from team where team_id in(select team_id from athletes where athname = ?)";
         }else{
-            sql = "select team_name,team_id from squad where team_id =?";
+            sql = "select team_name,team_id from team where team_id =?";
         }
         Connection conn = null;
         PreparedStatement pStatement = null;
@@ -157,7 +157,7 @@ public class CheckResultDao {
         try{
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
-            pStatement = conn.prepareStatement("select ath_id,athname,result,finals,rank,team_id from competition natural join participation natural join athletes where team_id in(select team_id from squad where team_name = ?)");
+            pStatement = conn.prepareStatement("select ath_id,athname,result,finals,rank,team_id from competition natural join participation natural join athletes where team_id in(select team_id from team where team_name = ?)");
             pStatement.setString(1,team_name);
             resultSet = pStatement.executeQuery();
             ResultBean result;
@@ -214,7 +214,7 @@ public class CheckResultDao {
         String sex = bean.getSex();
         String age = bean.getAgeDelivery();
         String com_id = bean.getCom_id();
-        String sql = "select ath_id,athname,result,finals,rank,team_id from athletes natural join participation natural join competition where item_name = ? and sex = ? and age = ? and com_id = ? ";
+        String sql = "select ath_id,athname,result,finals,rank,team_id from athletes natural join participation natural join competition where com_id like ? and item_id in (select item_id from m_item where item_name like ? and sex like ? and age like ? )";
         int curPage = page.getCurPage();
         int pageSize = page.getPageSize();
         List<ResultBean> results = new ArrayList<>();
@@ -225,10 +225,10 @@ public class CheckResultDao {
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
             pStatement = conn.prepareStatement(sql);
-            pStatement.setString(1,item_name);
-            pStatement.setString(2,sex);
-            pStatement.setString(3,age);
-            pStatement.setString(4,com_id);
+            pStatement.setString(2,item_name);
+            pStatement.setString(3,sex);
+            pStatement.setString(4,age);
+            pStatement.setString(1,com_id);
             resultSet = pStatement.executeQuery();
             ResultBean result;
             int index = 0,size = 0;

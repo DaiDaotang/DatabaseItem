@@ -9,12 +9,15 @@
   <script>
   	$.ajax({
   		type:"POST",
-  		url:"http://localhost:8080/GetResultByTeam",
+  		url:"http://localhost:8080/GetResultByItem",
   		async:true,
   		data:JSON.stringify({
   			"reqId":"111",
   			"reqParam":{
-  				"team_name":"C3-512"
+  				"itemname":"测试项目1",
+  				"sex":"男",
+  				"ageDelivery":"0-100",
+  				
   			},
   			"reqPageInfo":{"curPage":1}
   		}),

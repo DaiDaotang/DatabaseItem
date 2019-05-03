@@ -9,12 +9,15 @@
   <script>
   	$.ajax({
   		type:"POST",
-  		url:"http://localhost:8080/GetResultByAthlete",
+  		url:"http://localhost:8080/GetResultByItem",
   		async:true,
   		data:JSON.stringify({
-  			"reqId":"",
+  			"reqId":"111",
   			"reqParam":{
-  				"ath_name":"jeff"
+  				"itemname":"测试项目1",
+  				"sex":"男",
+  				"ageDelivery":"0-100",
+  				
   			},
   			"reqPageInfo":{"curPage":1}
   		}),

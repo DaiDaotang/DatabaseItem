@@ -35,7 +35,7 @@ public class GetResultByItem extends HttpServlet {
         ResponseBean<CheckResultBean> resBean = new ResponseBean<>();
         try {
             CheckResultDao dao = new CheckResultDao(reqBean.getReqParam(),reqBean.getReqPageInfo());
-            CheckResultBean listBean = new CheckResultBean();
+            CheckResultBean listBean = reqBean.getReqParam();
             listBean.setList(dao.GetResultByItem());
             resBean.setResData(listBean);
             resBean.setReqId(reqBean.getReqId());
