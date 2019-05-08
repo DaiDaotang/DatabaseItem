@@ -12,8 +12,7 @@ import java.util.*;
 public class CheckResultDao {
     private CheckResultBean bean;
     private ReqPageInfo page;
-    //private String teamName;
-    //private String teamId;
+
     public CheckResultDao(){}
 
     public CheckResultDao(CheckResultBean bean,ReqPageInfo page){
@@ -77,25 +76,12 @@ public class CheckResultDao {
                 }
                 results.add(result);
             }
-            conn.commit();
-            return results;
         }catch (SQLException e){
-            try {
-                if(conn!=null) conn.rollback();
-            }catch (SQLException e1){
-                e1.printStackTrace();
-            }finally {
-                return null;
-            }
+            e.printStackTrace();
         }finally {
-            bean.clear();
-            try {
-                if(resultSet!=null) resultSet.close();
-                if(pStatement!=null) pStatement.close();
-                if(conn!=null) conn.close();
-            }catch (SQLException e2){
-                e2.printStackTrace();
-            }
+            bean.clear();//不知道有没有用
+            DBUtil.closeConn(conn);
+            return results;
         }
     }
 
@@ -124,22 +110,10 @@ public class CheckResultDao {
                 result.setTeam_name(resultSet.getString("team_name"));
                 result.setTeam_id(resultSet.getString("team_id"));
             }
-            conn.commit();
         }catch (SQLException e){
-            try {
-                if(conn!=null) conn.rollback();
-            }catch (SQLException e1){
-                e1.printStackTrace();
-            }finally {
-            }
+            e.printStackTrace();
         }finally {
-            try {
-                if(resultSet!=null) resultSet.close();
-                if(pStatement!=null) pStatement.close();
-                if(conn!=null) conn.close();
-            }catch (SQLException e2){
-                e2.printStackTrace();
-            }
+            DBUtil.closeConn(conn);
         }
     }
 
@@ -184,25 +158,12 @@ public class CheckResultDao {
                 }
                 results.add(result);
             }
-            conn.commit();
-            return results;
         }catch (SQLException e){
-            try {
-                if(conn!=null) conn.rollback();
-            }catch (SQLException e1){
-                e1.printStackTrace();
-            }finally {
-                return null;
-            }
+            e.printStackTrace();
         }finally {
             bean.clear();
-            try {
-                if(resultSet!=null) resultSet.close();
-                if(pStatement!=null) pStatement.close();
-                if(conn!=null) conn.close();
-            }catch (SQLException e2){
-                e2.printStackTrace();
-            }
+            DBUtil.closeConn(conn);
+            return results;
         }
     }
 
@@ -254,25 +215,12 @@ public class CheckResultDao {
                 }
                 results.add(result);
             }
-            conn.commit();
-            return results;
         }catch (SQLException e){
-            try {
-                if(conn!=null) conn.rollback();
-            }catch (SQLException e1){
-                e1.printStackTrace();
-            }finally {
-                return null;
-            }
+            e.printStackTrace();
         }finally {
             bean.clear();
-            try {
-                if(resultSet!=null) resultSet.close();
-                if(pStatement!=null) pStatement.close();
-                if(conn!=null) conn.close();
-            }catch (SQLException e2){
-                e2.printStackTrace();
-            }
+            DBUtil.closeConn(conn);
+            return results;
         }
     }
 

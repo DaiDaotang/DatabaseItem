@@ -1,5 +1,12 @@
 package com.servlet;
-//todo:测试
+
+import com.bean.PersonScoreBean;
+import com.bean.RequestBean;
+import com.bean.ResponseBean;
+import com.dao.GetScoreDao;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import com.bean.PersonScoreBean;
-import com.bean.RequestBean;
-import com.bean.ResponseBean;
-import com.dao.GetScoreDao;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-@WebServlet(name = "GetScores1")
-public class GetScores1 extends HttpServlet {
+import java.util.List;
+
+@WebServlet(name = "GetScores2")
+public class GetScores2 extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
@@ -36,7 +38,7 @@ public class GetScores1 extends HttpServlet {
         GetScoreDao dao = new GetScoreDao(requestBean);
         ResponseBean<List<PersonScoreBean>> responseBean = new ResponseBean<>();
         responseBean.setReqId(requestBean.getReqId());
-        responseBean.setResData(dao.getBasicInfo("裁判"));
+        responseBean.setResData(dao.getScoreLists("总裁判"));
         Type responseType = new TypeToken<ResponseBean<List<PersonScoreBean>>>(){}.getType();
         String resp = gson.toJson(responseBean,responseType);
         try{

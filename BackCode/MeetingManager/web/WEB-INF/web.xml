@@ -35,4 +35,20 @@
         <servlet-name>GetResultByItem</servlet-name>
         <url-pattern>/GetResultByItem</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GetScores1</servlet-name>
+        <servlet-class>com.servlet.GetScores1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetScores1</servlet-name>
+        <url-pattern>/GetScores1</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetScores2</servlet-name>
+        <servlet-class>com.servlet.GetScores2</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetScores2</servlet-name>
+        <url-pattern>/GetScores2</url-pattern>
+    </servlet-mapping>
 </web-app>

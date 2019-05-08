@@ -40,4 +40,15 @@ public class DBUtil {
             return null;
         }
     }
+
+    public static void closeConn(Connection conn){
+        if(conn != null){
+            try{
+                conn.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+            conn = null;
+        }
+    }
 }
