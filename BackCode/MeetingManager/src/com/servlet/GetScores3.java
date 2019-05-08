@@ -18,8 +18,8 @@ import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.List;
 
-@WebServlet(name = "GetScores2")
-public class GetScores2 extends HttpServlet {
+@WebServlet(name = "GetScores3")
+public class GetScores3 extends HttpServlet {
     //todo:测试
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
@@ -39,7 +39,7 @@ public class GetScores2 extends HttpServlet {
         GetScoreDao dao = new GetScoreDao(requestBean);
         ResponseBean<List<PersonScoreBean>> responseBean = new ResponseBean<>();
         responseBean.setReqId(requestBean.getReqId());
-        responseBean.setResData(dao.getScoreLists("总裁判"));
+        responseBean.setResData(dao.getScoreLists("裁判长"));
         Type responseType = new TypeToken<ResponseBean<List<PersonScoreBean>>>(){}.getType();
         String resp = gson.toJson(responseBean,responseType);
         try{
