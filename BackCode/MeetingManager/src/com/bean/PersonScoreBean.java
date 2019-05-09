@@ -14,8 +14,29 @@ public class PersonScoreBean {
     private double P;
     private String bigReferee;//小组总裁判名字
     private List<Score> scores = null;
+    private boolean pass;
+    private double score;
 
-    public void addScore(double score,String referee){
+    public PersonScoreBean() {
+    }
+
+    public boolean isPass() {
+        return pass;
+    }
+
+    public void setPass(boolean pass) {
+        this.pass = pass;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public void addScore(double score, String referee){
         if(scores==null){
             scores = new ArrayList<>();
         }

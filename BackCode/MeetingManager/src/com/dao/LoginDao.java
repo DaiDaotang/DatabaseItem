@@ -125,10 +125,4 @@ public class LoginDao {
             }
     }
 
-    public static void main(String[] args){
-        LoginDao textDao = new LoginDao();
-
-        //textDao.loginCheck(" "," ");
-    }
-
 }

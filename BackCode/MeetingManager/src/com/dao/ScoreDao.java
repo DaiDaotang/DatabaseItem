@@ -2,18 +2,61 @@ package com.dao;
 import com.bean.*;
 import com.DBUtil.DBUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
-public class GetScoreDao {
+public class ScoreDao {
     private ReqPageInfo page;
     private String reqId;
 
-    public GetScoreDao(RequestBean bean){
+    public ScoreDao(RequestBean bean){
         this.reqId = bean.getReqId();
         this.page = bean.getReqPageInfo();
+    }
+
+    public boolean GiveAMark(PersonScoreBean s){
+        if(isScored(s)||s.getScore()<0){
+            return false;
+        }
+        Connection conn = null;
+        PreparedStatement state = null;
+        ResultSet set = null;
+        try{
+            conn = DBUtil.getConnection();
+            conn.setAutoCommit(false);
+            String sql = "insert into score values (?,?,?,?)";
+            state = conn.prepareStatement(sql);
+            state.setString(1,s.getAth_id());
+            state.setString(2,s.getCom_id());
+            state.setString(3,reqId);
+            state.setDouble(4,s.getScore());
+            int i = state.executeUpdate();
+            conn.commit();
+            if(i>0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }finally {
+            DBUtil.closeConn(conn);
+        }
+    }
+
+    public boolean notPass(PersonScoreBean s){
+        //todo
+        return true;
+    }
+
+    public boolean GiveDP(PersonScoreBean s){
+        //todo
+        return true;
+    }
+
+    public boolean finalReview(PersonScoreBean s){
+        //todo
+        return true;
     }
 
     public List<PersonScoreBean> getBasicInfo(String authority){
@@ -26,13 +69,14 @@ public class GetScoreDao {
             String sql = " ";
             switch(authority){
                 case "裁判":
+                    //是不是可以用not exists语句？
                     sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 0 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from referee where ref_id = ?))";
                     break;
                 case "总裁判":
                     sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 1 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from refgroup where group_leader = ?))";
                     break;
                 case "裁判长":
-                    sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competiton natural join participation natural join m_item where status = 3 and chief_ref = ?";
+                    sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competiton natural join participation natural join m_item where status = 3 and chief_ref = ? order by com_id";
                     break;
             }
             state = conn.prepareStatement(sql);

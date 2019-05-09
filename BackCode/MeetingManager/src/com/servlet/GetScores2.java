@@ -3,7 +3,7 @@ package com.servlet;
 import com.bean.PersonScoreBean;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
-import com.dao.GetScoreDao;
+import com.dao.ScoreDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,7 +36,7 @@ public class GetScores2 extends HttpServlet {
         Gson gson = new Gson();
         Type requestType = new TypeToken<RequestBean>(){}.getType();
         RequestBean requestBean = gson.fromJson(content,requestType);
-        GetScoreDao dao = new GetScoreDao(requestBean);
+        ScoreDao dao = new ScoreDao(requestBean);
         ResponseBean<List<PersonScoreBean>> responseBean = new ResponseBean<>();
         responseBean.setReqId(requestBean.getReqId());
         responseBean.setResData(dao.getScoreLists("总裁判"));
