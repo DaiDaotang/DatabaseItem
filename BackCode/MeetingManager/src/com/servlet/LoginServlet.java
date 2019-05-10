@@ -24,23 +24,28 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //对返回消息进行设置
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setCharacterEncoding("utf-8");
 
+        //获取writer
         PrintWriter out = response.getWriter();
 
+        //读取请求内容
         BufferedReader reader = request.getReader();
         String content = reader.readLine();
+
         Gson gson = new Gson();
+        //识别RequestBean<LoginBean>类的结构
         Type requestType = new TypeToken<RequestBean<LoginBean>>(){}.getType();
+        //利用识别得到的结构将请求内容转化成对象
         RequestBean<LoginBean> loginRequest = gson.fromJson(content,requestType);
         try{
             LoginDao loginDao = new LoginDao();
             LoginBean loginBean = loginRequest.getReqParam();
             String id = loginDao.loginCheck(loginBean);
-            ResponseBean<LoginBean> loginResp = new ResponseBean<LoginBean>();
+            ResponseBean<LoginBean> loginResp = new ResponseBean<>();
             loginResp.setResData(loginBean);
-            Type respType = new TypeToken<ResponseBean<LoginBean>>(){}.getType();
             if(id!=null){
                 loginResp.setSuccess(true);
                 System.out.println(loginResp.isSuccess());
@@ -49,6 +54,9 @@ public class LoginServlet extends HttpServlet {
             }else{
                 loginResp.setSuccess(false);
             }
+            //识别ResponseBean<LoginBean>类的结构
+            Type respType = new TypeToken<ResponseBean<LoginBean>>(){}.getType();
+            //通过toJson方法将对象转化为json格式的字符串
             out.print(gson.toJson(loginResp,respType));
         }catch (Exception e){
             out.print(e.toString());

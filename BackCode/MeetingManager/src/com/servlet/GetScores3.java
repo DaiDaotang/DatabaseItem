@@ -1,9 +1,9 @@
 package com.servlet;
 
-import com.bean.PersonScoreBean;
+import com.bean.ComScoreBean;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
-import com.dao.ScoreDao;
+import com.dao.RefereeDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 @WebServlet(name = "GetScores3")
 public class GetScores3 extends HttpServlet {
-    //todo:测试、项目结构调整
+    //todo:测试
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
@@ -36,11 +36,11 @@ public class GetScores3 extends HttpServlet {
         Gson gson = new Gson();
         Type requestType = new TypeToken<RequestBean>(){}.getType();
         RequestBean requestBean = gson.fromJson(content,requestType);
-        ScoreDao dao = new ScoreDao(requestBean);
-        ResponseBean<List<PersonScoreBean>> responseBean = new ResponseBean<>();
+        RefereeDao dao = new RefereeDao(requestBean);
+        ResponseBean<List<ComScoreBean>> responseBean = new ResponseBean<>();
         responseBean.setReqId(requestBean.getReqId());
-        responseBean.setResData(dao.getScoreLists("裁判长"));
-        Type responseType = new TypeToken<ResponseBean<List<PersonScoreBean>>>(){}.getType();
+        responseBean.setResData(dao.getComList());
+        Type responseType = new TypeToken<ResponseBean<List<ComScoreBean>>>(){}.getType();
         String resp = gson.toJson(responseBean,responseType);
         try{
             out.print(resp);

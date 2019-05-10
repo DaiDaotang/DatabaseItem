@@ -8,20 +8,4 @@ public class Score {
         this.score = s;
         this.referee = r;
     }
-
-    public double getScore() {
-        return score;
-    }
-
-    public String getReferee() {
-        return referee;
-    }
-
-    public void setReferee(String referee) {
-        this.referee = referee;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
 }

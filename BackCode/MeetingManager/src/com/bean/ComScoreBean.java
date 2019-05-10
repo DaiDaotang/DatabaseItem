@@ -1,5 +1,6 @@
 package com.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ComScoreBean {
@@ -9,8 +10,37 @@ public class ComScoreBean {
     private String sex;
     private String age;
     private String bigReferee;//小组总裁判名字
-    private List<Score> athletes = null;
+    private List<PersonScoreBean> athletes = null;
     private boolean pass;
+
+    public ComScoreBean(){
+        athletes = new ArrayList<>();
+    }
+
+    public ComScoreBean(PersonScoreBean bean){
+        this.com_id = bean.getCom_id();
+        this.com_name = bean.getCom_name();
+        this.item_name = bean.getItem_name();
+        this.sex = bean.getSex();
+        this.age = bean.getAge();
+        this.bigReferee = bean.getBigReferee();
+        athletes = new ArrayList<>();
+    }
+
+    public boolean addAthlete(PersonScoreBean bean){
+        if(athletes.size()==0||bean.getCom_id().equals(com_id)){
+            bean.setItem_name(null);
+            bean.setSex(null);
+            bean.setAge(null);
+            bean.setCom_name(null);
+            bean.setCom_id(null);
+            bean.setBigReferee(null);
+            athletes.add(bean);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public String getCom_id() {
         return com_id;
@@ -60,11 +90,11 @@ public class ComScoreBean {
         this.bigReferee = bigReferee;
     }
 
-    public List<Score> getAthletes() {
+    public List<PersonScoreBean> getAthletes() {
         return athletes;
     }
 
-    public void setAthletes(List<Score> athletes) {
+    public void setAthletes(List<PersonScoreBean> athletes) {
         this.athletes = athletes;
     }
 
@@ -75,4 +105,6 @@ public class ComScoreBean {
     public void setPass(boolean pass) {
         this.pass = pass;
     }
+
+
 }
