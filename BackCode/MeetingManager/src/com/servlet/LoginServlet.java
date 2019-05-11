@@ -25,7 +25,8 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //对返回消息进行设置
-        response.setHeader("Access-Control-Allow-Origin","*");
+        /* 允许跨域的主机地址 */
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setCharacterEncoding("utf-8");
 
         //获取writer
