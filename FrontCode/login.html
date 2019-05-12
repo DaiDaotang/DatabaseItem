@@ -70,9 +70,9 @@
 				<div class="layui-input-block input-item-self">
 					<select name="sort" lay-filter="aihao">
 						<option value=""></option>
-						<option value="0">代表队</option>
-						<option value="1">裁判</option>
-						<option value="2">管理员</option>
+						<option value="代表队">代表队</option>
+						<option value="裁判">裁判</option>
+						<option value="管理员">管理员</option>
 					</select>
 				</div>
 			</div>
@@ -86,6 +86,7 @@
 </center>
 
 <script src="layui/layui.js" charset="utf-8"></script>
+<script src="jquery-3.3.1.min.js"></script>
 <script>
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form
@@ -117,6 +118,28 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     layer.alert(JSON.stringify(data.field), {
       title: '最终的提交信息'
     })
+	console.log(data)
+	$.ajax({
+  		type:"POST",
+  		url:"http://localhost:8080/LoginServlet",
+  		async:true,
+  		data:JSON.stringify({
+  			"reqId":"",
+  			"reqParam":{
+  				"account":data.field.username,
+  				"password":data.field.password,
+  				"authority":data.field.sort
+  			}
+  		}),
+  		dataType:"json",
+  		success:function(res){
+			//传回的数据，可以是res.resData.username
+  			console.log(res);
+  		},
+  		err:function(err){
+  			console.log(err);
+  		}
+  	});
     return false;
   });
  
@@ -124,7 +147,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   form.val('example', {
     "username": ""
     ,"password": ""
-    ,"sort": 0
+    ,"sort": "代表队"
   })
 });
 </script>
