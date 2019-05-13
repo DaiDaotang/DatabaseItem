@@ -51,4 +51,12 @@
         <servlet-name>GetScores2</servlet-name>
         <url-pattern>/GetScores2</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>com.servlet.SignUpServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SignUpServlet</servlet-name>
+        <url-pattern>/SignUpServlet</url-pattern>
+    </servlet-mapping>
 </web-app>
