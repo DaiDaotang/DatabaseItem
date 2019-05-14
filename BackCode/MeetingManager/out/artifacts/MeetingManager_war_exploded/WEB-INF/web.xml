@@ -59,4 +59,12 @@
         <servlet-name>SignUpServlet</servlet-name>
         <url-pattern>/SignUpServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ArrangeSchedule</servlet-name>
+        <servlet-class>com.servlet.ArrangeSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ArrangeSchedule</servlet-name>
+        <url-pattern>/ArrangeSchedule</url-pattern>
+    </servlet-mapping>
 </web-app>
