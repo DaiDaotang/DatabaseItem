@@ -118,6 +118,7 @@ public class CheckResultDao {
     }
 
     public List<ResultBean> GetResultByTeam(){
+        //todo:获取队伍排名
         if(bean==null||page==null){
             return null;
         }
