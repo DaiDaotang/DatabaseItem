@@ -19,6 +19,7 @@ public class GetAthleteDao {
 
     public List<AthleteList> returnAthleteList()
     {
+        List<AthleteList> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement state1,state2;
         try{
@@ -27,6 +28,7 @@ public class GetAthleteDao {
             String itemName=bean.getItemName();
             String sex=bean.getSex();
             String age=bean.getAge();
+
             state1=conn.prepareStatement("select item_id from m_item where item_name = ? and age= ? and sex= ?");
             state1.setString(1,itemName);
             state1.setString(2,age);
@@ -45,25 +47,23 @@ public class GetAthleteDao {
             state2.setString(1,item_id);
             state2.setString(2,item_id);
             ResultSet set2 = state2.executeQuery();
-            String athname,ath_id,team_name;
-            if(set2.next())
+            AthleteList s;
+            while(set2.next())
             {
-                athname = set2.getString("athname");
-                ath_id = set2.getString("ath_id");
-                team_name = set2.getString("team_name");
+                s = new AthleteList();
+                s.setAth_id(set2.getString("ath_id"));
+                s.setAth_name(set2.getString("athname"));
+                s.setTeam_name(set2.getString("team_name"));
+                list.add(s);
             }
-            else
-            {
-                return null;
-            }
+
             conn.commit();
-
-
         }catch (SQLException e){
             e.printStackTrace();
             DBUtil.rollback(conn);
         }finally {
             DBUtil.closeConn(conn);
+            return list;
         }
     }
 }

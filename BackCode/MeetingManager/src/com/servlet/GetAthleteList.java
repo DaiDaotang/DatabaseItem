@@ -1,10 +1,8 @@
 package com.servlet;
 
-import com.bean.ArrangeScheduleBean;
-import com.bean.CheckResultBean;
-import com.bean.RequestBean;
-import com.bean.ResponseBean;
-import com.dao.*;
+import com.bean.*;
+import com.dao.ArrangeScheduleDao;
+import com.dao.GetAthleteDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,29 +16,28 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 
-@WebServlet(name = "ArrangeSchedule")
-public class ArrangeSchedule extends HttpServlet {
+@WebServlet(name = "GetAthleteList")
+public class GetAthleteList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin","*");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String CONTENT_TYPE = "text/html; charset=UTF-8";
-        response.setContentType(CONTENT_TYPE);
+        response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        BufferedReader reader = request.getReader();
-        String content = reader.readLine();
+        BufferedReader in = request.getReader();
+        String content = in.readLine();
+
         Gson gson = new Gson();
-        Type requestType = new TypeToken<RequestBean<ArrangeScheduleBean>>(){}.getType();
-        RequestBean<ArrangeScheduleBean> reqBean = gson.fromJson(content,requestType);
+        Type requestType = new TypeToken<RequestBean>(){}.getType();
+        RequestBean<GetAthleteList> reqBean = gson.fromJson(content,requestType);
         ResponseBean resBean = new ResponseBean<>();
         try {
-            ArrangeScheduleBean listBean = reqBean.getReqParam();
-            ArrangeScheduleDao dao = new ArrangeScheduleDao(listBean);
-            dao.arrangeschedule();
+            GetAthleteListBean bean = new GetAthleteListBean();
+            GetAthleteDao dao = new GetAthleteDao(bean);
+            dao.returnAthleteList();
+
             resBean.setReqId(reqBean.getReqId());
             resBean.setSuccess(true);
             Type resType = new TypeToken<ResponseBean>(){}.getType();
@@ -48,5 +45,7 @@ public class ArrangeSchedule extends HttpServlet {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
     }
 }
