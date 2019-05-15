@@ -67,4 +67,12 @@
         <servlet-name>ArrangeSchedule</servlet-name>
         <url-pattern>/ArrangeSchedule</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>com.servlet.ChangePassword</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/ChangePassword</url-pattern>
+    </servlet-mapping>
 </web-app>

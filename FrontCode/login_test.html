@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -121,7 +121,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	console.log(data)
 	$.ajax({
   		type:"POST",
-        url:"http://192.168.137.1:8080/MeetingManager/LoginServlet",
+  		url:"http://192.168.137.1:8080/LoginServlet",
   		async:true,
   		data:JSON.stringify({
   			"reqId":"",
@@ -147,7 +147,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   form.val('example', {
     "username": ""
     ,"password": ""
-    ,"sort": "代表队"
+    ,"sort": "管理员"
   })
 });
 </script>

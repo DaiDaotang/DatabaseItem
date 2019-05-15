@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -7,385 +7,544 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <style type = "text/css">
+	.form-select-self1 {
+		width:455px!important;
+	}
+	.form-select-self2 {
+		width:298px!important;
+	}
+	.form-select-self3 {
+		padding-top:15px!important;
+	}
+    .form-select-self4 {
+        padding-top: 45px !important;
+    }
+	.table-self1 {
+		margin-right: 10px!important;
+	}
+	.table-self2 {
+		margin-left: 10px!important;
+		margin-right: 10px!important;
+	}	
+	.table-self1 {
+		margin-left: 10px!important;
+	}
+	.button-self {
+		margin:10px;
+	}
+  </style>
 </head>
 <body>
+    <div class="layui-tab">
+        <ul class="layui-tab-title">
+            <li class="layui-this">赛程安排</li>
+            <li>裁判录入</li>
+            <li>注册队伍</li>
+        </ul>
 
-<div class="layui-tab">
-	<ul class="layui-tab-title">
-		<li class="layui-this">赛程安排</li>
-		<li>裁判录入</li>
-		<li>注册队伍</li>
-	</ul>
-  
-	<div class="layui-tab-content">
-		<div class="layui-tab-item layui-show">
-			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-				<legend>赛程安排</legend>
-			</fieldset>
-			
-			<form class="layui-form layui-form-pane" action="">
-				<div class="layui-form-item">
-					<label class="layui-form-label">项目</label>
-					<div class="layui-input-inline">
-						<select name="quiz1">
-							<option value="">请选择性别</option>
-							<option value="男" selected="">男</option>
-							<option value="女">女</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="quiz2" id="select_item">
-							<option value="">请选择项目</option>
-							<option value="跳马">跳马</option>
-							<option value="自由体操">自由体操</option>
-							<option value="蹦床">蹦床</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="quiz3">
-							<option value="">请选择年龄</option>
-							<option value="7-8">7~8岁</option>
-							<option value="9-10">9~10岁</option>
-							<option value="11-12">11~12岁</option>
-						</select>
-					</div>
-					<div 
-				</div>
-			
-				<div class="layui-form-item">
-					<button class="layui-btn" lay-submit="" lay-filter="demo2">提交</button>
-				</div>
-			</form>
-		</div>
-		<div class="layui-tab-item">
-			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-				<legend>裁判录入</legend>
-			</fieldset>
-			
-			<form class="layui-form layui-form-pane" action="">
-				<div class="layui-form-item">
-					<label class="layui-form-label">长输入框</label>
-					<div class="layui-input-block">
-						<input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label class="layui-form-label">短输入框</label>
-					<div class="layui-input-inline">
-						<input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-					</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">日期选择</label>
-						<div class="layui-input-block">
-							<input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">行内表单</label>
-						<div class="layui-input-inline">
-							<input type="text" name="number" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label class="layui-form-label">密码</label>
-					<div class="layui-input-inline">
-						<input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
-					</div>
-					<div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">范围</label>
-						<div class="layui-input-inline" style="width: 100px;">
-							<input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-						</div>
-						<div class="layui-form-mid">-</div>
-						<div class="layui-input-inline" style="width: 100px;">
-							<input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<label class="layui-form-label">单行选择框</label>
-					<div class="layui-input-block">
-						<select name="interest" lay-filter="aihao">
-							<option value=""></option>
-							<option value="0">写作</option>
-							<option value="1" selected="">阅读</option>
-							<option value="2">游戏</option>
-							<option value="3">音乐</option>
-							<option value="4">旅行</option>
-						</select>
-					</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<label class="layui-form-label">行内选择框</label>
-					<div class="layui-input-inline">
-						<select name="quiz1">
-							<option value="">请选择省</option>
-							<option value="浙江" selected="">浙江省</option>
-							<option value="你的工号">江西省</option>
-							<option value="你最喜欢的老师">福建省</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="quiz2">
-							<option value="">请选择市</option>
-							<option value="杭州">杭州</option>
-							<option value="宁波" disabled="">宁波</option>
-							<option value="温州">温州</option>
-							<option value="温州">台州</option>
-							<option value="温州">绍兴</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="quiz3">
-							<option value="">请选择县/区</option>
-							<option value="西湖区">西湖区</option>
-							<option value="余杭区">余杭区</option>
-							<option value="拱墅区">临安市</option>
-						</select>
-					</div>
-				</div>
-				
-				<div class="layui-form-item" pane="">
-					<label class="layui-form-label">开关-开</label>
-					<div class="layui-input-block">
-						<input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" title="开关">
-					</div>
-				</div>
-				
-				<div class="layui-form-item" pane="">
-					<label class="layui-form-label">单选框</label>
-					<div class="layui-input-block">
-						<input type="radio" name="sex" value="男" title="男" checked="">
-						<input type="radio" name="sex" value="女" title="女">
-						<input type="radio" name="sex" value="禁" title="禁用" disabled="">
-					</div>
-				</div>
-				
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">文本域</label>
-					<div class="layui-input-block">
-						<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
-				</div>
-			</form>
-		</div>		
-		<div class="layui-tab-item">
-			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-				<legend>注册队伍</legend>
-			</fieldset>
-			
-			<form class="layui-form layui-form-pane" action="">
-				<div class="layui-form-item">
-					<label class="layui-form-label">长输入框</label>
-					<div class="layui-input-block">
-						<input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label class="layui-form-label">短输入框</label>
-					<div class="layui-input-inline">
-						<input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
-					</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">日期选择</label>
-						<div class="layui-input-block">
-							<input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">行内表单</label>
-						<div class="layui-input-inline">
-							<input type="text" name="number" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<label class="layui-form-label">密码</label>
-					<div class="layui-input-inline">
-						<input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
-					</div>
-					<div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">范围</label>
-						<div class="layui-input-inline" style="width: 100px;">
-							<input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-						</div>
-						<div class="layui-form-mid">-</div>
-						<div class="layui-input-inline" style="width: 100px;">
-							<input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
-						</div>
-					</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<label class="layui-form-label">单行选择框</label>
-					<div class="layui-input-block">
-						<select name="interest" lay-filter="aihao">
-							<option value=""></option>
-							<option value="0">写作</option>
-							<option value="1" selected="">阅读</option>
-							<option value="2">游戏</option>
-							<option value="3">音乐</option>
-							<option value="4">旅行</option>
-						</select>
-					</div>
-				</div>
-		  
-				<div class="layui-form-item">
-					<label class="layui-form-label">行内选择框</label>
-					<div class="layui-input-inline">
-						<select name="quiz1">
-							<option value="">请选择省</option>
-							<option value="浙江" selected="">浙江省</option>
-							<option value="你的工号">江西省</option>
-							<option value="你最喜欢的老师">福建省</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="quiz2">
-							<option value="">请选择市</option>
-							<option value="杭州">杭州</option>
-							<option value="宁波" disabled="">宁波</option>
-							<option value="温州">温州</option>
-							<option value="温州">台州</option>
-							<option value="温州">绍兴</option>
-						</select>
-					</div>
-					<div class="layui-input-inline">
-						<select name="quiz3">
-							<option value="">请选择县/区</option>
-							<option value="西湖区">西湖区</option>
-							<option value="余杭区">余杭区</option>
-							<option value="拱墅区">临安市</option>
-						</select>
-					</div>
-				</div>
-				
-				<div class="layui-form-item" pane="">
-					<label class="layui-form-label">开关-开</label>
-					<div class="layui-input-block">
-						<input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" title="开关">
-					</div>
-				</div>
-				
-				<div class="layui-form-item" pane="">
-					<label class="layui-form-label">单选框</label>
-					<div class="layui-input-block">
-						<input type="radio" name="sex" value="男" title="男" checked="">
-						<input type="radio" name="sex" value="女" title="女">
-						<input type="radio" name="sex" value="禁" title="禁用" disabled="">
-					</div>
-				</div>
-				
-				<div class="layui-form-item layui-form-text">
-					<label class="layui-form-label">文本域</label>
-					<div class="layui-input-block">
-						<textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-					</div>
-				</div>
-				
-				<div class="layui-form-item">
-					<button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>  
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>赛程安排</legend>
+                </fieldset>
+                <form class="layui-form layui-form-pane" action="" id="Arrangement">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">项目</label>
+                        <div class="layui-input-inline">
+                            <select name="gender_select" lay-filter="select_gender">
+                                <option value="">请选择性别</option>
+                                <option value="男">男</option>
+                                <option value="女">女</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="item_select" id="select_item"></select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="age_select" id="select_age">
+                                <option value="7-8">7-8岁</option>
+                                <option value="9-10">9-10岁</option>
+                                <option value="11-12">11-12岁</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-inline form-select-self1">
+                            <table class="layui-hide" id="id_name_item_kid" lay-filter="id_name_item_kid"></table>
+                        </div>
+                        <div class="layui-input-inline form-select-self2">
+                            <table class="layui-hide" id="groupnumber_judge" lay-filter="groupnumber_judge"></table>
+                        </div>
+                        <div class="layui-inline layui-input-inline form-select-self3">
+                            <input type="text" class="layui-input" id="date_pk" lay-filter="date_pk">
+                            <div class=" form-select-self4 layui-input-inline" id="time_pk" lay-filter="time_pk"></div>
+                        </div>
+                        <div class="layui-input-inline">
+                            <table class="layui-hide" id="arranged_group" lay-filter="arranged_group"></table>
+                        </div>
+                    </div>
+                    <center>
+                        <button class="layui-btn button-self" lay-submit="" lay-filter="add_btn"><i class="layui-icon layui-icon-add-1"></i></button>
+                    </center>
+                </div>
+            </div>
+            <div class="layui-tab-item">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>裁判录入</legend>
+                </fieldset>
 
-    
-<script src="layui/layui.js" charset="utf-8"></script>
-<script>
-layui.use(['form', 'layedit', 'laydate'], function(){
-  var form = layui.form
-  ,layer = layui.layer
-  ,layedit = layui.layedit
-  ,laydate = layui.laydate;
-  
-  //日期
-  laydate.render({
-    elem: '#date'
-  });
-  laydate.render({
-    elem: '#date1'
-  });
-  
-  //创建一个编辑器
-  var editIndex = layedit.build('LAY_demo_editor');
- 
-  //自定义验证规则
-  form.verify({
-    title: function(value){
-      if(value.length < 5){
-        return '标题至少得5个字符啊';
-      }
-    }
-    ,pass: [
-      /^[\S]{6,12}$/
-      ,'密码必须6到12位，且不能出现空格'
-    ]
-    ,content: function(value){
-      layedit.sync(editIndex);
-    }
-  });
-  
-  //监听指定开关
-  form.on('switch(switchTest)', function(data){
-    layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-      offset: '6px'
-    });
-    layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-  });
-  
-  //监听提交
-  form.on('submit(demo1)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-    return false;
-  });
- 
-  //表单初始赋值
-  form.val('example', {
-    "username": "贤心" // "name": "value"
-    ,"password": "123456"
-    ,"interest": 1
-    ,"like[write]": true //复选框选中状态
-    ,"close": true //开关状态
-    ,"sex": "女"
-    ,"desc": "我爱 layui"
-  })
-});
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">长输入框</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
+                        </div>
+                    </div>
 
-layui.use('element', function(){
-  var $ = layui.jquery
-  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-});
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">短输入框</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
 
-</script>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">日期选择</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">行内表单</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="number" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-inline">
+                            <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">范围</label>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid">-</div>
+                            <div class="layui-input-inline" style="width: 100px;">
+                                <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单行选择框</label>
+                        <div class="layui-input-block">
+                            <select name="interest" lay-filter="aihao">
+                                <option value=""></option>
+                                <option value="0">写作</option>
+                                <option value="1" selected="">阅读</option>
+                                <option value="2">游戏</option>
+                                <option value="3">音乐</option>
+                                <option value="4">旅行</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">行内选择框</label>
+                        <div class="layui-input-inline">
+                            <select name="quiz1">
+                                <option value="">请选择省</option>
+                                <option value="浙江" selected="">浙江省</option>
+                                <option value="你的工号">江西省</option>
+                                <option value="你最喜欢的老师">福建省</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz2">
+                                <option value="">请选择市</option>
+                                <option value="杭州">杭州</option>
+                                <option value="宁波" disabled="">宁波</option>
+                                <option value="温州">温州</option>
+                                <option value="温州">台州</option>
+                                <option value="温州">绍兴</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="quiz3">
+                                <option value="">请选择县/区</option>
+                                <option value="西湖区">西湖区</option>
+                                <option value="余杭区">余杭区</option>
+                                <option value="拱墅区">临安市</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" pane="">
+                        <label class="layui-form-label">开关-开</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" title="开关">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" pane="">
+                        <label class="layui-form-label">单选框</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="男" title="男" checked="">
+                            <input type="radio" name="sex" value="女" title="女">
+                            <input type="radio" name="sex" value="禁" title="禁用" disabled="">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">文本域</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
+                    </div>
+                </form>
+            </div>
+            <div class="layui-tab-item">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>注册队伍</legend>
+                </fieldset>
+
+                <form class="layui-form layui-form-pane" action="" id="Sign_up_team">
+
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
+    <script type="text/html" id="toolbar_kid">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        </div>
+    </script>
+    <script type="text/html" id="toolbar_judge">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>
+        </div>
+    </script>
+    <script>
+        //赛事安排
+        var check_param = [];
+        var minTime = "2017-1-11"
+            , maxTime = "2017-12-31";
+        var param_kid = {
+            elem: '#id_name_item_kid'
+            , id: 'table_sportkids'
+            , url: 'api/1.json'
+            , title: '运动员列表'
+            , toolbar: '#toolbar_kid'
+            , width: 455
+            , height: 425
+            , cols: [[
+                { type: 'checkbox' }
+                , { field: 'id', width: 75, title: 'ID', unresize: true, sort: true }
+                , { field: 'name', width: 130, title: '名称' }
+                , { field: 'group', width: 180, title: '代表队' }
+            ]]
+        }
+            , param_judge = {
+                elem: '#groupnumber_judge'
+                , url: 'api/2.json'
+                , title: '裁判组列表'
+                , toolbar: '#toolbar_judge'
+                , width: 298
+                , height: 425
+                , cols: [[
+                    { type: 'radio' }
+                    , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
+                    , { field: 'leader', width: 175, title: '裁判长' }
+                ]]
+            }
+            , param_arranged = {
+                elem: '#arranged_group'
+                , url: 'api/3.json'
+                , title: '已安排列表'
+                , width: 540
+                , height: 425
+                , toolbar: true
+                , cols: [[
+                    { field: 'no', width: 85, title: '组号', sort: true }
+                    , { field: 'number', width: 65, title: '人数' }
+                    , { field: 'group', width: 80, title: '裁判组' }
+                    , { field: 'time', width: 305, title: '时间' }
+                ]]
+            };
+        var param_kid_0 = {
+            elem: '#id_name_item_kid'
+            , url: 'api/0.json'
+            , title: '运动员列表'
+            , toolbar: '#toolbar_kid'
+            , width: 455
+            , height: 425
+            , cols: [[
+                { type: 'checkbox' }
+                , { field: 'id', width: 75, title: 'ID', unresize: true, sort: true }
+                , { field: 'name', width: 130, title: '名称' }
+                , { field: 'group', width: 180, title: '代表队' }
+            ]]
+        }
+            , param_judge_0 = {
+                elem: '#groupnumber_judge'
+                , url: 'api/0.json'
+                , title: '裁判组列表'
+                , toolbar: '#toolbar_judge'
+                , width: 298
+                , height: 425
+                , cols: [[
+                    { type: 'radio' }
+                    , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
+                    , { field: 'leader', width: 175, title: '裁判长' }
+                ]]
+            }
+            , param_arranged_0 = {
+                elem: '#arranged_group'
+                , url: 'api/0.json'
+                , title: '已安排列表'
+                , width: 540
+                , height: 425
+                , toolbar: true
+                , cols: [[
+                    { field: 'no', width: 85, title: '组号', sort: true }
+                    , { field: 'number', width: 65, title: '人数' }
+                    , { field: 'group', width: 80, title: '裁判组' }
+                    , { field: 'time', width: 305, title: '时间' }
+                ]]
+            };
+        var data_kid = []
+            , data_judge = ""
+            , data_date = ""
+            , data_time = "11:00-15:00"
+            , data_arrangement = []
+            , result = [
+                ""                     //  itemName    
+                , ""                   //  sex         
+                , "7-8"                //  ageDelivery 
+                , []                   //  list
+            ];
+
+        /////////////////////////////////////////////////////////////////////赛事安排
+
+        //form区
+        layui.use(['form', 'layedit', 'laydate', 'table', 'jquery'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , table = layui.table
+                , $ = layui.$;
+
+            //创建一个编辑器
+            var editIndex = layedit.build('LAY_demo_editor');
+
+            //监听查询
+            form.on('submit(find_btn)', function (data) {
+                //layer.alert(JSON.stringify(data.field), {
+                //    title: '查询条件',
+                //   content: data.field.gender_select + '\n' + data.field.item_select + '\n' + data.field.age_select
+                //})
+                check_param.push(data.field.item_select);
+                check_param.push(data.field.gender_select);
+                check_param.push(data.field.age_select);
+                console.log(check_param);
+                table.render(param_kid);
+                table.render(param_judge);
+                table.render(param_arranged);
+                check_param = [];
+                return false;
+            });
+
+            //监听添加按钮
+            form.on('submit(add_btn)', function (obj) {
+                if (data_judge != "" && data_kid.length != 0 && data_date != "") {
+                    var data_temp = [
+                        data_kid                        //ath_list
+                        , data_judge                    //judge_group
+                        , data_date + " " + data_time   //time
+                    ]
+                    result[3].push(data_temp);
+                    data_kid = [];
+                    data_judge = "";
+
+                    console.log(result)
+
+                    table.render(param_kid);
+                    table.render(param_judge);
+                    table.render(param_arranged);
+                }
+                else
+                    layer.alert("选择有误，请重新选择") 
+            });
+
+            //监听上传按钮
+            form.on('submit(submit_btn)', function (obj) {
+                layer.alert(JSON.stringify(result))
+            });
+
+            //改变单选框内容
+            form.on('select(select_gender)', function (data) {
+                console.log(data.value); //得到被选中的值
+                if (data.value == '男') {
+                    result[0] = "单杠";
+                    document.getElementById('select_item').innerHTML = "<option value='单杠'>单杠</option><option value='双杠'>双杠</option><option value='吊环'>吊环</option><option value='跳马'>跳马</option><option value='自由体操'>自由体操</option><option value='鞍马'>鞍马</option><option value='蹦床'>蹦床</option>"
+                    form.render('select');
+                } else if (data.value == '女') {
+                    result[0] = "跳马";
+                    document.getElementById('select_item').innerHTML = "<option value='跳马'>跳马</option><option value='高低杠'>高低杠</option><option value='平衡木'>平衡木</option><option value='自由体操'>自由体操</option><option value='蹦床'>蹦床</option>"
+                    form.render('select');
+                }
+                result[1] = data.value;
+                result[3] = [];
+            });
+            form.on('select(select_item)', function (data) {
+                result[0] = data.value;
+            });
+            form.on('select(select_age)', function (data) {
+                result[2] = data.value;
+            });
+
+            //表单初始赋值
+            form.val('Arrangement', {
+                "select_gender": ""
+                , "select_item": ""
+                , "select_age": "7-8"
+            })
+
+            //选择时间
+            laydate.render({
+                elem: '#date_pk'
+                , min: '2017-1-11'
+                , max: '2017-12-31'
+                , done: function (value, date, endDate) {
+                    data_date = value;
+                }
+            });
+        });
+
+        //元素
+        layui.use('element', function () {
+            var $ = layui.jquery
+                , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+        });
+
+        //表格
+        layui.use('table', function () {
+            var table = layui.table;
+
+            //选择运动员
+            table.render(param_kid_0);
+            table.on('toolbar(id_name_item_kid)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                console.log(checkStatus)
+                switch (obj.event) {
+                    case 'getCheckData':
+                        var data = checkStatus.data;
+                        var num = 0;
+                        var contents = new Array(data.length);
+                        while (num < data.length) {
+                            contents[num] = data[num].id
+                            console.log(data[num].id)
+                            num++;
+                        }
+                        console.log("共" + num + "人")
+                        console.log(contents)
+                        layer.alert(JSON.stringify(contents), {
+                            title: '选中运动员'
+                        });
+                        break;
+                    case 'getCheckLength':
+                        var data = checkStatus.data;
+                        layer.msg('选中了：' + data.length + ' 个');
+                        break;
+                };
+            });
+            table.on('checkbox(id_name_item_kid)', function (res) {
+                if (res.checked) {
+                    //console.log(res.data.id)
+                    data_kid.push(res.data.id);
+                }
+                else {
+                    for (let temp in data_kid) {
+                        if (data_kid[temp] == res.data.id) {
+                            if (data_kid.length == 1)
+                                data_kid = [];
+                            else 
+                                data_kid.splice(temp, temp);
+                            break;
+                        }
+                    }
+                }
+                //console.log(data_kid);
+            });
+
+            //选择裁判
+            table.render(param_judge_0);
+            table.on('toolbar(groupnumber_judge)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                var data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            });
+            table.on('radio(groupnumber_judge)', function (res) {
+                data_judge = res.data;
+                //console.log(data_judge);
+            });
+
+            //展示已有小组
+            table.render(param_arranged_0);
+        });
+
+        //滑条
+        layui.use('slider', function () {
+            var slider = layui.slider;
+
+            //渲染
+            slider.render({
+                elem: '#time_pk'
+                , range: true
+                , min: 16
+                , max: 36
+                , value: [22, 30]
+                , setTips: function (value) { 
+                    if (value % 2 == 0)
+                        return value / 2 + ':00';
+                    else
+                        return (value - 1) / 2 + ':30';
+                }
+                , change: function (value) {
+                    var temp1 = value[0] % 2 == 0? value[0] / 2 + ':00' : (value[0] - 1) / 2 + ':30'
+                        , temp2 = value[1] % 2 == 0 ? value[1] / 2 + ':00' : (value[1] - 1) / 2 + ':30';
+                    data_time = temp1 + "-" + temp2;
+                    //console.log(data_time)
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

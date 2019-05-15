@@ -1,10 +1,9 @@
 package com.servlet;
 
-import com.bean.ArrangeScheduleBean;
-import com.bean.CheckResultBean;
+import com.bean.*;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
-import com.dao.*;
+import com.dao.ChangePasswordDao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,8 +17,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
 
-@WebServlet(name = "ArrangeSchedule")
-public class ArrangeSchedule extends HttpServlet {
+@WebServlet(name = "ChangePassword")
+public class ChangePassword extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
@@ -32,13 +31,13 @@ public class ArrangeSchedule extends HttpServlet {
         BufferedReader reader = request.getReader();
         String content = reader.readLine();
         Gson gson = new Gson();
-        Type requestType = new TypeToken<RequestBean<ArrangeScheduleBean>>(){}.getType();
-        RequestBean<ArrangeScheduleBean> reqBean = gson.fromJson(content,requestType);
+        Type requestType = new TypeToken<RequestBean<ChangePasswordBean>>(){}.getType();
+        RequestBean<ChangePasswordBean> reqBean = gson.fromJson(content,requestType);
         ResponseBean resBean = new ResponseBean<>();
         try {
-            ArrangeScheduleBean listBean = reqBean.getReqParam();
-            ArrangeScheduleDao dao = new ArrangeScheduleDao(listBean);
-            dao.arrangeschedule();
+            ChangePasswordBean bean=reqBean.getReqParam();
+            ChangePasswordDao dao=new ChangePasswordDao(bean);
+            dao.change();
             resBean.setReqId(reqBean.getReqId());
             resBean.setSuccess(true);
             Type resType = new TypeToken<ResponseBean>(){}.getType();
