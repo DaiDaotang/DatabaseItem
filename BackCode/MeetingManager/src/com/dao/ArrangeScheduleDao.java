@@ -73,13 +73,19 @@ public class ArrangeScheduleDao {
                 state2.setString(2,item_id);
                 state2.setString(3,group.getRef_group());
                 state2.setString(4,group.getTime());
-                state2.executeUpdate();
+                int x = state2.executeUpdate();
+                if(x<1){
+                    System.err.println(s);
+                }
                 for (Ath_list ath:
                      group.getAth_lists()) {
                     state3=conn.prepareStatement("INSERT INTO participation (ATH_ID,COM_ID) VALUES (?,?)");
                     state3.setString(1,ath.getAth_id());
                     state3.setString(2,s);
-                    state3.executeUpdate();
+                    int y = state3.executeUpdate();
+                    if(y<1){
+                        System.err.println(ath.getAth_id());
+                    }
                 }
             }
 
