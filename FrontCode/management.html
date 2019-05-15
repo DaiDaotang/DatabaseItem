@@ -228,8 +228,24 @@
                 </fieldset>
 
                 <form class="layui-form layui-form-pane" action="" id="Sign_up_team">
-
-
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">队伍名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="team_name" lay-verify="required" placeholder="请输入队伍名称" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">队伍账号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="team_acount" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item" pane="">
+                        <label class="layui-form-label">东道主</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" checked="" name="team_host" lay-skin="switch" lay-filter="team_host">
+                        </div>
+                    </div>
                 </form>
 
             </div>
@@ -254,6 +270,17 @@
         var check_param = [];
         var minTime = "2017-1-11"
             , maxTime = "2017-12-31";
+        var data_kid = []
+            , data_judge = ""
+            , data_date = ""
+            , data_time = "11:00-15:00"
+            , data_arrangement = []
+            , result = [
+                ""                     //  itemName    
+                , ""                   //  sex         
+                , "7-8"                //  ageDelivery 
+                , []                   //  list
+            ];
         var param_kid = {
             elem: '#id_name_item_kid'
             , id: 'table_sportkids'
@@ -262,6 +289,11 @@
             , toolbar: '#toolbar_kid'
             , width: 455
             , height: 425
+            , where: {
+                name: result[0]
+                , group_a: result[2]
+                , group_g: result[1]
+            }
             , cols: [[
                 { type: 'checkbox' }
                 , { field: 'id', width: 75, title: 'ID', unresize: true, sort: true }
@@ -275,7 +307,6 @@
                 , title: '裁判组列表'
                 , toolbar: '#toolbar_judge'
                 , width: 298
-                , height: 425
                 , cols: [[
                     { type: 'radio' }
                     , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
@@ -289,6 +320,11 @@
                 , width: 540
                 , height: 425
                 , toolbar: true
+                , where: {
+                    name: result[0]
+                    , group_a: result[2]
+                    , group_g: result[1]
+                }
                 , cols: [[
                     { field: 'no', width: 85, title: '组号', sort: true }
                     , { field: 'number', width: 65, title: '人数' }
@@ -337,20 +373,9 @@
                     , { field: 'time', width: 305, title: '时间' }
                 ]]
             };
-        var data_kid = []
-            , data_judge = ""
-            , data_date = ""
-            , data_time = "11:00-15:00"
-            , data_arrangement = []
-            , result = [
-                ""                     //  itemName    
-                , ""                   //  sex         
-                , "7-8"                //  ageDelivery 
-                , []                   //  list
-            ];
+        
 
         /////////////////////////////////////////////////////////////////////赛事安排
-
         //form区
         layui.use(['form', 'layedit', 'laydate', 'table', 'jquery'], function () {
             var form = layui.form
@@ -544,6 +569,12 @@
                 }
             });
         });
+
+        /////////////////////////////////////////////////////////////////////队伍注册
+        //form区
+        layui.use('form', function () {
+
+        })
     </script>
 
 </body>
