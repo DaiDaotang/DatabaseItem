@@ -51,8 +51,8 @@ public class ArrangeScheduleDao {
             conn.setAutoCommit(false);
             state1=conn.prepareStatement("select item_id from m_item where item_name = ? and age= ? and sex= ?");
             state1.setString(1,item_name);
-            state1.setString(2,sex);
-            state1.setString(3,age);
+            state1.setString(2,age);
+            state1.setString(3,sex);
             ResultSet set = state1.executeQuery();
             String item_id;
             if(set.next())
