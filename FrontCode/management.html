@@ -283,10 +283,10 @@
                     }
                 }
                 , cols: [[
-                    { field: 'com_id', width: 85, title: '组号', sort: true }
+                    { field: 'com_id', width: 185, title: '组号', sort: true }
                     , { field: 'amount', width: 65, title: '人数' }
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
-                    , { field: 'time', width: 305, title: '时间' }
+                    , { field: 'time', width: 205, title: '时间' }
                 ]]
             }};                   //修改url reqId
         var param_kid_0 = {
@@ -422,8 +422,6 @@
             //选择时间
             laydate.render({
                 elem: '#date_pk'
-                , min: '2017-1-11'
-                , max: '2017-12-31'
                 , done: function (value, date, endDate) {
                     data_date = value;
                 }
@@ -509,10 +507,9 @@
             //渲染
             slider.render({
                 elem: '#time_pk'
-                , range: true
                 , min: 16
                 , max: 36
-                , value: [22, 30]
+                , value: 26
                 , setTips: function (value) { 
                     if (value % 2 == 0)
                         return value / 2 + ':00';
@@ -520,10 +517,9 @@
                         return (value - 1) / 2 + ':30';
                 }
                 , change: function (value) {
-                    var temp1 = value[0] % 2 == 0? value[0] / 2 + ':00' : (value[0] - 1) / 2 + ':30'
-                        , temp2 = value[1] % 2 == 0 ? value[1] / 2 + ':00' : (value[1] - 1) / 2 + ':30';
-                    data_time = temp1 + "-" + temp2;
-                    //console.log(data_time)
+                    var temp1 = value % 2 == 0? value / 2 + ':00' : (value - 1) / 2 + ':30';
+                    data_time = temp1;
+                    console.log(data_time)
                 }
             });
         });
