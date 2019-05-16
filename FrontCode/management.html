@@ -33,6 +33,12 @@
 	.button-self {
 		margin:10px;
 	}
+    .switch_self {
+        width: 180px!important;
+    }
+    .signup_self {
+        width: 325px!important;
+    }
   </style>
 </head>
 <body>
@@ -226,26 +232,28 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>注册队伍</legend>
                 </fieldset>
-
-                <form class="layui-form layui-form-pane" action="" id="Sign_up_team">
+                <form class="layui-form layui-form-pane signup_self" action="" id="Sign_up_team">
                     <div class="layui-form-item">
                         <label class="layui-form-label">队伍名称</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="team_name" lay-verify="required" placeholder="请输入队伍名称" autocomplete="off" class="layui-input">
+                            <input type="text" name="team_name" lay-verify="required" placeholder="请输入队伍名称" autocomplete="off" class="layui-input" id="team_name" lay-filter="team_name">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <label class="layui-form-label">队伍账号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="team_acount" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input type="text" name="team_account" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" id="team_account" lay-filter="team_account">
                         </div>
                     </div>
-                    <div class="layui-form-item" pane="">
+                    <div class="layui-form-item switch_self" pane="">
                         <label class="layui-form-label">东道主</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" checked="" name="team_host" lay-skin="switch" lay-filter="team_host">
+                            <input type="checkbox" name="team_host" lay-skin="switch" lay-text="Yes|No" id="team_host" lay-filter="team_host">
                         </div>
                     </div>
+                    <center>
+                        <button class="layui-btn button-self" lay-submit="" lay-filter="signup_btn"><i class="layui-icon layui-icon-add-1"></i></button>
+                    </center>
                 </form>
 
             </div>
@@ -390,14 +398,10 @@
 
             //监听查询
             form.on('submit(find_btn)', function (data) {
-                //layer.alert(JSON.stringify(data.field), {
-                //    title: '查询条件',
-                //   content: data.field.gender_select + '\n' + data.field.item_select + '\n' + data.field.age_select
-                //})
                 check_param.push(data.field.item_select);
                 check_param.push(data.field.gender_select);
                 check_param.push(data.field.age_select);
-                console.log(check_param);
+                //console.log(check_param);
                 table.render(param_kid);
                 table.render(param_judge);
                 table.render(param_arranged);
@@ -573,7 +577,29 @@
         /////////////////////////////////////////////////////////////////////队伍注册
         //form区
         layui.use('form', function () {
+            var form = layui.form;
 
+            form.render();
+
+            var signup_result = [];
+            var team_is_host = false; 
+
+            form.on('switch(team_host)', function (data) {
+                if (data.elem.checked)
+                    team_is_host = true;
+            });
+            form.on('submit(signup_btn)', function (data) {
+                signup_result.push(data.field.team_name);
+                signup_result.push(data.field.team_account);
+                signup_result.push(team_is_host);
+
+                console.log(signup_result);
+
+                team_is_host = false;
+                signup_result = [];
+
+                return false;
+            });
         })
     </script>
 
