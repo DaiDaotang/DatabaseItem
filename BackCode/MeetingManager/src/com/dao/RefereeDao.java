@@ -205,17 +205,18 @@ public class RefereeDao {
         ResultSet set = null;
         try{
             conn = DBUtil.getConnection();
+            conn.setAutoCommit(false);
             String sql = " ";
             switch(authority){
                 case "裁判":
                     //是不是可以用not exists语句？
-                    sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 0 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from referee where ref_id = ?))";
+                    sql = "select ath_id, ath_name, com_id, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 0 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from referee where ref_id = ?))";
                     break;
                 case "总裁判":
-                    sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 1 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from refgroup where group_leader = ?))";
+                    sql = "select ath_id, ath_name, com_id, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 1 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from refgroup where group_leader = ?))";
                     break;
                 case "裁判长":
-                    sql = "select ath_id, ath_name, com_id, com_name, item_name, sex, age, P, D from competiton natural join participation natural join m_item where status = 2 and chief_ref = ? order by com_id";
+                    sql = "select ath_id, ath_name, com_id, item_name, sex, age, P, D from competiton natural join participation natural join m_item where status = 2 and chief_ref = ? order by com_id";
                     break;
             }
             state = conn.prepareStatement(sql);
@@ -228,7 +229,6 @@ public class RefereeDao {
                 s.setAth_id(set.getString("ath_id"));
                 s.setAth_name(set.getString("ath_name"));
                 s.setCom_id(set.getString("com_id"));
-                s.setCom_name(set.getString("com_name"));
                 s.setSex(set.getString("sex"));
                 s.setP(set.getDouble("P"));
                 s.setD(set.getDouble("D"));

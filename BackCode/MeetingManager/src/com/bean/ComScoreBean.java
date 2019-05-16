@@ -19,7 +19,6 @@ public class ComScoreBean {
 
     public ComScoreBean(PersonScoreBean bean){
         this.com_id = bean.getCom_id();
-        this.com_name = bean.getCom_name();
         this.item_name = bean.getItem_name();
         this.sex = bean.getSex();
         this.age = bean.getAge();
@@ -32,7 +31,6 @@ public class ComScoreBean {
             bean.setItem_name(null);
             bean.setSex(null);
             bean.setAge(null);
-            bean.setCom_name(null);
             bean.setCom_id(null);
             bean.setBigReferee(null);
             athletes.add(bean);

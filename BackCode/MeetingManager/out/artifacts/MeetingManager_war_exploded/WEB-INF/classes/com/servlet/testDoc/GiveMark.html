@@ -9,21 +9,14 @@
   <script>
   	$.ajax({
   		type:"POST",
-  		url:"http://localhost:8080/ArrangeSchedule",
+  		url:"http://localhost:8080/GiveMark",
   		async:true,
   		data:JSON.stringify({
-  			"reqId":"",
+  			"reqId":"12",
   			"reqParam":{
-  				"itemName":"自由体操",
-  				"sex":"男",
-  				"ageDelivery":"7-8",
-  				"group_lists":[{
-  					"ref_group":"0",
-  					"time":"2017",
-  					"ath_lists":[{
-  						"ath_id":"002"
-  					}]
-  				}]
+  				"ath_id":"002",
+  				"com_id":"FE10708",
+  				"score":99.1
   			}
   		}),
   		dataType:"json",

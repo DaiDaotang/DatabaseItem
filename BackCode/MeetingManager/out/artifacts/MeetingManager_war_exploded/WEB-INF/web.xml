@@ -52,6 +52,14 @@
         <url-pattern>/GetScores2</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>GiveMark</servlet-name>
+        <servlet-class>com.servlet.GiveMark</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GiveMark</servlet-name>
+        <url-pattern>/GiveMark</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>SignUpServlet</servlet-name>
         <servlet-class>com.servlet.SignUpServlet</servlet-class>
     </servlet>

@@ -1,4 +1,4 @@
-﻿<html>
+<html>
   <head>
     <title>$Title$</title>
     <script src="jquery-3.3.1.min.js"></script>
@@ -9,22 +9,16 @@
   <script>
   	$.ajax({
   		type:"POST",
-  		url:"http://localhost:8080/ArrangeSchedule",
+  		url:"http://localhost:8080/GetAthleteList",
   		async:true,
   		data:JSON.stringify({
-  			"reqId":"",
+  			"reqId":"111",
   			"reqParam":{
   				"itemName":"自由体操",
   				"sex":"男",
-  				"ageDelivery":"7-8",
-  				"group_lists":[{
-  					"ref_group":"0",
-  					"time":"2017",
-  					"ath_lists":[{
-  						"ath_id":"002"
-  					}]
-  				}]
-  			}
+  				"age":"7-8"
+  			},
+  			"reqPageInfo":{"curPage":1}
   		}),
   		dataType:"json",
   		success:function(res){

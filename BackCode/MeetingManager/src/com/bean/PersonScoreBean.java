@@ -6,7 +6,6 @@ public class PersonScoreBean {
     private String ath_id;
     private String ath_name;
     private String com_id;
-    private String com_name;
     private String item_name;
     private String sex;
     private String age;
@@ -95,10 +94,6 @@ public class PersonScoreBean {
         return bigReferee;
     }
 
-    public String getCom_name() {
-        return com_name;
-    }
-
     public String getItem_name() {
         return item_name;
     }
@@ -109,10 +104,6 @@ public class PersonScoreBean {
 
     public void setBigReferee(String bigReferee) {
         this.bigReferee = bigReferee;
-    }
-
-    public void setCom_name(String com_name) {
-        this.com_name = com_name;
     }
 
     public void setD(double d) {

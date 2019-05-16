@@ -26,10 +26,7 @@ public class ArrangeSchedule extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin","*");
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        String CONTENT_TYPE = "text/html; charset=UTF-8";
-        response.setContentType(CONTENT_TYPE);
+        response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
         BufferedReader reader = request.getReader();
         String content = reader.readLine();

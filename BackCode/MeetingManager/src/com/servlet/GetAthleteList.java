@@ -32,12 +32,12 @@ public class GetAthleteList extends HttpServlet {
         String content = in.readLine();
 
         Gson gson = new Gson();
-        Type requestType = new TypeToken<RequestBean>(){}.getType();
-        RequestBean<GetAthleteList> reqBean = gson.fromJson(content,requestType);
+        Type requestType = new TypeToken<RequestBean<GetAthleteListBean>>(){}.getType();
+        RequestBean<GetAthleteListBean> reqBean = gson.fromJson(content,requestType);
         Type resType = new TypeToken<ResponseBean<List<AthleteList>>>(){}.getType();
         ResponseBean<List<AthleteList>> resBean = new ResponseBean<>();
         try {
-            GetAthleteListBean bean = new GetAthleteListBean();
+            GetAthleteListBean bean = reqBean.getReqParam();
             GetAthleteDao dao = new GetAthleteDao(bean);
             List<AthleteList> list = dao.returnAthleteList();
 

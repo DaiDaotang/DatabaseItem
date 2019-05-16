@@ -1,46 +1,39 @@
-<html>
-<head>
+﻿<html>
+  <head>
     <title>$Title$</title>
     <script src="jquery-3.3.1.min.js"></script>
-</head>
-<body>
-$END$
-</body>
-<script>
-
-    $.ajax({
-        type:"POST",
-        url:"http://localhost:8080/ArrangeSchedule",
-        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-        data:JSON.stringify({
-            "reqId":"112",
-            "reqParam":{
-                "itemName":"测试项目1",
-                "sex":"男",
-                "ageDelivery":"0-100",
-                "group_lists":[
-                    {
-                        "ref_group":"adq",
-                        "time":"aa",
-                        "ath_lists":[
-                            {
-                                "ath_id":"qs"
-                            }
-                        ]
-                    }
-                ]
-
-            },
-            "reqPageInfo":{"curPage":1}
-        }),
-        dataType:"json",
-        success:function(res){
-            console.log(res);
-        },
-        err:function(err){
-            console.log(err);
-        }
-    });
-    console.log("fail");
-</script>
+  </head>
+  <body>
+  $END$
+  </body>
+  <script>
+  	$.ajax({
+  		type:"POST",
+  		url:"http://localhost:8080/ArrangeSchedule",
+  		async:true,
+  		data:JSON.stringify({
+  			"reqId":"",
+  			"reqParam":{
+  				"itemName":"自由体操",
+  				"sex":"男",
+  				"ageDelivery":"7-8",
+  				"group_lists":[{
+  					"ref_group":"0",
+  					"time":"2017",
+  					"ath_lists":[{
+  						"ath_id":"002"
+  					}]
+  				}]
+  			}
+  		}),
+  		dataType:"json",
+  		success:function(res){
+  			console.log(res);
+  		},
+  		err:function(err){
+  			console.log(err);
+  		}
+  	});
+  	console.log("fail");
+  </script>
 </html>

@@ -45,7 +45,7 @@ public class GetAthleteDao {
             {
                 return null;
             }
-            state2=conn.prepareStatement("select athname ,ath_id , team_name from athletes natural join team where ath_id in (select ath_id from enrollment where item_id = ?) and not exists (select * from competition natural join participation where item_id = ? and athletes.ath_id = ath_id);");
+            state2=conn.prepareStatement("select athname ,ath_id , team_name from athletes natural join team where ath_id in (select ath_id from enrollment where item_id = ?) and not exists (select * from competition natural join participation where item_id = ? and athletes.ath_id = ath_id)");
             state2.setString(1,item_id);
             state2.setString(2,item_id);
             ResultSet set2 = state2.executeQuery();
@@ -53,9 +53,9 @@ public class GetAthleteDao {
             while(set2.next())
             {
                 s = new AthleteList();
-                s.setAth_id(set2.getString("ath_id"));
-                s.setAth_name(set2.getString("athname"));
-                s.setTeam_name(set2.getString("team_name"));
+                s.setAth_id(set2.getString(2));
+                s.setAth_name(set2.getString(1));
+                s.setTeam_name(set2.getString(3));
                 list.add(s);
             }
 
