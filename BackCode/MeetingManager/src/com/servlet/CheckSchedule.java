@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.bean.*;
+import com.bean.CheckScheduleBean;
 import com.dao.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,12 +30,12 @@ public class CheckSchedule extends HttpServlet {
         BufferedReader reader = request.getReader();
         String content = reader.readLine();
         Gson gson = new Gson();
-        Type requestType = new TypeToken<RequestBean<CheckSchedule﻿Bean>>(){}.getType();
-        RequestBean<CheckSchedule﻿Bean> reqBean = gson.fromJson(content,requestType);
+        Type requestType = new TypeToken<RequestBean<CheckScheduleBean>>(){}.getType();
+        RequestBean<CheckScheduleBean> reqBean = gson.fromJson(content,requestType);
         ResponseBean<List<ScheduleBean>> resBean = new ResponseBean<>();
         try {
             CheckScheduleDao dao = new CheckScheduleDao(reqBean.getReqParam(),reqBean.getReqPageInfo());
-            CheckSchedule﻿Bean listBean = reqBean.getReqParam();
+            CheckScheduleBean listBean = reqBean.getReqParam();
             List<ScheduleBean> list;
             if(listBean.getItemName()==null)
             {
