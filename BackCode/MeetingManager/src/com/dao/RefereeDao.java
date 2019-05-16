@@ -14,6 +14,26 @@ public class RefereeDao {
         this.page = bean.getReqPageInfo();
     }
 
+    public List<RefGroupBean> GetRefGroup(){
+        Connection conn = null;
+        PreparedStatement state;
+        List<RefGroupBean> list = new ArrayList<>();
+        RefGroupBean bean;
+        try{
+            conn = DBUtil.getConnection();
+            state = conn.prepareStatement("select ref_group_id ,ref_name from refgroup, referee where group_leader = ref_id and ref_group = ref_group_id");
+            ResultSet set = state.executeQuery();
+            while(set.next()){
+                bean = new RefGroupBean(set.getString(2),set.getString(1));
+                list.add(bean);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            return list;
+        }
+    }
+
     public boolean GiveAMark(PersonScoreBean s){
         if(isScored(s)||s.getScore()<0){
             return false;

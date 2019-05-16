@@ -83,4 +83,12 @@
         <servlet-name>GetAthleteList</servlet-name>
         <url-pattern>/GetAthleteList</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GetRefGroup</servlet-name>
+        <servlet-class>com.servlet.GetRefGroup</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetRefGroup</servlet-name>
+        <url-pattern>/GetRefGroup</url-pattern>
+    </servlet-mapping>
 </web-app>

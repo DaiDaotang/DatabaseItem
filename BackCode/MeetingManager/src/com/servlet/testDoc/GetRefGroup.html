@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>$Title$</title>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+$END$
+</body>
+<script>
+
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:8080/GetRefGroup",
+        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        data:JSON.stringify({
+            "reqId":"112",
+        }),
+        dataType:"json",
+        success:function(res){
+            console.log(res);
+        },
+        err:function(err){
+            console.log(err);
+        }
+    });
+    console.log("fail");
+</script>
+</html>
