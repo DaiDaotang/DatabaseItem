@@ -38,6 +38,13 @@
     }
     .signup_self {
         width: 325px!important;
+        height: 400px!important;
+    }
+    .icon-self {
+        margin-top: 0px !important;
+    }
+    .table_signed_self{
+        margin-left: 600px!important;
     }
   </style>
 </head>
@@ -103,157 +110,73 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>裁判录入</legend>
                 </fieldset>
-
-                <form class="layui-form layui-form-pane" action="">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">长输入框</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="title" autocomplete="off" placeholder="请输入标题" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">短输入框</label>
+                <form class="layui-form layui-form-pane" action="" id="Sign_up_judge">
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                        <legend>裁判组长</legend>
+                    </fieldset>
+                    <div class="layui-form-item layui-input-inline layui-inline">
+                        <label class="layui-form-label">姓名</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="username" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input type="text" name="judge_master_name" autocomplete="off" lay-verify="required" placeholder="请输入姓名" class="layui-input" id="judge_master_name" lay-filter="judge_master_name">
                         </div>
                     </div>
-
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">日期选择</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">行内表单</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="number" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">密码</label>
+                    <div class="layui-form-item layui-input-inline layuis-inline">
+                        <label class="layui-form-label">身份证</label>
                         <div class="layui-input-inline">
-                            <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                        </div>
-                        <div class="layui-form-mid layui-word-aux">请务必填写用户名</div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">范围</label>
-                            <div class="layui-input-inline" style="width: 100px;">
-                                <input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-                            </div>
-                            <div class="layui-form-mid">-</div>
-                            <div class="layui-input-inline" style="width: 100px;">
-                                <input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
-                            </div>
+                            <input type="text" name="judge_master_idcard" autocomplete="off" lay-verify="required" placeholder="请输入身份证号" class="layui-input" id="judge_master_idcard" lay-filter="judge_master_idcard">
                         </div>
                     </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">单行选择框</label>
-                        <div class="layui-input-block">
-                            <select name="interest" lay-filter="aihao">
-                                <option value=""></option>
-                                <option value="0">写作</option>
-                                <option value="1" selected="">阅读</option>
-                                <option value="2">游戏</option>
-                                <option value="3">音乐</option>
-                                <option value="4">旅行</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">行内选择框</label>
+                    <div class="layui-form-item layui-input-inline layui-inline">
+                        <label class="layui-form-label">电话</label>
                         <div class="layui-input-inline">
-                            <select name="quiz1">
-                                <option value="">请选择省</option>
-                                <option value="浙江" selected="">浙江省</option>
-                                <option value="你的工号">江西省</option>
-                                <option value="你最喜欢的老师">福建省</option>
-                            </select>
+                            <input type="text" name="judge_master_tel" autocomplete="off" lay-verify="required" placeholder="请输入电话号" class="layui-input" id="judge_master_tel" lay-filter="judge_master_tel">
                         </div>
+                    </div>
+                    <div class="layui-form-item layui-input-inline layui-inline">
+                        <label class="layui-form-label">账号</label>
                         <div class="layui-input-inline">
-                            <select name="quiz2">
-                                <option value="">请选择市</option>
-                                <option value="杭州">杭州</option>
-                                <option value="宁波" disabled="">宁波</option>
-                                <option value="温州">温州</option>
-                                <option value="温州">台州</option>
-                                <option value="温州">绍兴</option>
-                            </select>
-                        </div>
-                        <div class="layui-input-inline">
-                            <select name="quiz3">
-                                <option value="">请选择县/区</option>
-                                <option value="西湖区">西湖区</option>
-                                <option value="余杭区">余杭区</option>
-                                <option value="拱墅区">临安市</option>
-                            </select>
+                            <input type="text" name="judge_master_account" autocomplete="off" lay-verify="required" placeholder="请输入电话号" class="layui-input" id="judge_master_account" lay-filter="judge_master_account">
                         </div>
                     </div>
 
-                    <div class="layui-form-item" pane="">
-                        <label class="layui-form-label">开关-开</label>
-                        <div class="layui-input-block">
-                            <input type="checkbox" checked="" name="open" lay-skin="switch" lay-filter="switchTest" title="开关">
-                        </div>
-                    </div>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                        <legend>裁判组员</legend>
+                    </fieldset>
 
-                    <div class="layui-form-item" pane="">
-                        <label class="layui-form-label">单选框</label>
-                        <div class="layui-input-block">
-                            <input type="radio" name="sex" value="男" title="男" checked="">
-                            <input type="radio" name="sex" value="女" title="女">
-                            <input type="radio" name="sex" value="禁" title="禁用" disabled="">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">文本域</label>
-                        <div class="layui-input-block">
-                            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <button class="layui-btn" lay-submit="" lay-filter="demo2">跳转式提交</button>
-                    </div>
                 </form>
             </div>
             <div class="layui-tab-item">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>注册队伍</legend>
                 </fieldset>
-                <form class="layui-form layui-form-pane signup_self" action="" id="Sign_up_team">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">队伍名称</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="team_name" lay-verify="required" placeholder="请输入队伍名称" autocomplete="off" class="layui-input" id="team_name" lay-filter="team_name">
+                <div>
+                    <form class="layui-form layui-form-pane signup_self layui-input-inline" action="" id="Sign_up_team">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">队伍名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="team_name" lay-verify="required" placeholder="请输入队伍名称" autocomplete="off" class="layui-input" id="team_name" lay-filter="team_name">
+                            </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">队伍账号</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="team_account" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" id="team_account" lay-filter="team_account">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">队伍账号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="team_account" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" id="team_account" lay-filter="team_account">
+                            </div>
                         </div>
-                    </div>
-                    <div class="layui-form-item switch_self" pane="">
-                        <label class="layui-form-label">东道主</label>
-                        <div class="layui-input-block">
-                            <input type="checkbox" name="team_host" lay-skin="switch" lay-text="Yes|No" id="team_host" lay-filter="team_host">
+                        <div class="layui-form-item switch_self" pane="">
+                            <label class="layui-form-label">东道主</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="team_host" lay-skin="switch" lay-text="Yes|No" id="team_host" lay-filter="team_host">
+                            </div>
                         </div>
+                        <center>
+                            <button class="layui-btn button-self" lay-submit="" lay-filter="signup_btn"><i class="layui-icon layui-icon-upload"></i></button>
+                        </center>
+                    </form>
+                    <div class="layui-input-inline table_signed_self">
+                        <table class="layui-hide" id="signed_up_team" lay-filter="signed_up_team"></table>
                     </div>
-                    <center>
-                        <button class="layui-btn button-self" lay-submit="" lay-filter="signup_btn"><i class="layui-icon layui-icon-upload"></i></button>
-                    </center>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -272,7 +195,7 @@
         </div>
     </script>
     <script>
-        //赛事安排
+        /////////////////////////////////////////////////////////////////////赛事安排
         var check_param = [];
         var minTime = "2017-1-11"
             , maxTime = "2017-12-31";
@@ -290,41 +213,46 @@
         var param_kid = {
             elem: '#id_name_item_kid'
             , id: 'table_sportkids'
-            , url: 'api/1.json'
-            , title: 'http://localhost:8080/GetAthleteList'
+            , url: 'http://localhost:8080/GetAthleteList'
+            , title: '运动员列表'
             , toolbar: '#toolbar_kid'
             , width: 455
             , height: 425
             , where: {
-                name: result[0]
-                , group_a: result[2]
-                , group_g: result[1]
+                "reqId": "",
+                "reqParam": {
+                    "itemName": result[0]
+                    , "age": result[2]
+                    , "sex": result[1]
+                }
             }
             , cols: [[
                 { type: 'checkbox' }
-                , { field: 'id', width: 75, title: 'ID', unresize: true, sort: true }
-                , { field: 'name', width: 130, title: '名称' }
-                , { field: 'group', width: 180, title: '代表队' }
+                , { field: 'ath_id', width: 75, title: 'ID', unresize: true, sort: true }
+                , { field: 'ath_name', width: 130, title: '名称' }
+                , { field: 'team_name', width: 180, title: '代表队' }
             ]]
-        }
+        }                           //修改reqId
             , param_judge = {
                 elem: '#groupnumber_judge'
                 , url: 'http://localhost:8080/GetRefGroup'
-                , method:"POST" //以后所有的请求都用POST
-                , where:{"reqId":"123"}
-                ,contentType: 'application/json'//必加
+                , method: "POST" //以后所有的请求都用POST
+                , where: {
+                    "reqId": "123"
+                }
+                , contentType: 'application/json'//必加
                 , title: '裁判组列表'
                 , toolbar: '#toolbar_judge'
                 , width: 298
-                , deal: function(res){
-                	return {code:0,msg:"",count:1000,data:res.resData}
+                , deal: function (res) {
+                    return { code: 0, msg: "", count: 1000, data: res.resData }
                 }//用于处理接口返回数据，使之与layui要求一样，主要是将返回数据中的list赋值给data
                 , cols: [[
                     { type: 'radio' }
                     , { field: 'ref_group_id', width: 70, title: 'ID', unresize: true, sort: true }
                     , { field: 'ref_master', width: 175, title: '裁判长' }
                 ]]
-            }
+            }                       //修改reqId
             , param_arranged = {
                 elem: '#arranged_group'
                 , url: 'api/3.json'
@@ -333,67 +261,71 @@
                 , height: 425
                 , toolbar: true
                 , where: {
-                    name: result[0]
-                    , group_a: result[2]
-                    , group_g: result[1]
+                    "reqId": ""
+                    , "reqPageInfo": {
+                        "pageSize": 1000
+                        , "curPage": 1
+                    }
+                    , "reqParam": {
+                        "itemName": result[0]
+                        , "age": result[2]
+                        , "sex": result[1]
+                    }
                 }
                 , cols: [[
-                    { field: 'no', width: 85, title: '组号', sort: true }
-                    , { field: 'number', width: 65, title: '人数' }
-                    , { field: 'group', width: 80, title: '裁判组' }
+                    { field: 'com_id', width: 85, title: '组号', sort: true }
+                    , { field: 'amount', width: 65, title: '人数' }
+                    , { field: 'ref_group_id', width: 80, title: '裁判组' }
                     , { field: 'time', width: 305, title: '时间' }
                 ]]
-            };
+            };                   //修改url reqId
         var param_kid_0 = {
             elem: '#id_name_item_kid'
             , url: 'http://localhost:8080/GetAthleteList'
             , title: '运动员列表'
             , toolbar: '#toolbar_kid'
             , contentType: 'application/json'
-            , method:"POST"
+            , method: "POST"
             , width: 455
             , height: 425
             , where: { "reqId": "000" }
-            , deal: function(res){
-                	return {code:0,msg:"",count:1000,data:res.resData}
-                }
+            , deal: function (res) {
+                return { code: 0, msg: "", count: 1000, data: res.resData }
+            }
             , cols: [[
                 { type: 'checkbox' }
-                , { field: 'id', width: 75, title: 'ID', unresize: true, sort: true }
-                , { field: 'name', width: 130, title: '名称' }
-                , { field: 'group', width: 180, title: '代表队' }
+                , { field: 'ath_id', width: 75, title: 'ID', unresize: true, sort: true }
+                , { field: 'ath_name', width: 130, title: '名称' }
+                , { field: 'team_name', width: 180, title: '代表队' }
             ]]
-        }
-//          , param_judge_0 = {
-//              elem: '#groupnumber_judge'
-//              , url: 'api/0.json'
-//              , title: '裁判组列表'
-//              , toolbar: '#toolbar_judge'
-//              , width: 298
-//              , height: 425
-//              , cols: [[
-//                  { type: 'radio' }
-//                  , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
-//                  , { field: 'leader', width: 175, title: '裁判长' }
-//              ]]
-//          }
+        }                         //修改reqId url
             , param_arranged_0 = {
                 elem: '#arranged_group'
-                , url: 'api/0.json'
+                , url: 'api/3.json'
                 , title: '已安排列表'
                 , width: 540
                 , height: 425
                 , toolbar: true
+                , where: {
+                    "reqId": ""
+                    , "reqPageInfo": {
+                        "pageSize": 0
+                        , "curPage": 1
+                    }
+                    , "reqParam": {
+                        "itemName": ""
+                        , "age": ""
+                        , "sex": ""
+                    }
+                }
                 , cols: [[
-                    { field: 'no', width: 85, title: '组号', sort: true }
-                    , { field: 'number', width: 65, title: '人数' }
-                    , { field: 'group', width: 80, title: '裁判组' }
+                    { field: 'com_id', width: 85, title: '组号', sort: true }
+                    , { field: 'amount', width: 65, title: '人数' }
+                    , { field: 'ref_group_id', width: 80, title: '裁判组' }
                     , { field: 'time', width: 305, title: '时间' }
                 ]]
-            };
-        
+            };                 //修改regId url
 
-        /////////////////////////////////////////////////////////////////////赛事安排
         //form区
         layui.use(['form', 'layedit', 'laydate', 'table', 'jquery'], function () {
             var form = layui.form
@@ -412,7 +344,6 @@
                 check_param.push(data.field.gender_select);
                 check_param.push(data.field.age_select);
                 
-                //console.log(check_param);
                 table.render(param_kid);
                 table.render(param_judge);
                 table.render(param_arranged);
@@ -420,7 +351,7 @@
                 return false;
             });
 
-            //监听添加按钮
+            //监听添加按钮                                    //增加post请求
             form.on('submit(add_btn)', function (obj) {
                 if (data_judge != "" && data_kid.length != 0 && data_date != "") {
                     var data_temp = [
@@ -440,11 +371,6 @@
                 }
                 else
                     layer.alert("选择有误，请重新选择") 
-            });
-
-            //监听上传按钮
-            form.on('submit(submit_btn)', function (obj) {
-                layer.alert(JSON.stringify(result))
             });
 
             //改变单选框内容
@@ -585,18 +511,76 @@
             });
         });
 
-        ////////////////////////////////////////////////////////////////////裁判录入
+        ////////////////////////////////////////////////////////////////////裁判录入            //修改请求
+        //form区                            //增加请求
         layui.use('form', function () {
             var form = layui.form;
+            var result_judge = [
+                ""
+                , ""
+                , ""
+                , ""
+                , []
+            ]
+                , temp = []
+                , temp_name = "";
 
+            for (var i = 0; i < 5; i++) {
+                document.getElementById("Sign_up_judge").innerHTML += '<div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">姓名</label ><div class="layui-input-inline"><input type="text" id="judge_name_' + i + '" lay-filter="judge_name_' + i + '" name="judge_name_' + i + '" autocomplete="off" placeholder="请输入姓名" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layuis-inline"><label class="layui-form-label">身份证</label><div class="layui-input-inline"><input type="text" id="judge_idcard_' + i + '" lay-filter="judge_idcard_' + i + '" name="judge_idcard_' + i + '" autocomplete="off" placeholder="请输入身份证号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">电话</label><div class="layui-input-inline"><input type="text" id="judge_tel_' + i + '" lay-filter="judge_tel_' + i + '" name="judge_tel_' + i + '" autocomplete="off" placeholder="请输入电话号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">账号</label ><div class="layui-input-inline"><input type="text" id="judge_account_' + i + '" lay-filter="judge_account_' + i + '" name="judge_account_' + i + '" autocomplete="off" placeholder="请输入账号" class="layui-input"></div></div></div>'
+            }
+            document.getElementById("Sign_up_judge").innerHTML += '<center><button class="layui-btn" lay-submit="" lay-filter="sign_up_judge_btn"><i class="layui-icon layui-icon-upload"></i></button></center>'
 
-        });
+            form.on("submit(sign_up_judge_btn)", function (data) {
+                console.log(data.field);
+                result_judge[0] = data.field.judge_master_name;
+                result_judge[1] = data.field.judge_master_idcard;
+                result_judge[2] = data.field.judge_master_tel;
+                result_judge[3] = data.field.judge_master_account;
+                for (var i = 0; i < 5; i++) {
+                    if (data.field[temp_name] == "")
+                        break;
+                    temp_name = "judge_name_" + i;
+                    temp.push(document.getElementById(temp_name).value);
+                    temp_name = "judge_idcard_" + i;
+                    temp.push(document.getElementById(temp_name).value);
+                    temp_name = "judge_tel_" + i;
+                    temp.push(document.getElementById(temp_name).value);
+                    temp_name = "judge_account_" + i;
+                    temp.push(document.getElementById(temp_name).value);
+                    result_judge[4].push(temp);
+                    temp = [];
+                }
+
+                layer.msg('注册成功！');
+                console.log(result_judge);
+                document.getElementById("Sign_up_judge").reset();
+                return false;
+            })
+        });        
 
         /////////////////////////////////////////////////////////////////////队伍注册
-        //form区
-        layui.use('form', function () {
+        var param_signed_up_team = {
+            elem: '#signed_up_team'
+            , url: ''
+            , method: "POST" 
+            , where: { "reqId": "123" }
+            , contentType: 'application/json'//必加
+            , title: '已注册队伍列表'
+            , width: 300
+            , height: 400
+            , deal: function (res) {
+                return { code: 0, msg: "", count: 1000, data: res.resData }
+            }//用于处理接口返回数据，使之与layui要求一样，主要是将返回数据中的list赋值给data
+            , cols: [[
+                { field: 'team_id', width: 100, title: 'ID', unresize: true, sort: true }
+                , { field: 'team_name', width: 200, title: '队伍名称' }
+            ]]
+        }        //修改reqId url
+        //form table区                       //修改请求
+        layui.use(['form','table'], function () {
             var form = layui.form
-                , layer = layui.layer;
+                , layer = layui.layer
+                , table = layui.table;
 
             var signup_result = [];
             var team_is_host = false;
@@ -617,11 +601,13 @@
 
                 team_is_host = false;
                 signup_result = [];
-
                 document.getElementById("Sign_up_team").reset();
+                table.render(param_signed_up_team);
 
                 return false;
             });
+            //表格刷新
+            table.render(param_signed_up_team);
         })
     </script>
 
