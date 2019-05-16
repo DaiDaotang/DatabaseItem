@@ -312,15 +312,15 @@
             , param_judge = {
                 elem: '#groupnumber_judge'
                 , url: 'http://localhost:8080/GetRefGroup'
-                , method:"POST"
+                , method:"POST" //以后所有的请求都用POST
                 , where:{"reqId":"123"}
-                ,contentType: 'application/json'
+                ,contentType: 'application/json'//必加
                 , title: '裁判组列表'
                 , toolbar: '#toolbar_judge'
                 , width: 298
                 , deal: function(res){
                 	return {code:0,msg:"",count:1000,data:res.resData}
-                }
+                }//用于处理接口返回数据，使之与layui要求一样，主要是将返回数据中的list赋值给data
                 , cols: [[
                     { type: 'radio' }
                     , { field: 'ref_group_id', width: 70, title: 'ID', unresize: true, sort: true }
@@ -348,11 +348,17 @@
             };
         var param_kid_0 = {
             elem: '#id_name_item_kid'
-            , url: 'api/0.json'
+            , url: 'http://localhost:8080/GetAthleteList'
             , title: '运动员列表'
             , toolbar: '#toolbar_kid'
+            , contentType: 'application/json'
+            , method:"POST"
             , width: 455
             , height: 425
+            , where:{"reqId":"213"}
+            , deal: function(res){
+                	return {code:0,msg:"",count:1000,data:res.resData}
+                }
             , cols: [[
                 { type: 'checkbox' }
                 , { field: 'id', width: 75, title: 'ID', unresize: true, sort: true }
@@ -360,19 +366,19 @@
                 , { field: 'group', width: 180, title: '代表队' }
             ]]
         }
-            , param_judge_0 = {
-                elem: '#groupnumber_judge'
-                , url: 'api/0.json'
-                , title: '裁判组列表'
-                , toolbar: '#toolbar_judge'
-                , width: 298
-                , height: 425
-                , cols: [[
-                    { type: 'radio' }
-                    , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
-                    , { field: 'leader', width: 175, title: '裁判长' }
-                ]]
-            }
+//          , param_judge_0 = {
+//              elem: '#groupnumber_judge'
+//              , url: 'api/0.json'
+//              , title: '裁判组列表'
+//              , toolbar: '#toolbar_judge'
+//              , width: 298
+//              , height: 425
+//              , cols: [[
+//                  { type: 'radio' }
+//                  , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
+//                  , { field: 'leader', width: 175, title: '裁判长' }
+//              ]]
+//          }
             , param_arranged_0 = {
                 elem: '#arranged_group'
                 , url: 'api/0.json'
@@ -540,7 +546,7 @@
             });
 
             //选择裁判
-            table.render(param_judge_0);
+            table.render(param_judge);
             table.on('toolbar(groupnumber_judge)', function (obj) {
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
