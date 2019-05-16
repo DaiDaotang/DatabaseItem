@@ -71,10 +71,10 @@
                             </select>
                         </div>
                         <div class="layui-input-inline">
-                            <select name="item_select" id="select_item"></select>
+                            <select name="item_select" id="select_item" lay-filter="item_select"></select>
                         </div>
                         <div class="layui-input-inline">
-                            <select name="age_select" id="select_age">
+                            <select name="age_select" id="select_age" lay-filter="select_age">
                                 <option value="7-8">7-8岁</option>
                                 <option value="9-10">9-10岁</option>
                                 <option value="11-12">11-12岁</option>
@@ -210,20 +210,25 @@
                 , "7-8"                //  ageDelivery 
                 , []                   //  list
             ];
-        var param_kid = {
+        var param_kid = function(res){return {
             elem: '#id_name_item_kid'
             , id: 'table_sportkids'
             , url: 'http://localhost:8080/GetAthleteList'
             , title: '运动员列表'
             , toolbar: '#toolbar_kid'
+            , contentType: 'application/json'
             , width: 455
             , height: 425
+            , method: "POST"
+            , deal: function (res) {
+                    return { code: 0, msg: "", count: 1000, data: res.resData }
+                }
             , where: {
                 "reqId": "",
                 "reqParam": {
-                    "itemName": result[0]
-                    , "age": result[2]
-                    , "sex": result[1]
+                    "itemName": res[0]
+                    , "age": res[2]
+                    , "sex": res[1]
                 }
             }
             , cols: [[
@@ -232,8 +237,8 @@
                 , { field: 'ath_name', width: 130, title: '名称' }
                 , { field: 'team_name', width: 180, title: '代表队' }
             ]]
-        }                           //修改reqId
-            , param_judge = {
+        }}                           //修改reqId
+            , param_judge = function(res){return {
                 elem: '#groupnumber_judge'
                 , url: 'http://localhost:8080/GetRefGroup'
                 , method: "POST" //以后所有的请求都用POST
@@ -252,14 +257,19 @@
                     , { field: 'ref_group_id', width: 70, title: 'ID', unresize: true, sort: true }
                     , { field: 'ref_master', width: 175, title: '裁判长' }
                 ]]
-            }                       //修改reqId
-            , param_arranged = {
+            };}                       //修改reqId
+            , param_arranged = function(res){return {
                 elem: '#arranged_group'
-                , url: 'api/3.json'
+                , url: 'http://localhost:8080/CheckSchedule'
                 , title: '已安排列表'
                 , width: 540
                 , height: 425
                 , toolbar: true
+                , method: "POST"
+                , contentType: 'application/json'
+		            , deal: function (res) {
+		                    return { code: 0, msg: "", count: 1000, data: res.resData }
+		                }
                 , where: {
                     "reqId": ""
                     , "reqPageInfo": {
@@ -267,9 +277,9 @@
                         , "curPage": 1
                     }
                     , "reqParam": {
-                        "itemName": result[0]
-                        , "age": result[2]
-                        , "sex": result[1]
+                        "itemName": res[0]
+                        , "age": res[2]
+                        , "sex": res[1]
                     }
                 }
                 , cols: [[
@@ -278,7 +288,7 @@
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
                     , { field: 'time', width: 305, title: '时间' }
                 ]]
-            };                   //修改url reqId
+            }};                   //修改url reqId
         var param_kid_0 = {
             elem: '#id_name_item_kid'
             , url: 'http://localhost:8080/GetAthleteList'
@@ -306,6 +316,11 @@
                 , width: 540
                 , height: 425
                 , toolbar: true
+                , method: "POST"
+                , contentType: 'application/json'
+		            , deal: function (res) {
+		                    return { code: 0, msg: "", count: 1000, data: res.resData }
+		                }
                 , where: {
                     "reqId": ""
                     , "reqPageInfo": {
@@ -343,10 +358,10 @@
                 check_param.push(data.field.item_select);
                 check_param.push(data.field.gender_select);
                 check_param.push(data.field.age_select);
-                
-                table.render(param_kid);
-                table.render(param_judge);
-                table.render(param_arranged);
+                console.log(result);
+                table.render(param_kid(result));
+                table.render(param_judge(result));
+                table.render(param_arranged(result));
                 check_param = [];
                 return false;
             });
@@ -365,9 +380,9 @@
 
                     console.log(result)
 
-                    table.render(param_kid);
-                    table.render(param_judge);
-                    table.render(param_arranged);
+                    table.render(param_kid(result));
+                    table.render(param_judge(result));
+                    table.render(param_arranged(result));
                 }
                 else
                     layer.alert("选择有误，请重新选择") 
@@ -388,8 +403,10 @@
                 result[1] = data.value;
                 result[3] = [];
             });
-            form.on('select(select_item)', function (data) {
+            form.on('select(item_select)', function (data) {
                 result[0] = data.value;
+                console.log(data.value);
+                console.log(result[0]);
             });
             form.on('select(select_age)', function (data) {
                 result[2] = data.value;
@@ -470,7 +487,7 @@
             });
 
             //选择裁判
-            table.render(param_judge);
+            table.render(param_judge(result));
             table.on('toolbar(groupnumber_judge)', function (obj) {
                 var checkStatus = table.checkStatus(obj.config.id);
                 var data = checkStatus.data;
