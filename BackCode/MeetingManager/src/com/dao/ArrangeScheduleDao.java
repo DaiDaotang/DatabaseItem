@@ -79,9 +79,10 @@ public class ArrangeScheduleDao {
                 }
                 for (Ath_list ath:
                      group.getAth_lists()) {
-                    state3=conn.prepareStatement("INSERT INTO participation (ATH_ID,COM_ID,STATUS) VALUES (?,?,-1)");
+                    state3=conn.prepareStatement("INSERT INTO participation (ATH_ID,COM_ID,STATUS, ATH_NAME) VALUES (?,?,-1,?)");
                     state3.setString(1,ath.getAth_id());
                     state3.setString(2,s);
+                    state3.setString(3,ath.getAth_name());
                     int y = state3.executeUpdate();
                     if(y<1){
                         System.err.println(ath.getAth_id());

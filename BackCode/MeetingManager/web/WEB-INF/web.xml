@@ -91,4 +91,12 @@
         <servlet-name>GetRefGroup</servlet-name>
         <url-pattern>/GetRefGroup</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>CheckSchedule</servlet-name>
+        <servlet-class>com.servlet.CheckSchedule</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CheckSchedule</servlet-name>
+        <url-pattern>/CheckSchedule</url-pattern>
+    </servlet-mapping>
 </web-app>

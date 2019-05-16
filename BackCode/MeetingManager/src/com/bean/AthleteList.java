@@ -11,13 +11,13 @@ public class AthleteList {
 
     public String getAth_name(){return ath_name;}
 
-    public void setAth_id(String sex){
+    public void setAth_id(String ath_id){
         this.ath_id = ath_id;
     }
 
     public String getAth_id(){return ath_id;}
 
-    public void setTeam_name(String ageDelivery){
+    public void setTeam_name(String team_name){
         this.team_name = team_name;
     }
 
