@@ -194,7 +194,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>
         </div>
     </script>
-    <script>
+    <script>    
+        /////////////////////////////////////////////////////////////////////reqId                          //改
+        var id_management = "123";
         /////////////////////////////////////////////////////////////////////赛事安排
         var check_param = [];
         var minTime = "2017-1-11"
@@ -221,10 +223,12 @@
             , height: 425
             , method: "POST"
             , deal: function (res) {
-                    return { code: 0, msg: "", count: 1000, data: res.resData }
+                return {
+                    code: 0, msg: "", count: 1000, data: res.resData
                 }
+            }
             , where: {
-                "reqId": "",
+                "reqId": id_management,
                 "reqParam": {
                     "itemName": res[0]
                     , "age": res[2]
@@ -237,13 +241,13 @@
                 , { field: 'ath_name', width: 130, title: '名称' }
                 , { field: 'team_name', width: 180, title: '代表队' }
             ]]
-        }}                           //修改reqId
+        }}
             , param_judge = function(res){return {
                 elem: '#groupnumber_judge'
                 , url: 'http://localhost:8080/GetRefGroup'
                 , method: "POST" //以后所有的请求都用POST
                 , where: {
-                    "reqId": "123"
+                    "reqId": id_management
                 }
                 , contentType: 'application/json'//必加
                 , title: '裁判组列表'
@@ -257,7 +261,7 @@
                     , { field: 'ref_group_id', width: 70, title: 'ID', unresize: true, sort: true }
                     , { field: 'ref_master', width: 175, title: '裁判长' }
                 ]]
-            };}                       //修改reqId
+            };}
             , param_arranged = function(res){return {
                 elem: '#arranged_group'
                 , url: 'http://localhost:8080/CheckSchedule'
@@ -271,7 +275,7 @@
 		                    return { code: 0, msg: "", count: 1000, data: res.resData }
 		                }
                 , where: {
-                    "reqId": ""
+                    "reqId": id_management
                     , "reqPageInfo": {
                         "pageSize": 1000
                         , "curPage": 1
@@ -288,7 +292,7 @@
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
                     , { field: 'time', width: 205, title: '时间' }
                 ]]
-            }};                   //修改url reqId
+            }};
         var param_kid_0 = {
             elem: '#id_name_item_kid'
             , url: 'http://localhost:8080/GetAthleteList'
@@ -298,7 +302,7 @@
             , method: "POST"
             , width: 455
             , height: 425
-            , where: { "reqId": "000" }
+            , where: { "reqId": id_management }
             , deal: function (res) {
                 return { code: 0, msg: "", count: 1000, data: res.resData }
             }
@@ -308,10 +312,10 @@
                 , { field: 'ath_name', width: 130, title: '名称' }
                 , { field: 'team_name', width: 180, title: '代表队' }
             ]]
-        }                         //修改reqId url
+        } 
             , param_arranged_0 = {
                 elem: '#arranged_group'
-                , url: 'api/3.json'
+                , url: 'http://localhost:8080/CheckSchedule'
                 , title: '已安排列表'
                 , width: 540
                 , height: 425
@@ -322,7 +326,7 @@
 		                    return { code: 0, msg: "", count: 1000, data: res.resData }
 		                }
                 , where: {
-                    "reqId": ""
+                    "reqId": id_management
                     , "reqPageInfo": {
                         "pageSize": 0
                         , "curPage": 1
@@ -339,7 +343,7 @@
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
                     , { field: 'time', width: 305, title: '时间' }
                 ]]
-            };                 //修改regId url
+            };
 
         //form区
         layui.use(['form', 'layedit', 'laydate', 'table', 'jquery'], function () {
@@ -378,7 +382,7 @@
                     data_kid = [];
                     data_judge = "";
 
-                    console.log(result)
+                    console.log(result);
 
                     table.render(param_kid(result));
                     table.render(param_judge(result));
@@ -575,8 +579,8 @@
         var param_signed_up_team = {
             elem: '#signed_up_team'
             , url: ''
-            , method: "POST" 
-            , where: { "reqId": "123" }
+            , method: "POST"
+            , where: { "reqId": id_management }
             , contentType: 'application/json'//必加
             , title: '已注册队伍列表'
             , width: 300
@@ -588,7 +592,7 @@
                 { field: 'team_id', width: 100, title: 'ID', unresize: true, sort: true }
                 , { field: 'team_name', width: 200, title: '队伍名称' }
             ]]
-        }        //修改reqId url
+        }        //修改url
         //form table区                       //修改请求
         layui.use(['form','table'], function () {
             var form = layui.form
