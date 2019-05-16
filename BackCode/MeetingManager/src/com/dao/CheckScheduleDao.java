@@ -2,6 +2,7 @@ package com.dao;
 
 import com.DBUtil.DBUtil;
 import com.bean.*;
+import com.bean.CheckScheduleBean;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CheckScheduleDao {
-    private CheckSchedule﻿Bean bean;
+    private CheckScheduleBean bean;
     private ReqPageInfo page;
-    public CheckScheduleDao(CheckSchedule﻿Bean b, ReqPageInfo p)
+    public CheckScheduleDao(CheckScheduleBean b, ReqPageInfo p)
     {
         bean=b;
         page=p;
@@ -33,7 +34,7 @@ public class CheckScheduleDao {
             if(itemName == "" || sex == "" || age == ""){
                 return null;
             }
-            state1=conn.prepareStatement("select item_id from m_item where item_name = ? and age= ? and sex= ?");
+            state1=conn.prepareStatement("select item_id from m_item where item_name = ? and age = ? and sex = ?");
             state1.setString(1,itemName);
             state1.setString(2,age);
             state1.setString(3,sex);
@@ -47,7 +48,7 @@ public class CheckScheduleDao {
             {
                 return null;
             }
-            state2 = conn.prepareStatement("select com_id, ref_group_id, time,count(*) from competition natural join participation group by com_id having item_id = ? ");
+            state2 = conn.prepareStatement("select com_id, ref_group_id, time,count(*) from competition natural join participation group by (com_id,ref_group_id,time,item_id) having item_id = ? ");
             state2.setString(1,item_id);
             ResultSet set2 = state2.executeQuery();
             ScheduleBean s;
@@ -103,7 +104,7 @@ public class CheckScheduleDao {
             while(set.next())
             {
                 item_id = set.getString("item_id");
-                state2 = conn.prepareStatement("select com_id, ref_group_id, time,count(*) from competition natural join participation group by com_id having item_id = ? ");
+                state2 = conn.prepareStatement("select com_id, ref_group_id, time,count(*) from competition natural join participation group by (com_id,ref_group_id,time,item_id) having item_id = ?");
                 state2.setString(1,item_id);
                 ResultSet set2 = state2.executeQuery();
                 ScheduleBean s;
