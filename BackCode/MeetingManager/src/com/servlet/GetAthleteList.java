@@ -15,6 +15,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "GetAthleteList")
 public class GetAthleteList extends HttpServlet {
@@ -32,20 +34,21 @@ public class GetAthleteList extends HttpServlet {
         Gson gson = new Gson();
         Type requestType = new TypeToken<RequestBean>(){}.getType();
         RequestBean<GetAthleteList> reqBean = gson.fromJson(content,requestType);
-        ResponseBean resBean = new ResponseBean<>();
+        Type resType = new TypeToken<ResponseBean<List<AthleteList>>>(){}.getType();
+        ResponseBean<List<AthleteList>> resBean = new ResponseBean<>();
         try {
             GetAthleteListBean bean = new GetAthleteListBean();
             GetAthleteDao dao = new GetAthleteDao(bean);
-            dao.returnAthleteList();
+            List<AthleteList> list = dao.returnAthleteList();
 
             resBean.setReqId(reqBean.getReqId());
             resBean.setSuccess(true);
-            Type resType = new TypeToken<ResponseBean>(){}.getType();
+            resBean.setResData(list);
             out.print(gson.toJson(resBean,resType));
         }catch (Exception e){
             e.printStackTrace();
         }
-
+        out.close();
 
     }
 }
