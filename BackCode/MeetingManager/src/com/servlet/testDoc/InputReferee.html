@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>$Title$</title>
+    <script src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+$END$
+</body>
+<script>
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:8080/InputReferee",
+        async:true,
+        data:JSON.stringify({
+            "reqId":"",
+            "reqParam":{
+                "ref_masterName":"haoge",
+                "id_card":"1010",
+                "tel":"1010",
+                "account":"h3",
+                "ref_lists":[{
+                    "name":"cc",
+                    "id_card":"2020",
+                    "tel":"2020",
+                    "account":"c3"
+                }]
+            }
+        }),
+        dataType:"json",
+        success:function(res){
+            console.log(res);
+        },
+        err:function(err){
+            console.log(err);
+        }
+    });
+    console.log("fail");
+</script>
+</html>

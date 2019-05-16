@@ -13,11 +13,10 @@ public class ArrangeScheduleDao {
     public ArrangeScheduleDao(ArrangeScheduleBean b){
         bean = b;
     }
-    public int setCom_id(String item_id)
+    public int setCom_id()
     {
         Connection conn = DBUtil.getConnection();
         PreparedStatement state;
-        String id=item_id;
         try{
             conn.setAutoCommit(false);
             String sql="SELECT COUNT(*) FROM competition";
@@ -63,7 +62,7 @@ public class ArrangeScheduleDao {
             {
                 return;
             }
-            int a=setCom_id(item_id);
+            int a=setCom_id();
             for (Group_list group:
                  bean.getGroup_lists()){
                 state2=conn.prepareStatement("INSERT INTO competition VALUES (?,?,?,'N',?)");
@@ -89,8 +88,6 @@ public class ArrangeScheduleDao {
                     }
                 }
             }
-
-
             conn.commit();
         }catch (SQLException e){
             e.printStackTrace();

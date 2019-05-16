@@ -107,4 +107,12 @@
         <servlet-name>CheckSchedule</servlet-name>
         <url-pattern>/CheckSchedule</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>InputReferee</servlet-name>
+        <servlet-class>com.servlet.InputReferee</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>InputReferee</servlet-name>
+        <url-pattern>/InputReferee</url-pattern>
+    </servlet-mapping>
 </web-app>
