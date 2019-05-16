@@ -1,6 +1,6 @@
 package com.bean;
 
-public class GetAthleteListBean {
+public class CheckScheduleBean {
     private String itemName;
     private String sex;
     private String age;
@@ -22,5 +22,4 @@ public class GetAthleteListBean {
     }
 
     public String getAge(){return age;}
-
 }

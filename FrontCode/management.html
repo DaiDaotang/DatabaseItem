@@ -48,7 +48,6 @@
             <li>裁判录入</li>
             <li>注册队伍</li>
         </ul>
-
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
@@ -252,10 +251,9 @@
                         </div>
                     </div>
                     <center>
-                        <button class="layui-btn button-self" lay-submit="" lay-filter="signup_btn"><i class="layui-icon layui-icon-add-1"></i></button>
+                        <button class="layui-btn button-self" lay-submit="" lay-filter="signup_btn"><i class="layui-icon layui-icon-upload"></i></button>
                     </center>
                 </form>
-
             </div>
         </div>
     </div>
@@ -355,7 +353,7 @@
             , method:"POST"
             , width: 455
             , height: 425
-            , where:{"reqId":"213"}
+            , where: { "reqId": "000" }
             , deal: function(res){
                 	return {code:0,msg:"",count:1000,data:res.resData}
                 }
@@ -587,29 +585,40 @@
             });
         });
 
-        /////////////////////////////////////////////////////////////////////队伍注册
-        //form区
+        ////////////////////////////////////////////////////////////////////裁判录入
         layui.use('form', function () {
             var form = layui.form;
 
-            form.render();
+
+        });
+
+        /////////////////////////////////////////////////////////////////////队伍注册
+        //form区
+        layui.use('form', function () {
+            var form = layui.form
+                , layer = layui.layer;
 
             var signup_result = [];
-            var team_is_host = false; 
+            var team_is_host = false;
 
+            //监听开关
             form.on('switch(team_host)', function (data) {
                 if (data.elem.checked)
                     team_is_host = true;
             });
+            //监听提交按钮
             form.on('submit(signup_btn)', function (data) {
                 signup_result.push(data.field.team_name);
                 signup_result.push(data.field.team_account);
                 signup_result.push(team_is_host);
 
                 console.log(signup_result);
+                layer.msg('注册成功！');
 
                 team_is_host = false;
                 signup_result = [];
+
+                document.getElementById("Sign_up_team").reset();
 
                 return false;
             });
