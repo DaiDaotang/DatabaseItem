@@ -9,15 +9,10 @@
   <script>
   	$.ajax({
   		type:"POST",
-  		url:"http://localhost:8080/GiveMark",
+  		url:"http://localhost:8080/GetScores2",
   		async:true,
   		data:JSON.stringify({
-  			"reqId":"12",
-  			"reqParam":{
-  				"ath_id":"002",
-  				"com_id":"FE107083",
-  				"score":99.1
-  			}
+  			"reqId":"12"
   		}),
   		dataType:"json",
   		success:function(res){

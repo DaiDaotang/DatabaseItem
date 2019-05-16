@@ -233,7 +233,9 @@ public class RefereeDao {
                 s.setP(set.getDouble("P"));
                 s.setD(set.getDouble("D"));
                 s.setItem_name(set.getString("item_name"));
-                if(authority.equals("裁判")||!isScored(s)){
+                if(authority.equals("裁判")&&!isScored(s)){
+                    list.add(s);
+                }else if(authority.equals("总裁判")) {
                     list.add(s);
                 }
             }
