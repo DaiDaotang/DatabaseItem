@@ -25,6 +25,14 @@ public class GetRefGroup extends HttpServlet {
         doGet(request,response);
     }
 
+    @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST");
+        resp.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+        resp.setHeader("Access-Control-Max-Age", "86400");
+        doGet(req, resp);
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setCharacterEncoding("utf-8");

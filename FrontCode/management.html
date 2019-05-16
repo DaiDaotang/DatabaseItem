@@ -312,13 +312,19 @@
             , param_judge = {
                 elem: '#groupnumber_judge'
                 , url: 'http://localhost:8080/GetRefGroup'
+                , method:"POST"
+                , where:{"reqId":"123"}
+                ,contentType: 'application/json'
                 , title: '裁判组列表'
                 , toolbar: '#toolbar_judge'
                 , width: 298
+                , deal: function(res){
+                	return {code:0,msg:"",count:1000,data:res.resData}
+                }
                 , cols: [[
                     { type: 'radio' }
-                    , { field: 'id', width: 70, title: 'ID', unresize: true, sort: true }
-                    , { field: 'leader', width: 175, title: '裁判长' }
+                    , { field: 'ref_group_id', width: 70, title: 'ID', unresize: true, sort: true }
+                    , { field: 'ref_master', width: 175, title: '裁判长' }
                 ]]
             }
             , param_arranged = {
@@ -401,6 +407,7 @@
                 check_param.push(data.field.item_select);
                 check_param.push(data.field.gender_select);
                 check_param.push(data.field.age_select);
+                
                 //console.log(check_param);
                 table.render(param_kid);
                 table.render(param_judge);
