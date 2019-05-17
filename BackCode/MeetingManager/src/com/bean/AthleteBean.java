@@ -5,7 +5,7 @@ import java.util.List;
 public class AthleteBean {
     private String name;
     private String idCard;
-    private String age;
+    private int age;
     private String sex;
     private String tel;
     private String grade;
@@ -26,11 +26,11 @@ public class AthleteBean {
     {
         return idCard;
     }
-    public void setAge(String age)
+    public void setAge(int age)
     {
         this.age=age;
     }
-    public String getAge()
+    public int getAge()
     {
         return age;
     }
