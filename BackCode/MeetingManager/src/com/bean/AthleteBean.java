@@ -9,7 +9,7 @@ public class AthleteBean {
     private String sex;
     private String tel;
     private String grade;
-    private List<Item_list> item_lists = null;
+    private List<Item_list> item = null;
     public void setName(String name)
     {
         this.name=name;
@@ -58,12 +58,12 @@ public class AthleteBean {
     {
         return grade;
     }
-    public void setItem_lists(List<Item_list> item_lists)
+    public void setItem_lists(List<Item_list> item)
     {
-        this.item_lists=item_lists;
+        this.item=item;
     }
     public List<Item_list> getItem_lists()
     {
-        return item_lists;
+        return item;
     }
 }

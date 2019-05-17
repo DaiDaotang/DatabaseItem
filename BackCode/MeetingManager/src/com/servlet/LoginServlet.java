@@ -50,8 +50,8 @@ public class LoginServlet extends HttpServlet {
             if(id!=null){
                 loginResp.setSuccess(true);
                 System.out.println(loginResp.isSuccess());
-                loginDao.getName(loginResp);
                 loginResp.setReqId(id);
+                loginDao.getName(loginResp);
             }else{
                 loginResp.setSuccess(false);
             }
