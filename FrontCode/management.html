@@ -367,6 +367,7 @@
 
             //监听查询
             form.on('submit(find_btn)', function (data) {
+                result[3] = [];
                 console.log(result);
                 table.render(param_kid(result));
                 table.render(param_judge(result));
@@ -443,7 +444,6 @@
                     form.render('select');
                 }
                 result[1] = data.value;
-                result[3] = [];
             });
             form.on('select(item_select)', function (data) {
                 result[0] = data.value;
