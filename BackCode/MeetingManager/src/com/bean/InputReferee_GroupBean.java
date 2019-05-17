@@ -3,18 +3,18 @@ package com.bean;
 import java.util.List;
 
 public class InputReferee_GroupBean {
-    private String ref_masterName;
+    private String ref_master;
     private String id_card;
     private String tel;
     private String account;
     private List<Ref_List> ref_lists = null;
     public void setRef_masterName(String ref_masterName)
     {
-        this.ref_masterName=ref_masterName;
+        this.ref_master=ref_masterName;
     }
     public String getRef_masterName()
     {
-        return ref_masterName;
+        return ref_master;
     }
     public void setAccount(String account)
     {

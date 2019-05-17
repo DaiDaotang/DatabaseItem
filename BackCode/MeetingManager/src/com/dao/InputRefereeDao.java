@@ -97,6 +97,9 @@ public class InputRefereeDao {
             {
                 System.err.println(a);
             }
+            if(bean.getRef_lists()==null){
+                return;
+            }
             for (Ref_List ref:
                     bean.getRef_lists()) {
                 c++;

@@ -9,10 +9,10 @@
   <link rel="stylesheet" href="layui/css/layui.css"  media="all">
   <style type = "text/css">
 	.form-select-self1 {
-		width:455px!important;
+		width:387px!important;
 	}
 	.form-select-self2 {
-		width:298px!important;
+		width:253px!important;
 	}
 	.form-select-self3 {
 		padding-top:15px!important;
@@ -46,6 +46,10 @@
     .table_signed_self{
         margin-left: 600px!important;
     }
+    .div-self {
+        margin: 0 auto;
+        width: 1330px;
+    }
   </style>
 </head>
 <body>
@@ -60,50 +64,52 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>赛程安排</legend>
                 </fieldset>
-                <form class="layui-form layui-form-pane" action="" id="Arrangement">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">项目</label>
-                        <div class="layui-input-inline">
-                            <select name="gender_select" lay-filter="select_gender">
-                                <option value="">请选择性别</option>
-                                <option value="男">男</option>
-                                <option value="女">女</option>
-                            </select>
+                <div class=" div-self">
+                    <form class="layui-form layui-form-pane" action="" id="Arrangement">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">项目</label>
+                            <div class="layui-input-inline">
+                                <select name="gender_select" lay-filter="select_gender">
+                                    <option value="">请选择性别</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name="item_select" id="select_item" lay-filter="item_select"></select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name="age_select" id="select_age" lay-filter="select_age">
+                                    <option value="7-8">7-8岁</option>
+                                    <option value="9-10">9-10岁</option>
+                                    <option value="11-12">11-12岁</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
+                            </div>
                         </div>
-                        <div class="layui-input-inline">
-                            <select name="item_select" id="select_item" lay-filter="item_select"></select>
+                    </form>
+                    <div>
+                        <div class="layui-form-item ">
+                            <div class="layui-input-inline form-select-self1">
+                                <table class="layui-hide" id="id_name_item_kid" lay-filter="id_name_item_kid"></table>
+                            </div>
+                            <div class="layui-input-inline form-select-self2">
+                                <table class="layui-hide" id="groupnumber_judge" lay-filter="groupnumber_judge"></table>
+                            </div>
+                            <div class="layui-inline layui-input-inline form-select-self3">
+                                <input type="text" class="layui-input" id="date_pk" lay-filter="date_pk">
+                                <div class=" form-select-self4 layui-input-inline" id="time_pk" lay-filter="time_pk"></div>
+                            </div>
+                            <div class="layui-input-inline">
+                                <table class="layui-hide" id="arranged_group" lay-filter="arranged_group"></table>
+                            </div>
                         </div>
-                        <div class="layui-input-inline">
-                            <select name="age_select" id="select_age" lay-filter="select_age">
-                                <option value="7-8">7-8岁</option>
-                                <option value="9-10">9-10岁</option>
-                                <option value="11-12">11-12岁</option>
-                            </select>
-                        </div>
-                        <div class="layui-input-inline">
-                            <button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
-                        </div>
+                        <center>
+                            <button class="layui-btn button-self" lay-submit="" lay-filter="add_btn"><i class="layui-icon layui-icon-add-1"></i></button>
+                        </center>
                     </div>
-                </form>
-                <div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-inline form-select-self1">
-                            <table class="layui-hide" id="id_name_item_kid" lay-filter="id_name_item_kid"></table>
-                        </div>
-                        <div class="layui-input-inline form-select-self2">
-                            <table class="layui-hide" id="groupnumber_judge" lay-filter="groupnumber_judge"></table>
-                        </div>
-                        <div class="layui-inline layui-input-inline form-select-self3">
-                            <input type="text" class="layui-input" id="date_pk" lay-filter="date_pk">
-                            <div class=" form-select-self4 layui-input-inline" id="time_pk" lay-filter="time_pk"></div>
-                        </div>
-                        <div class="layui-input-inline">
-                            <table class="layui-hide" id="arranged_group" lay-filter="arranged_group"></table>
-                        </div>
-                    </div>
-                    <center>
-                        <button class="layui-btn button-self" lay-submit="" lay-filter="add_btn"><i class="layui-icon layui-icon-add-1"></i></button>
-                    </center>
                 </div>
             </div>
             <div class="layui-tab-item">
@@ -184,25 +190,29 @@
     <script src="layui/layui.js" charset="utf-8"></script>
     <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
     <script type="text/html" id="toolbar_kid">
+    	<div>运动员列表</div>
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>
-            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+            <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>
+            <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>-->
         </div>
     </script>
     <script type="text/html" id="toolbar_judge">
+    	<div>裁判组列表</div>
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>
+            <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中数据</button>-->
         </div>
     </script>
-    <script>
+    <script>    
+        /////////////////////////////////////////////////////////////////////reqId                          //改
+        var id_management = "123";
         /////////////////////////////////////////////////////////////////////赛事安排
-        var check_param = [];
         var minTime = "2017-1-11"
             , maxTime = "2017-12-31";
         var data_kid = []
+            , data_kid_name = []
             , data_judge = ""
             , data_date = ""
-            , data_time = "11:00-15:00"
+            , data_time = "13:00"
             , data_arrangement = []
             , result = [
                 ""                     //  itemName    
@@ -217,14 +227,16 @@
             , title: '运动员列表'
             , toolbar: '#toolbar_kid'
             , contentType: 'application/json'
-            , width: 455
+            , width: 387
             , height: 425
             , method: "POST"
             , deal: function (res) {
-                    return { code: 0, msg: "", count: 1000, data: res.resData }
+                return {
+                    code: 0, msg: "", count: 1000, data: res.resData
                 }
+            }
             , where: {
-                "reqId": "",
+                "reqId": id_management,
                 "reqParam": {
                     "itemName": res[0]
                     , "age": res[2]
@@ -235,34 +247,34 @@
                 { type: 'checkbox' }
                 , { field: 'ath_id', width: 75, title: 'ID', unresize: true, sort: true }
                 , { field: 'ath_name', width: 130, title: '名称' }
-                , { field: 'team_name', width: 180, title: '代表队' }
+                , { field: 'team_name', width: 130, title: '代表队' }
             ]]
-        }}                           //修改reqId
+        }}
             , param_judge = function(res){return {
                 elem: '#groupnumber_judge'
                 , url: 'http://localhost:8080/GetRefGroup'
                 , method: "POST" //以后所有的请求都用POST
                 , where: {
-                    "reqId": "123"
+                    "reqId": id_management
                 }
                 , contentType: 'application/json'//必加
                 , title: '裁判组列表'
                 , toolbar: '#toolbar_judge'
-                , width: 298
+                , width: 253
                 , deal: function (res) {
                     return { code: 0, msg: "", count: 1000, data: res.resData }
                 }//用于处理接口返回数据，使之与layui要求一样，主要是将返回数据中的list赋值给data
                 , cols: [[
                     { type: 'radio' }
                     , { field: 'ref_group_id', width: 70, title: 'ID', unresize: true, sort: true }
-                    , { field: 'ref_master', width: 175, title: '裁判长' }
+                    , { field: 'ref_master', width: 130, title: '裁判长' }
                 ]]
-            };}                       //修改reqId
+            };}
             , param_arranged = function(res){return {
                 elem: '#arranged_group'
                 , url: 'http://localhost:8080/CheckSchedule'
                 , title: '已安排列表'
-                , width: 540
+                , width: 465
                 , height: 425
                 , toolbar: true
                 , method: "POST"
@@ -271,7 +283,7 @@
 		                    return { code: 0, msg: "", count: 1000, data: res.resData }
 		                }
                 , where: {
-                    "reqId": ""
+                    "reqId": id_management
                     , "reqPageInfo": {
                         "pageSize": 1000
                         , "curPage": 1
@@ -283,12 +295,12 @@
                     }
                 }
                 , cols: [[
-                    { field: 'com_id', width: 185, title: '组号', sort: true }
+                    { field: 'com_id', width: 150, title: '组号', sort: true }
                     , { field: 'amount', width: 65, title: '人数' }
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
-                    , { field: 'time', width: 205, title: '时间' }
+                    , { field: 'time', width: 165, title: '时间' }
                 ]]
-            }};                   //修改url reqId
+            }};
         var param_kid_0 = {
             elem: '#id_name_item_kid'
             , url: 'http://localhost:8080/GetAthleteList'
@@ -296,9 +308,9 @@
             , toolbar: '#toolbar_kid'
             , contentType: 'application/json'
             , method: "POST"
-            , width: 455
+            , width: 387
             , height: 425
-            , where: { "reqId": "000" }
+            , where: { "reqId": id_management }
             , deal: function (res) {
                 return { code: 0, msg: "", count: 1000, data: res.resData }
             }
@@ -306,14 +318,14 @@
                 { type: 'checkbox' }
                 , { field: 'ath_id', width: 75, title: 'ID', unresize: true, sort: true }
                 , { field: 'ath_name', width: 130, title: '名称' }
-                , { field: 'team_name', width: 180, title: '代表队' }
+                , { field: 'team_name', width: 130, title: '代表队' }
             ]]
-        }                         //修改reqId url
+        } 
             , param_arranged_0 = {
                 elem: '#arranged_group'
-                , url: 'api/3.json'
+                , url: 'http://localhost:8080/CheckSchedule'
                 , title: '已安排列表'
-                , width: 540
+                , width: 465
                 , height: 425
                 , toolbar: true
                 , method: "POST"
@@ -322,7 +334,7 @@
 		                    return { code: 0, msg: "", count: 1000, data: res.resData }
 		                }
                 , where: {
-                    "reqId": ""
+                    "reqId": id_management
                     , "reqPageInfo": {
                         "pageSize": 0
                         , "curPage": 1
@@ -334,12 +346,12 @@
                     }
                 }
                 , cols: [[
-                    { field: 'com_id', width: 85, title: '组号', sort: true }
+                    { field: 'com_id', width: 150, title: '组号', sort: true }
                     , { field: 'amount', width: 65, title: '人数' }
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
-                    , { field: 'time', width: 305, title: '时间' }
+                    , { field: 'time', width: 165, title: '时间' }
                 ]]
-            };                 //修改regId url
+            };
 
         //form区
         layui.use(['form', 'layedit', 'laydate', 'table', 'jquery'], function () {
@@ -355,18 +367,14 @@
 
             //监听查询
             form.on('submit(find_btn)', function (data) {
-                check_param.push(data.field.item_select);
-                check_param.push(data.field.gender_select);
-                check_param.push(data.field.age_select);
                 console.log(result);
                 table.render(param_kid(result));
                 table.render(param_judge(result));
                 table.render(param_arranged(result));
-                check_param = [];
                 return false;
             });
 
-            //监听添加按钮                                    //增加post请求
+            //监听添加按钮
             form.on('submit(add_btn)', function (obj) {
                 if (data_judge != "" && data_kid.length != 0 && data_date != "") {
                     var data_temp = [
@@ -375,17 +383,51 @@
                         , data_date + " " + data_time   //time
                     ]
                     result[3].push(data_temp);
-                    data_kid = [];
-                    data_judge = "";
 
-                    console.log(result)
-
-                    table.render(param_kid(result));
-                    table.render(param_judge(result));
-                    table.render(param_arranged(result));
+                    console.log(result);
+                    var that = this;
+                    $.ajax({
+                        type: "POST"
+                        , url: "http://localhost:8080/ArrangeSchedule"
+                        , async: true
+                        , data: JSON.stringify({
+                            "reqId": id_management
+                            , "reqParam": {
+                                "itemName": result[0]
+                                , "sex": result[1]
+                                , "ageDelivery": result[2]
+                                , "group_lists": [
+                                    {
+                                        "ath_lists": result[3][0][0]
+                                        , "time": result[3][0][2]
+                                        , "ref_group": result[3][0][1]
+                                    }
+                                ]
+                            }
+                        })
+                        , dataType: "json"
+                        , success: function (res) {
+                            console.log(res)
+                            console.log(that.result)
+                            data_kid = [];
+                            data_judge = "";
+                            table.render(param_kid(result));
+                            table.render(param_judge(result));
+                            table.render(param_arranged(result));
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    })
                 }
-                else
-                    layer.alert("选择有误，请重新选择") 
+                else {
+                    if (data_judge == "")
+                        layer.alert('裁判选择有误')
+                    else if (data_kid.length == 0)
+                        layer.alert('未选择运动员')
+                    else
+                        layer.alert('请重新选择日期')
+                }
             });
 
             //改变单选框内容
@@ -468,7 +510,7 @@
             table.on('checkbox(id_name_item_kid)', function (res) {
                 if (res.checked) {
                     //console.log(res.data.id)
-                    data_kid.push(res.data.id);
+                    data_kid.push({ "ath_id": res.data.ath_id, "ath_name": res.data.ath_name });
                 }
                 else {
                     for (let temp in data_kid) {
@@ -492,7 +534,7 @@
                 layer.alert(JSON.stringify(data));
             });
             table.on('radio(groupnumber_judge)', function (res) {
-                data_judge = res.data;
+                data_judge = res.data.ref_group_id;
                 //console.log(data_judge);
             });
 
@@ -524,8 +566,8 @@
             });
         });
 
-        ////////////////////////////////////////////////////////////////////裁判录入            //修改请求
-        //form区                            //增加请求
+        ////////////////////////////////////////////////////////////////////裁判录入
+        //form区
         layui.use('form', function () {
             var form = layui.form;
             var result_judge = [
@@ -538,7 +580,7 @@
                 , temp = []
                 , temp_name = "";
 
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 4; i++) {
                 document.getElementById("Sign_up_judge").innerHTML += '<div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">姓名</label ><div class="layui-input-inline"><input type="text" id="judge_name_' + i + '" lay-filter="judge_name_' + i + '" name="judge_name_' + i + '" autocomplete="off" placeholder="请输入姓名" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layuis-inline"><label class="layui-form-label">身份证</label><div class="layui-input-inline"><input type="text" id="judge_idcard_' + i + '" lay-filter="judge_idcard_' + i + '" name="judge_idcard_' + i + '" autocomplete="off" placeholder="请输入身份证号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">电话</label><div class="layui-input-inline"><input type="text" id="judge_tel_' + i + '" lay-filter="judge_tel_' + i + '" name="judge_tel_' + i + '" autocomplete="off" placeholder="请输入电话号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">账号</label ><div class="layui-input-inline"><input type="text" id="judge_account_' + i + '" lay-filter="judge_account_' + i + '" name="judge_account_' + i + '" autocomplete="off" placeholder="请输入账号" class="layui-input"></div></div></div>'
             }
             document.getElementById("Sign_up_judge").innerHTML += '<center><button class="layui-btn" lay-submit="" lay-filter="sign_up_judge_btn"><i class="layui-icon layui-icon-upload"></i></button></center>'
@@ -549,24 +591,56 @@
                 result_judge[1] = data.field.judge_master_idcard;
                 result_judge[2] = data.field.judge_master_tel;
                 result_judge[3] = data.field.judge_master_account;
-                for (var i = 0; i < 5; i++) {
+                for (var i = 0; i < 4; i++) {
+                    temp_name = "judge_name_" + i;
                     if (data.field[temp_name] == "")
                         break;
-                    temp_name = "judge_name_" + i;
-                    temp.push(document.getElementById(temp_name).value);
-                    temp_name = "judge_idcard_" + i;
-                    temp.push(document.getElementById(temp_name).value);
-                    temp_name = "judge_tel_" + i;
-                    temp.push(document.getElementById(temp_name).value);
-                    temp_name = "judge_account_" + i;
-                    temp.push(document.getElementById(temp_name).value);
+                    temp ={
+                            "name": document.getElementById("judge_name_" + i).value
+                            , "id_card": document.getElementById("judge_idcard_" + i).value
+                            , "tel": document.getElementById("judge_tel_" + i).value
+                            , "account": document.getElementById("judge_account_" + i).value
+                     };
                     result_judge[4].push(temp);
                     temp = [];
                 }
-
-                layer.msg('注册成功！');
-                console.log(result_judge);
-                document.getElementById("Sign_up_judge").reset();
+								console.log(result_judge);
+                var that = this;
+                $.ajax({
+                    type: "POST"
+                    , url: "http://localhost:8080/InputReferee"
+                    , async: true
+                    , data: JSON.stringify({
+                        "reqId": id_management
+                        , "reqParam": {
+                            "ref_master": result_judge[0]
+                            , "id_card": result_judge[1]
+                            , "tel": result_judge[2]
+                            , "account": result_judge[3]
+                            , "ref_lists": result_judge[4]
+                        }
+                    })
+                    , dataType: "json"
+                    , success: function (res) {
+                        console.log(res)
+												
+                    	console.log(this.data);
+                        layer.msg('注册成功！');
+                        console.log(result_judge);
+                        result_judge = [
+                            ""
+                            , ""
+                            , ""
+                            , ""
+                            , []
+                        ]
+                        document.getElementById("Sign_up_judge").reset();
+                    },
+                    error: function (err) {
+                    	console.log(data);
+                        console.log(err);
+                    }
+                })
                 return false;
             })
         });        
@@ -574,9 +648,9 @@
         /////////////////////////////////////////////////////////////////////队伍注册
         var param_signed_up_team = {
             elem: '#signed_up_team'
-            , url: ''
-            , method: "POST" 
-            , where: { "reqId": "123" }
+            , url: ''//'http://localhost:8080/SignUpServlet'
+            , method: "POST"
+            , where: { "reqId": id_management }
             , contentType: 'application/json'//必加
             , title: '已注册队伍列表'
             , width: 300
@@ -588,8 +662,8 @@
                 { field: 'team_id', width: 100, title: 'ID', unresize: true, sort: true }
                 , { field: 'team_name', width: 200, title: '队伍名称' }
             ]]
-        }        //修改reqId url
-        //form table区                       //修改请求
+        }
+        //form table区
         layui.use(['form','table'], function () {
             var form = layui.form
                 , layer = layui.layer
@@ -600,8 +674,11 @@
 
             //监听开关
             form.on('switch(team_host)', function (data) {
-                if (data.elem.checked)
+                if (data.elem.checked){
                     team_is_host = true;
+                }else{
+                	team_is_host = false;
+                }
             });
             //监听提交按钮
             form.on('submit(signup_btn)', function (data) {
@@ -609,14 +686,36 @@
                 signup_result.push(data.field.team_account);
                 signup_result.push(team_is_host);
 
-                console.log(signup_result);
-                layer.msg('注册成功！');
+                var that = this;
+                $.ajax({
+                    type: "POST"
+                    , url: "http://localhost:8080/SignUpServlet"
+                    , async: true
+                    , data: JSON.stringify({
+                        "reqId": id_management
+                        , "reqParam": {
+                            "name": signup_result[0]
+                            , "account": signup_result[1]
+                            , "host": signup_result[2]
+                        }
+                    })
+                    , dataType: "json"
+                    , success: function (res) {
+                        console.log(res)
+												console.log(this.data)
+                        console.log(signup_result);
+                        layer.msg('注册成功！');
 
-                team_is_host = false;
-                signup_result = [];
-                document.getElementById("Sign_up_team").reset();
-                table.render(param_signed_up_team);
-
+                        team_is_host = false;
+                        signup_result = [];
+                        document.getElementById("Sign_up_team").reset();
+                        table.render(param_signed_up_team);
+                    },
+                    error: function (err) {
+												console.log(this.data)
+                        console.log(err);
+                    }
+                })
                 return false;
             });
             //表格刷新

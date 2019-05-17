@@ -123,4 +123,12 @@
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/ApplicationServlet</url-pattern>
     </servlet-mapping>
+    <servlet>   
+        <servlet-name>GetPersonInfo</servlet-name>
+        <servlet-class>com.servlet.GetPersonInfo</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetPersonInfo</servlet-name>
+        <url-pattern>/GetPersonInfo</url-pattern>
+    </servlet-mapping>
 </web-app>
