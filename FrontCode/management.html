@@ -202,6 +202,7 @@
         var minTime = "2017-1-11"
             , maxTime = "2017-12-31";
         var data_kid = []
+            , data_kid_name = []
             , data_judge = ""
             , data_date = ""
             , data_time = "11:00-15:00"
@@ -383,10 +384,35 @@
                     data_judge = "";
 
                     console.log(result);
-
-                    table.render(param_kid(result));
-                    table.render(param_judge(result));
-                    table.render(param_arranged(result));
+                    var that = this;
+                    $.ajax({
+                        type: "POST"
+                        , url: ""
+                        , async: true
+                        , data: JSON.stringify({
+                            "reqId": id_management
+                            , "reqParam": {
+                                "itemName": result[0]
+                                , "sex": result[1]
+                                , "ageDelivery": result[2]
+                                , "list": [
+                                    {
+                                        "ath_list": result[3][0]
+                                        , "time": result[3][2]
+                                        , "ref_group": result[3][1]
+                                    }
+                                ]
+                            }
+                        })
+                        , dataType: "json"
+                        , success: function (res) {
+                            console.log(res)
+                            console.log(that.result)
+                            table.render(param_kid(that.result));
+                            table.render(param_judge(that.result));
+                            table.render(param_arranged(that.result));
+                        }
+                    })
                 }
                 else
                     layer.alert("选择有误，请重新选择") 
@@ -472,7 +498,7 @@
             table.on('checkbox(id_name_item_kid)', function (res) {
                 if (res.checked) {
                     //console.log(res.data.id)
-                    data_kid.push(res.data.id);
+                    data_kid.push({ "ath_id": res.data.ath_id, "ath_name": res.data.ath_name });
                 }
                 else {
                     for (let temp in data_kid) {
