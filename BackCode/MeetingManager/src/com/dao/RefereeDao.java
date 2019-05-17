@@ -197,6 +197,44 @@ public class RefereeDao {
         return result;
     }
 
+    public List<ComScoreBean> getCompetitions(String authority){
+        String sql = null;
+        switch (authority){
+            case "裁判":
+                sql = "select com_id,item_name,sex,age from competition natural join m_item where ref_group_id in (select ref_group from referee where ref_id = ?) and exists (select * from participation where competition.com_id = com_id and status = 0)";
+                break;
+            case "总裁判":
+                sql = "select com_id,item_name,sex,age from competition natural join m_item where ref_group_id in (select ref_group_id from refgroup where group_leader = ?) and exists (select * from participation where competition.com_id = com_id and status = 1)";
+                break;
+            case "裁判长":
+                sql = "select com_id,item_name,sex,age from competition natural join m_item where item_id in (select item_id from m_item where chief_ref = ?) and exists (select * from participation where competition.com_id = com_id and status = 2)";
+                break;
+        }
+        Connection conn = null;
+        List<ComScoreBean> list = new ArrayList<>();
+        try {
+            conn = DBUtil.getConnection();
+            PreparedStatement state = conn.prepareStatement(sql);
+            state.setString(1,reqId);
+            ResultSet set = state.executeQuery();
+            ComScoreBean bean;
+            while(set.next()){
+                bean = new ComScoreBean();
+                bean.setCom_id(set.getString(1));
+                bean.setItem_name(set.getString(2));
+                bean.setAge(set.getString(4));
+                bean.setSex(set.getString(3));
+                list.add(bean);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            DBUtil.closeConn(conn);
+            return  list;
+        }
+    }
+
+
     //status 标志评分状态， 0为可以评分，1为所有普通裁判评分完成，2为总裁判通过，3为裁判长通过，即评分结束
     public List<PersonScoreBean> getBasicInfo(String authority){
         List<PersonScoreBean> list = new ArrayList<>();
@@ -235,7 +273,7 @@ public class RefereeDao {
                 s.setItem_name(set.getString("item_name"));
                 if(authority.equals("裁判")&&!isScored(s)){
                     list.add(s);
-                }else if(authority.equals("总裁判")) {
+                }else if(!authority.equals("裁判")) {
                     list.add(s);
                 }
             }

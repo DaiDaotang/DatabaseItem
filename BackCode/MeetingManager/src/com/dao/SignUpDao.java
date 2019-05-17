@@ -89,7 +89,7 @@ public class SignUpDao {
                 bean.setPosition("队医");
                 list.add(bean);
             }
-            PreparedStatement state4 = conn.prepareStatement("select co_name,tel,identification from captain where team_id = ?");
+            PreparedStatement state4 = conn.prepareStatement("select co_name,tel,identification,sex from captain where team_id = ?");
             state4.setString(1,team_id);
             ResultSet set4 = state4.executeQuery();
             while(set4.next()){
@@ -97,6 +97,7 @@ public class SignUpDao {
                 bean.setName(set4.getString(1));
                 bean.setTel(set4.getString(2));
                 bean.setId_card(set4.getString(3));
+                bean.setSex(set4.getString(4));
                 bean.setPosition("教练");
                 list.add(bean);
             }
