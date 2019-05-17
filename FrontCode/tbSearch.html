@@ -28,7 +28,7 @@
 					<select name="item_select" id="select_item" lay-filter="select_item"></select>
 				</div>
 				<div class="layui-input-inline">
-					<select name="age_select" id="age_select">
+					<select name="age_select" id="select_age" lay-filter="select_age">
 						<option value="7-8">7-8岁</option>
 						<option value="9-10">9-10岁</option>
 						<option value="11-12">11-12岁</option>
@@ -57,15 +57,40 @@
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 --> 
  
 	<script>
+	
+		var result = [
+			""    //itemName
+			,""   //sex
+			,"7-8"//age
+			,[]
+			,com_id = ""
+		];
+		
 		//url 可能要重新写
 		var param_gameType = function(res){return{
 			elem: '#gameType'
 			,id:'table_gameType'
-			,url:'user.json'
+			,url:'http://localhost:8080/CheckSchedule'
+			,title:'组别表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				return{
+					code:0,msg:"",count:1000,data:res.resData
+				}
+			}
+			,where:{
+				"reqId":"",
+				"reqParam":{
+					itemName:result[0],
+					age:result[2],
+					sex:result[1]
+				}
+			}
 			,cols: [[
 				{type:'radio'}
 				,{field:'gameType', width:200, title: '组别'}
-				,{field:'gameType', width:150, title: '时间'}
+				,{field:'gameId', width:150, title: '组号'}
 				,{field:'state', width:150, title: '状态'}
 			]]
 			,page: false
@@ -75,7 +100,25 @@
 		var param_playerDetails = function(res){return{
 			elem: '#playerDetails'
 			,id:'table_playerDetails'
-			,url:'user.json'
+			,url:'http://localhost:8080/GetResultByItem'
+			,title:'运动员列表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				return{
+					code:0,msg:"",count:1000,data:res.resData
+				}
+			}
+			,where:{
+				"reqId":"",
+				"reqParam":{
+					itemName:result[0],
+					ageDelivery:result[2],
+					sex:result[1],
+					com_id:result[4]
+					//组号
+				}
+			}
 			,cols: [[
 				{field:'id', width:80, title: '排名', sort: true}
 				,{field:'playerId', width:120, title: '运动员编号'}
@@ -96,10 +139,11 @@
             
             //监听查询
             form.on('submit(find_btn)', function (data) {
-                layer.msg("按钮点击了");
-				table.render(param_gameType("SS"));
-				table.render(param_playerDetails("aa"));
-                return false;
+				result[3] = [];
+				console.log(result);
+				table.render(param_gameType(result));
+				table.render(param_playerDetails(result));
+                //return false;
             });
 			
 			//改变单选框内容
@@ -115,12 +159,31 @@
                 
             });
 			
+			//获得下拉查询条件
+			form.on('select(select_item)', function (data) {
+                result[0] = data.value;
+                console.log(data.value);
+                console.log(result[0]);
+            });
+			
+            form.on('select(select_age)', function (data) {
+                result[2] = data.value;
+				console.log(result[2]);
+            });
+			
+			//表单初始赋值
+            form.val('searchForm', {
+                "select_gender": ""
+                , "select_item": ""
+                , "select_age": "7-8"
+            });
+			
+			//获取radio行的数据
 			table.on("radio(gameType)",function(data){
 				console.log(data.data)
 				table.render(param_playerDetails("aa"));
+				result[4] = data.data.gameId;
 			});
-			
-			
             
 		});
   
