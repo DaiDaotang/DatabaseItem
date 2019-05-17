@@ -205,7 +205,7 @@
             , data_kid_name = []
             , data_judge = ""
             , data_date = ""
-            , data_time = "11:00-15:00"
+            , data_time = "13:00"
             , data_arrangement = []
             , result = [
                 ""                     //  itemName    
@@ -380,14 +380,13 @@
                         , data_date + " " + data_time   //time
                     ]
                     result[3].push(data_temp);
-                    data_kid = [];
-                    data_judge = "";
+                    
 
                     console.log(result);
                     var that = this;
                     $.ajax({
                         type: "POST"
-                        , url: ""
+                        , url: "http://localhost:8080/ArrangeSchedule"
                         , async: true
                         , data: JSON.stringify({
                             "reqId": id_management
@@ -395,11 +394,11 @@
                                 "itemName": result[0]
                                 , "sex": result[1]
                                 , "ageDelivery": result[2]
-                                , "list": [
+                                , "group_lists": [
                                     {
-                                        "ath_list": result[3][0]
-                                        , "time": result[3][2]
-                                        , "ref_group": result[3][1]
+                                        "ath_lists": result[3][0][0]
+                                        , "time": result[3][0][2]
+                                        , "ref_group": result[3][0][1]
                                     }
                                 ]
                             }
@@ -408,9 +407,14 @@
                         , success: function (res) {
                             console.log(res)
                             console.log(that.result)
-                            table.render(param_kid(that.result));
-                            table.render(param_judge(that.result));
-                            table.render(param_arranged(that.result));
+                            data_kid = [];
+                    				data_judge = "";
+                            table.render(param_kid(result));
+                            table.render(param_judge(result));
+                            table.render(param_arranged(result));
+                        },
+                        error:function(err){
+                        	console.log(err);
                         }
                     })
                 }
@@ -522,7 +526,7 @@
                 layer.alert(JSON.stringify(data));
             });
             table.on('radio(groupnumber_judge)', function (res) {
-                data_judge = res.data;
+                data_judge = res.data.ref_group_id;
                 //console.log(data_judge);
             });
 
