@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>裁判评分界面</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+  <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+        <legend>裁判评分</legend>
+	</fieldset>
+	
+	<div style="text-align: center;">
+		<div class="layui-input-inline">
+			<table class="layui-hide" id="gameType" lay-filter="gameType"></table>
+		</div>
+	</div>
+	
+	<div style="width: 100%; position: relative;left:10%;">
+	<form class="layui-form layui-form-pane" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目</label>
+            <div class="layui-input-inline">
+                <select name="gender_select" lay-filter="select_gender">
+                    <option value="">请选择性别</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
+			<!--这里可以选择体操的项目-->
+            <div class="layui-input-inline">
+                <select name="item_select" id="select_item"></select>
+            </div>
+            <div class="layui-input-inline">
+				<select name="age_select" id="select_age">
+                    <option value="7-8">7-8岁</option>
+                    <option value="9-10">9-10岁</option>
+                    <option value="11-12">11-12岁</option>
+                </select>
+            </div>
+			<label class="layui-form-label">组号</label>
+				<div class="layui-input-inline">
+					<input class="layui-input" name="group" id="group"></input>
+				</div>
+            <div class="layui-input-inline">
+                <button class="layui-btn" lay-submit="" lay-filter="choose_btn"><i class="layui-icon layui-icon-search"></i></button>
+            </div>
+        </div>
+    </form>
+	</div>
+	
+	<div style="text-align: center;">
+		<div class="layui-input-inline">
+			<table class="layui-hide" id="scoring" lay-filter="scoring"></table>
+		</div>
+	</div>
+	<center>
+	<div class="layui-input-inline">
+		<button class="layui-btn" lay-submit="" lay-filter="submit_btn">提交</button>
+	</div>
+	</center>
+<script src="layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+	var param_gameType = function(res){return{
+		elem: '#gameType'
+		,id:'table_gameType'
+		,url:'user.json'
+		,cols: [[
+			{field:'gameType', width:200, title: '组别'}
+			,{field:'gameTime', width:150, title: '时间'}
+			,{field:'group', width:150, title: '组号'}
+			,{field:'state', width:150, title: '状态'}
+			
+		]]
+		,page: false
+	}};
+	
+	var param_scoring = function(res){return{
+		elem: '#scoring'
+		,id:'table_scoring'
+		,url:'user.json'
+		,cols: [[
+			{field:'gameType', width:200, title: '组别'}
+			,{field:'playerId', width:120, title: '运动员编号'}
+			,{field:'playerName', width:120, title: '运动员'}
+			,{field:'playerTeam',width:120,title:'队伍'}
+			,{field:'score', width:120, title: '分数',edit:'text'}
+		]]
+		,page: false
+	}};
+	
+	
+	layui.use('table', function(){
+		var table = layui.table
+			,layer = layui.layer
+			,form = layui.form;
+		
+		//init the table
+		table.render(param_gameType("11"));
+		table.render(param_scoring("11"));
+  
+		//监听单元格编辑
+		table.on('edit(scoring)', function(obj){
+			var value = obj.value //得到修改后的值
+			,data = obj.data //得到所在行所有键值
+			,field = obj.field; //得到字段
+			layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+		});
+		
+		
+	});
+	
+	//form区
+	layui.use(['form','table'], function () {
+		var form = layui.form
+			, layer = layui.layer
+			, table = layui.table
+			, $ = layui.$;
+
+		//监听查询
+		form.on('submit(choose_btn)', function (data) {
+			layer.msg("按钮点击了");
+			table.render(param_gameType("aa"));
+			table.render(param_scoring("bb"));
+		
+			return false;
+		});
+		
+		//监听下一个打分的按钮
+		form.on('submit(submit_btn)',function(){
+			table.render(param_scoring("12"));
+			layer.msg("next");
+		});
+		
+		
+		
+			
+		//改变单选框内容
+		form.on('select(select_gender)', function (data) {
+			console.log(data.value); //得到被选中的值
+			if (data.value == '男') {
+				document.getElementById('select_item').innerHTML = "<option value='单杠'>单杠</option><option value='双杠'>双杠</option><option value='吊环'>吊环</option><option value='跳马'>跳马</option><option value='自由体操'>自由体操</option><option value='鞍马'>鞍马</option><option value='蹦床'>蹦床</option>"
+				form.render('select');
+			} else if (data.value == '女') {
+				document.getElementById('select_item').innerHTML = "<option value='跳马'>跳马</option><option value='高低杠'>高低杠</option><option value='平衡木'>平衡木</option><option value='自由体操'>自由体操</option><option value='蹦床'>蹦床</option>"
+				form.render('select');
+			}
+                
+		});
+  
+});
+</script>
+</script>
+
+</body>
+</html>
