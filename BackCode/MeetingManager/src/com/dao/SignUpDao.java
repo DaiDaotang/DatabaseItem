@@ -121,10 +121,11 @@ public class SignUpDao {
             state.setString(1,bean.getAccount());
             state.setString(2,String.valueOf(setID()));
             state.executeUpdate();
-            String sql2 ="INSERT INTO team (TEAM_ID,TEAM_NAME, PASSWORD) VALUES (?,?,'12345')";
+            String sql2 ="INSERT INTO team (TEAM_ID,TEAM_NAME, PASSWORD,host) VALUES (?,?,'12345',?)";
             state2 = conn.prepareStatement(sql2);
             state2.setString(1,setID());
             state2.setString(2,bean.getName());
+            state2.setBoolean(3,bean.isHost());
             state2.executeUpdate();
             conn.commit();
         }catch (SQLException e){

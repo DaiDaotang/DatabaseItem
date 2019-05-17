@@ -589,37 +589,36 @@
                     temp_name = "judge_name_" + i;
                     if (data.field[temp_name] == "")
                         break;
-                    temp = [
-                        {
+                    temp ={
                             "name": document.getElementById("judge_name_" + i).value
                             , "id_card": document.getElementById("judge_idcard_" + i).value
                             , "tel": document.getElementById("judge_tel_" + i).value
                             , "account": document.getElementById("judge_account_" + i).value
-                        }
-                    ]
+                     };
                     result_judge[4].push(temp);
                     temp = [];
                 }
-
+								console.log(result_judge);
                 var that = this;
                 $.ajax({
                     type: "POST"
-                    , url: ""
+                    , url: "http://localhost:8080/InputReferee"
                     , async: true
                     , data: JSON.stringify({
                         "reqId": id_management
                         , "reqParam": {
-                            "ref_master": that.result_judge[0]
-                            , "id_card": that.result_judge[1]
-                            , "tel": that.result_judge[2]
-                            , "account": that.result_judge[3]
-                            , "ref_list": that.result_judge[4]
+                            "ref_master": result_judge[0]
+                            , "id_card": result_judge[1]
+                            , "tel": result_judge[2]
+                            , "account": result_judge[3]
+                            , "ref_lists": result_judge[4]
                         }
                     })
                     , dataType: "json"
                     , success: function (res) {
                         console.log(res)
-
+												
+                    	console.log(this.data);
                         layer.msg('注册成功！');
                         console.log(result_judge);
                         result_judge = [
@@ -632,6 +631,7 @@
                         document.getElementById("Sign_up_judge").reset();
                     },
                     error: function (err) {
+                    	console.log(data);
                         console.log(err);
                     }
                 })
@@ -642,7 +642,7 @@
         /////////////////////////////////////////////////////////////////////队伍注册
         var param_signed_up_team = {
             elem: '#signed_up_team'
-            , url: ''
+            , url: ''//'http://localhost:8080/SignUpServlet'
             , method: "POST"
             , where: { "reqId": id_management }
             , contentType: 'application/json'//必加
@@ -668,8 +668,11 @@
 
             //监听开关
             form.on('switch(team_host)', function (data) {
-                if (data.elem.checked)
+                if (data.elem.checked){
                     team_is_host = true;
+                }else{
+                	team_is_host = false;
+                }
             });
             //监听提交按钮
             form.on('submit(signup_btn)', function (data) {
@@ -680,29 +683,30 @@
                 var that = this;
                 $.ajax({
                     type: "POST"
-                    , url: ""
+                    , url: "http://localhost:8080/SignUpServlet"
                     , async: true
                     , data: JSON.stringify({
                         "reqId": id_management
                         , "reqParam": {
-                            "name": that.signup_result[0]
-                            , "account": that.signup_result[1]
-                            , "host": that.signup_result[2]
+                            "name": signup_result[0]
+                            , "account": signup_result[1]
+                            , "host": signup_result[2]
                         }
                     })
                     , dataType: "json"
                     , success: function (res) {
                         console.log(res)
-
+												console.log(this.data)
                         console.log(signup_result);
                         layer.msg('注册成功！');
 
                         team_is_host = false;
-                        that.signup_result = [];
+                        signup_result = [];
                         document.getElementById("Sign_up_team").reset();
                         table.render(param_signed_up_team);
                     },
                     error: function (err) {
+												console.log(this.data)
                         console.log(err);
                     }
                 })
