@@ -116,7 +116,7 @@ public class ApplicationDao {
                 {
                     if(ath.getSex()=="男")
                     {
-                        s1 = conn.prepareStatement("select count(*) from natural join athletes where host = 0 group by athsex having athsex='男'");
+                        s1 = conn.prepareStatement("select count(*) from team natural join athletes where host = 0 group by athsex having athsex='男'");
                         ResultSet set1 = s1.executeQuery();
                         if(set1.next())
                         {
@@ -138,7 +138,7 @@ public class ApplicationDao {
                     }
                     else if(ath.getSex()=="女")
                     {
-                        s2 = conn.prepareStatement("select count(*) from natural join athletes where host = 0 group by athsex having athsex='女'");
+                        s2 = conn.prepareStatement("select count(*) from team natural join athletes where host = 0 group by athsex having athsex='女'");
                         ResultSet set2 = s2.executeQuery();
                         if(set2.next())
                         {
@@ -167,7 +167,7 @@ public class ApplicationDao {
                 {
                     if(ath.getSex()=="男")
                     {
-                        s1 = conn.prepareStatement("select count(*) from natural join athletes where host > 0 group by athsex having athsex='男'");
+                        s1 = conn.prepareStatement("select count(*) from team natural join athletes where host > 0 group by athsex having athsex='男'");
                         ResultSet set1 = s1.executeQuery();
                         if(set1.next())
                         {
@@ -189,7 +189,7 @@ public class ApplicationDao {
                     }
                     else if(ath.getSex()=="女")
                     {
-                        s2 = conn.prepareStatement("select count(*) from natural join athletes where host > 0 group by athsex having athsex='女'");
+                        s2 = conn.prepareStatement("select count(*) from team natural join athletes where host > 0 group by athsex having athsex='女'");
                         ResultSet set2 = s2.executeQuery();
                         if(set2.next())
                         {

@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>$Title$</title>
+    <script src="jquery-3.3.1.min.js" charset="UTF-8"></script>
+</head>
+<body>
+$END$
+</body>
+<script>
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:8080/GetTeam",
+        async:true,
+        data:JSON.stringify({
+            "reqId":"000",
+            "reqParam":{
+
+            }
+        }),
+        dataType:"json",
+        success:function(res){
+            console.log(res);
+        },
+        err:function(err){
+            console.log(err);
+        }
+    });
+    console.log("fail");
+</script>
+</html>

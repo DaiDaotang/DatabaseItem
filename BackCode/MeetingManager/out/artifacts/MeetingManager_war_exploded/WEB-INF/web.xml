@@ -116,20 +116,35 @@
         <url-pattern>/InputReferee</url-pattern>
     </servlet-mapping>
     <servlet>
-<<<<<<< HEAD
         <servlet-name>ApplicationServlet</servlet-name>
         <servlet-class>com.servlet.ApplicationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ApplicationServlet</servlet-name>
         <url-pattern>/ApplicationServlet</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet>   
         <servlet-name>GetPersonInfo</servlet-name>
         <servlet-class>com.servlet.GetPersonInfo</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetPersonInfo</servlet-name>
         <url-pattern>/GetPersonInfo</url-pattern>
->>>>>>> b805c29a27d9432efaf413a233dd6ad50d8e7fa4
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetCompetition</servlet-name>
+        <servlet-class>com.servlet.GetCompetition</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCompetition</servlet-name>
+        <url-pattern>/GetCompetition</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetTeam﻿</servlet-name>
+        <servlet-class>com.servlet.GetTeam</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetTeam﻿</servlet-name>
+        <url-pattern>/GetTeam﻿</url-pattern>
     </servlet-mapping>
 </web-app>
