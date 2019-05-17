@@ -17,9 +17,7 @@
         <form class="layui-form" action="" id="ath_info_form">
             <div class="layui-form-item">
                 <label class="layui-form-label">队伍名称</label>
-                <div class="layui-input-block">
-                    <input type="text" value="" name="team_name" id="team_name" lay-filter="team_name" autocomplete="off" class="layui-input" readonly style="width: 190px;">
-                </div>
+                <span id="team_name_span" class="layui-form-label"></span>
             </div>
             <div class="layui-form-item">
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 25px;">
@@ -102,9 +100,9 @@
     <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
     <script>
         /////////////////////////////////////////////////////////////////////reqId
-        var team_id = "123";
-        var url_team_sign_up = "";
-        var team_name = "队伍名称";
+        var team_id = window.localStorage.id;
+        var url_team_sign_up = "http://localhost:8080/ApplicationServlet";
+        var team_name = window.localStorage.name;
         var team_ath_boy = parseInt(window.localStorage.team_ath_boy)
             , team_ath_girl = parseInt(window.localStorage.team_ath_girl);
 
@@ -115,7 +113,7 @@
                 , $ = layui.$;
 
             console.log(team_ath_boy);
-            document.getElementById("team_name").value = team_name;
+            document.getElementById("team_name_span").innerHTML += team_name;
 
             document.getElementById("ath_info_form").innerHTML += '<div class="layui-form-item"><fieldset class="layui-elem-field layui-field-title" style = "margin-top: 25px;" ><legend>运动员信息</legend></fieldset >';
             for (var team_ath_num_have = 0; team_ath_num_have < team_ath_boy; team_ath_num_have++) {
@@ -161,42 +159,42 @@
                     }
                     if (temp.sex == "男") {
                         if (res.field["DG_" + i] == 'on') {
-                            temp.item.push("单杠")
+                            temp.item.push({ "item": "单杠" })
                         }
                         if (res.field["SG_" + i] == 'on') {
-                            temp.item.push("双杠")
+                            temp.item.push({ "item": "双杠" })
                         }
                         if (res.field["DH_" + i] == 'on') {
-                            temp.item.push("吊环")
+                            temp.item.push({ "item": "吊环" })
                         }
                         if (res.field["TM_" + i] == 'on') {
-                            temp.item.push("跳马")
+                            temp.item.push({ "item": "跳马" })
                         }
                         if (res.field["ZYTC_" + i] == 'on') {
-                            temp.item.push("自由体操")
+                            temp.item.push({ "item": "自由体操" })
                         }
                         if (res.field["AM_" + i] == 'on') {
-                            temp.item.push("鞍马")
+                            temp.item.push({ "item": "鞍马" })
                         }
                         if (res.field["BC_" + i] == 'on') {
-                            temp.item.push("蹦床")
+                            temp.item.push({ "item": "蹦床" })
                         }
                     }
                     else {
                         if (res.field["TM_" + i] == 'on') {
-                            temp.item.push("跳马")
+                            temp.item.push({ "item": "跳马" })
                         }
                         if (res.field["GDG_" + i] == 'on') {
-                            temp.item.push("高低杆")
+                            temp.item.push({ "item": "高低杆" })
                         }
                         if (res.field["PHM_" + i] == 'on') {
-                            temp.item.push("平衡木")
+                            temp.item.push({ "item": "平衡木" })
                         }
                         if (res.field["ZYTC_" + i] == 'on') {
-                            temp.item.push("自由体操")
+                            temp.item.push({ "item": "自由体操" })
                         }
                         if (res.field["BC_" + i] == 'on') {
-                            temp.item.push("蹦床")
+                            temp.item.push({ "item": "蹦床" })
                         }
                     }
                     if (i == 0)
@@ -223,8 +221,7 @@
                         console.log(err);
                     }
                 });
-
-                return false;
+                return true;
             });
         });
     </script>

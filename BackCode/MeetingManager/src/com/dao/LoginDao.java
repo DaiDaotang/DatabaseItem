@@ -50,13 +50,13 @@ public class LoginDao {
     public void getName(ResponseBean<LoginBean> loginResp){
         String id = loginResp.getReqId();
         String authority = loginResp.getResData().getAuthority();
+        Connection conn = null;
         try {
-            connection = DBUtil.getConnection();
-            connection.setAutoCommit(false);
+            conn = DBUtil.getConnection();
             String sql = "";
             switch (authority){
                 case "代表队":
-                    sql = "select team_name from squad where team_id = ?";
+                    sql = "select team_name from team where team_id = ?";
                     LoginBean loginBean = loginResp.getResData();
                     boolean isSignUp = isSignUp(id,loginBean);
                     loginBean.setSignUp(isSignUp);
@@ -68,28 +68,17 @@ public class LoginDao {
                     loginResp.getResData().setName("管理员");
                     return;
             }
-            prestatement = connection.prepareStatement(sql);
+            prestatement = conn.prepareStatement(sql);
             prestatement.setString(1,id);
             resultSet = prestatement.executeQuery();
             if(resultSet.next()){
                 String name = resultSet.getString(1);
-                connection.commit();
                 loginResp.getResData().setName(name);
             }
         }catch (SQLException e){
-            try{
-                if(connection!=null) connection.rollback();
-            }catch (SQLException e1){
-                e1.printStackTrace();
-            }
+            e.printStackTrace();
         }finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (prestatement != null) prestatement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e2) {
-                e2.printStackTrace();
-            }
+            DBUtil.closeConn(conn);
         }
     }
 

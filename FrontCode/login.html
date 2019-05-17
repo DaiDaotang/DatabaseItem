@@ -132,12 +132,20 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   			console.log(res);
   			window.localStorage.id = res.reqId;
   			window.localStorage.authority = res.resData.authority;
-  			window.localStorage.name = res.resData.name;
-  			if(res.resData.authority=="管理员"){
-  				window.location.href="./management.html";
-  			}else{
-  				//todo:跳转到非管理员页面
-  			}
+                window.localStorage.name = res.resData.name;
+                if (!res.isSuccess) {
+                    //todo:提示登录失败
+                    return;
+                }
+                if (res.resData.authority == "管理员") {
+                    window.location.href = "./management.html";
+                    window.event.returnValue = false;
+                } else if (res.resData.authority == "代表队" && res.resData.isSignUp) {
+                    //todo:跳转到非管理员页面
+                } else if (res.resData.authority == "代表队" && !res.resData.isSignUp) {
+                    window.location.href = "./team_ask_for_count.html";
+                    window.event.returnValue = false;
+                }
   		},
   		err:function(err){
   			console.log(err);
