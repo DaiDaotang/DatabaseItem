@@ -340,10 +340,10 @@
                     }
                 }
                 , cols: [[
-                    { field: 'com_id', width: 85, title: '组号', sort: true }
+                    { field: 'com_id', width: 185, title: '组号', sort: true }
                     , { field: 'amount', width: 65, title: '人数' }
                     , { field: 'ref_group_id', width: 80, title: '裁判组' }
-                    , { field: 'time', width: 305, title: '时间' }
+                    , { field: 'time', width: 205, title: '时间' }
                 ]]
             };
 
@@ -586,23 +586,55 @@
                 result_judge[2] = data.field.judge_master_tel;
                 result_judge[3] = data.field.judge_master_account;
                 for (var i = 0; i < 4; i++) {
+                    temp_name = "judge_name_" + i;
                     if (data.field[temp_name] == "")
                         break;
-                    temp_name = "judge_name_" + i;
-                    temp.push(document.getElementById(temp_name).value);
-                    temp_name = "judge_idcard_" + i;
-                    temp.push(document.getElementById(temp_name).value);
-                    temp_name = "judge_tel_" + i;
-                    temp.push(document.getElementById(temp_name).value);
-                    temp_name = "judge_account_" + i;
-                    temp.push(document.getElementById(temp_name).value);
+                    temp = [
+                        {
+                            "name": document.getElementById("judge_name_" + i).value
+                            , "id_card": document.getElementById("judge_idcard_" + i).value
+                            , "tel": document.getElementById("judge_tel_" + i).value
+                            , "account": document.getElementById("judge_account_" + i).value
+                        }
+                    ]
                     result_judge[4].push(temp);
                     temp = [];
                 }
 
-                layer.msg('注册成功！');
-                console.log(result_judge);
-                document.getElementById("Sign_up_judge").reset();
+                var that = this;
+                $.ajax({
+                    type: "POST"
+                    , url: ""
+                    , async: true
+                    , data: JSON.stringify({
+                        "reqId": id_management
+                        , "reqParam": {
+                            "ref_master": that.result_judge[0]
+                            , "id_card": that.result_judge[1]
+                            , "tel": that.result_judge[2]
+                            , "account": that.result_judge[3]
+                            , "ref_list": that.result_judge[4]
+                        }
+                    })
+                    , dataType: "json"
+                    , success: function (res) {
+                        console.log(res)
+
+                        layer.msg('注册成功！');
+                        console.log(result_judge);
+                        result_judge = [
+                            ""
+                            , ""
+                            , ""
+                            , ""
+                            , []
+                        ]
+                        document.getElementById("Sign_up_judge").reset();
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
                 return false;
             })
         });        
@@ -645,14 +677,35 @@
                 signup_result.push(data.field.team_account);
                 signup_result.push(team_is_host);
 
-                console.log(signup_result);
-                layer.msg('注册成功！');
+                var that = this;
+                $.ajax({
+                    type: "POST"
+                    , url: ""
+                    , async: true
+                    , data: JSON.stringify({
+                        "reqId": id_management
+                        , "reqParam": {
+                            "name": that.signup_result[0]
+                            , "account": that.signup_result[1]
+                            , "host": that.signup_result[2]
+                        }
+                    })
+                    , dataType: "json"
+                    , success: function (res) {
+                        console.log(res)
 
-                team_is_host = false;
-                signup_result = [];
-                document.getElementById("Sign_up_team").reset();
-                table.render(param_signed_up_team);
+                        console.log(signup_result);
+                        layer.msg('注册成功！');
 
+                        team_is_host = false;
+                        that.signup_result = [];
+                        document.getElementById("Sign_up_team").reset();
+                        table.render(param_signed_up_team);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                })
                 return false;
             });
             //表格刷新
