@@ -1,6 +1,7 @@
 package com.servlet;
 
 import com.bean.ComScoreBean;
+import com.bean.PersonScoreBean;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
 import com.dao.RefereeDao;
@@ -34,13 +35,13 @@ public class GetScores3 extends HttpServlet {
 
 
         Gson gson = new Gson();
-        Type requestType = new TypeToken<RequestBean>(){}.getType();
-        RequestBean requestBean = gson.fromJson(content,requestType);
+        Type requestType = new TypeToken<RequestBean<ComScoreBean>>(){}.getType();
+        RequestBean<ComScoreBean> requestBean = gson.fromJson(content,requestType);
         RefereeDao dao = new RefereeDao(requestBean);
-        ResponseBean<List<ComScoreBean>> responseBean = new ResponseBean<>();
+        ResponseBean<List<PersonScoreBean>> responseBean = new ResponseBean<>();
         responseBean.setReqId(requestBean.getReqId());
-        responseBean.setResData(dao.getComList());
-        Type responseType = new TypeToken<ResponseBean<List<ComScoreBean>>>(){}.getType();
+        responseBean.setResData(dao.getScoreLists("裁判长",requestBean.getReqParam().getCom_id()));
+        Type responseType = new TypeToken<ResponseBean<List<PersonScoreBean>>>(){}.getType();
         String resp = gson.toJson(responseBean,responseType);
         try{
             out.print(resp);

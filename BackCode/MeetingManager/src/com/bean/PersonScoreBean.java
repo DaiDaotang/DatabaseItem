@@ -6,9 +6,6 @@ public class PersonScoreBean {
     private String ath_id;
     private String ath_name;
     private String com_id;
-    private String item_name;
-    private String sex;
-    private String age;
     private double D;
     private double P;
     private String bigReferee;//小组总裁判名字
@@ -58,17 +55,11 @@ public class PersonScoreBean {
         return ath_name;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 
     public void setCom_id(String com_id) {
         this.com_id = com_id;
     }
 
-    public String getSex() {
-        return sex;
-    }
 
     public String getCom_id() {
         return com_id;
@@ -86,21 +77,11 @@ public class PersonScoreBean {
         return scores;
     }
 
-    public String getAge() {
-        return age;
-    }
 
     public String getBigReferee() {
         return bigReferee;
     }
 
-    public String getItem_name() {
-        return item_name;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
 
     public void setBigReferee(String bigReferee) {
         this.bigReferee = bigReferee;
@@ -110,9 +91,6 @@ public class PersonScoreBean {
         D = d;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
-    }
 
     public void setP(double p) {
         P = p;

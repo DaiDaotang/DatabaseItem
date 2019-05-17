@@ -19,18 +19,18 @@ public class ComScoreBean {
 
     public ComScoreBean(PersonScoreBean bean){
         this.com_id = bean.getCom_id();
-        this.item_name = bean.getItem_name();
-        this.sex = bean.getSex();
-        this.age = bean.getAge();
+//        this.item_name = bean.getItem_name();
+//        this.sex = bean.getSex();
+//        this.age = bean.getAge();
         this.bigReferee = bean.getBigReferee();
         athletes = new ArrayList<>();
     }
 
     public boolean addAthlete(PersonScoreBean bean){
         if(athletes.size()==0||bean.getCom_id().equals(com_id)){
-            bean.setItem_name(null);
-            bean.setSex(null);
-            bean.setAge(null);
+//            bean.setItem_name(null);
+//            bean.setSex(null);
+//            bean.setAge(null);
             bean.setCom_id(null);
             bean.setBigReferee(null);
             athletes.add(bean);

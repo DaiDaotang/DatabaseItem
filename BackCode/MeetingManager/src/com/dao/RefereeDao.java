@@ -179,23 +179,23 @@ public class RefereeDao {
         return true;
     }
 
-    public List<ComScoreBean> getComList(){
-        List<PersonScoreBean> list = getScoreLists("裁判长");
-        if(list.size()<1){
-            return null;
-        }
-        List<ComScoreBean> result = new ArrayList<>();
-        ComScoreBean bean = new ComScoreBean(list.get(0));
-        for (PersonScoreBean s:
-             list) {
-            if(!bean.addAthlete(s)){
-                result.add(bean);
-                bean = new ComScoreBean(s);
-            }
-        }
-        result.add(bean);
-        return result;
-    }
+//    public List<PersonScoreBean> getComList(String com_id){
+//        List<PersonScoreBean> list = getScoreLists("裁判长",com_id);
+//        if(list.size()<1){
+//            return null;
+//        }
+//        List<PersonScoreBean> result = new ArrayList<>();
+//        ComScoreBean bean = new ComScoreBean(list.get(0));
+//        for (PersonScoreBean s:
+//             list) {
+//            if(!bean.addAthlete(s)){
+//                result.add(bean);
+//                bean = new ComScoreBean(s);
+//            }
+//        }
+//        result.add(bean);
+//        return result;
+//    }
 
     public List<ComScoreBean> getCompetitions(String authority){
         String sql = null;
@@ -236,11 +236,11 @@ public class RefereeDao {
 
 
     //status 标志评分状态， 0为可以评分，1为所有普通裁判评分完成，2为总裁判通过，3为裁判长通过，即评分结束
-    public List<PersonScoreBean> getBasicInfo(String authority){
+    public List<PersonScoreBean> getBasicInfo(String authority,String com_id){
         List<PersonScoreBean> list = new ArrayList<>();
         Connection conn = null;
-        PreparedStatement state = null;
-        ResultSet set = null;
+        PreparedStatement state = null,state2 = null;
+        ResultSet set = null,set2 = null;
         try{
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
@@ -248,29 +248,36 @@ public class RefereeDao {
             switch(authority){
                 case "裁判":
                     //是不是可以用not exists语句？
-                    sql = "select ath_id, ath_name, com_id, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 0 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from referee where ref_id = ?))";
+                    sql = "select ath_id, ath_name,com_id , P, D from participation where status = 0 and com_id = ?";
                     break;
                 case "总裁判":
-                    sql = "select ath_id, ath_name, com_id, item_name, sex, age, P, D from competition natural join participation natural join m_item where status = 1 and com_id in (select com_id from competition where ref_group_id in (select ref_group_id from refgroup where group_leader = ?))";
+                    sql = "select ath_id, ath_name, com_id, P, D from participation where status = 1 and com_id = ? ";
                     break;
                 case "裁判长":
-                    sql = "select ath_id, ath_name, com_id, item_name, sex, age, P, D from competiton natural join participation natural join m_item where status = 2 and chief_ref = ? order by com_id";
+                    sql = "select ath_id, ath_name, com_id, P, D from participation  where status = 2 and com_id = ?";
                     break;
             }
             state = conn.prepareStatement(sql);
-            state.setString(1,reqId);
+            state.setString(1,com_id);
             set = state.executeQuery();
             PersonScoreBean s;
+            String ref_master = "";
+            if(authority.equals("裁判长")){
+                state2 = conn.prepareStatement("select ref_name from referee natural join refgroup natural join competition where com_id = ?");
+                state2.setString(1,com_id);
+                set2 = state2.executeQuery();
+                if(set2.next()){
+                    ref_master = set2.getString(1);
+                }
+            }
             while(set.next()) {
                 s = new PersonScoreBean();
-                s.setAge(set.getString("age"));
                 s.setAth_id(set.getString("ath_id"));
                 s.setAth_name(set.getString("ath_name"));
                 s.setCom_id(set.getString("com_id"));
-                s.setSex(set.getString("sex"));
                 s.setP(set.getDouble("P"));
                 s.setD(set.getDouble("D"));
-                s.setItem_name(set.getString("item_name"));
+                s.setBigReferee(ref_master);
                 if(authority.equals("裁判")&&!isScored(s)){
                     list.add(s);
                 }else if(!authority.equals("裁判")) {
@@ -287,8 +294,8 @@ public class RefereeDao {
 
 
 
-    public List<PersonScoreBean> getScoreLists(String authority){
-        List<PersonScoreBean> list = getBasicInfo(authority);
+    public List<PersonScoreBean> getScoreLists(String authority,String com_id){
+        List<PersonScoreBean> list = getBasicInfo(authority,com_id);
         Connection conn = null;
         PreparedStatement state = null;
         ResultSet set = null;
@@ -354,7 +361,7 @@ public class RefereeDao {
         PreparedStatement state;
         String sql = "update participation set status = 1 where com_id = ? and ath_id in (" +
                 "select ath_id from scores where com_id = ? group by (ath_id,com_id) having count(*) = (" +
-                "select count(*) from referee group by ref_group having ref_group in (" +
+                "select count(*)-1 from referee group by ref_group having ref_group in (" +
                 "select ref_group_id from competition where com_id = ?)))";
         try {
             conn = DBUtil.getConnection();
