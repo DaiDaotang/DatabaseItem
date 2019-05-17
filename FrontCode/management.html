@@ -200,7 +200,6 @@
         /////////////////////////////////////////////////////////////////////reqId                          //改
         var id_management = "123";
         /////////////////////////////////////////////////////////////////////赛事安排
-        var check_param = [];
         var minTime = "2017-1-11"
             , maxTime = "2017-12-31";
         var data_kid = []
@@ -362,18 +361,14 @@
 
             //监听查询
             form.on('submit(find_btn)', function (data) {
-                check_param.push(data.field.item_select);
-                check_param.push(data.field.gender_select);
-                check_param.push(data.field.age_select);
                 console.log(result);
                 table.render(param_kid(result));
                 table.render(param_judge(result));
                 table.render(param_arranged(result));
-                check_param = [];
                 return false;
             });
 
-            //监听添加按钮                                    //增加post请求
+            //监听添加按钮
             form.on('submit(add_btn)', function (obj) {
                 if (data_judge != "" && data_kid.length != 0 && data_date != "") {
                     var data_temp = [
@@ -382,7 +377,6 @@
                         , data_date + " " + data_time   //time
                     ]
                     result[3].push(data_temp);
-                    
 
                     console.log(result);
                     var that = this;
@@ -410,18 +404,24 @@
                             console.log(res)
                             console.log(that.result)
                             data_kid = [];
-                    				data_judge = "";
+                            data_judge = "";
                             table.render(param_kid(result));
                             table.render(param_judge(result));
                             table.render(param_arranged(result));
                         },
-                        error:function(err){
-                        	console.log(err);
+                        error: function (err) {
+                            console.log(err);
                         }
                     })
                 }
-                else
-                    layer.alert("选择有误，请重新选择") 
+                else {
+                    if (data_judge == "")
+                        layer.alert('裁判选择有误')
+                    else if (data_kid.length == 0)
+                        layer.alert('未选择运动员')
+                    else
+                        layer.alert('请重新选择日期')
+                }
             });
 
             //改变单选框内容
