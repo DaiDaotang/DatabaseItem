@@ -42,8 +42,7 @@
 	</style>
 </head>
 
-<body>
-             
+<body>       
 <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px" data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
   
 <center>
@@ -115,13 +114,9 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   
   //监听提交
   form.on('submit(demo1)', function(data){
-    layer.alert(JSON.stringify(data.field), {
-      title: '最终的提交信息'
-    })
-	console.log(data)
 	$.ajax({
   		type:"POST",
-        url:"http://192.168.137.1:8080/MeetingManager/LoginServlet",
+        url:"http://localhost:8080/LoginServlet",
   		async:true,
   		data:JSON.stringify({
   			"reqId":"",
@@ -135,6 +130,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   		success:function(res){
 			//传回的数据，可以是res.resData.username
   			console.log(res);
+  			window.localStorage.id = res.reqId;
+  			window.localStorage.authority = res.resData.authority;
+  			window.localStorage.name = res.resData.name;
+  			if(res.resData.authority=="管理员"){
+  				window.location.href="./management.html";
+  			}else{
+  				//todo:跳转到非管理员页面
+  			}
   		},
   		err:function(err){
   			console.log(err);
