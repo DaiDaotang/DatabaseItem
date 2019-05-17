@@ -83,7 +83,7 @@ public class ApplicationDao {
                     bean.getCoachBeanList()) {
                 state3 = conn.prepareStatement("insert into coach values(?,?,?,?,?)");
                 state3.setString(1,coa.getName());
-                state3.setString(2,"女");
+                state3.setString(2,coa.getSex());
                 state3.setString(3,coa.getTel());
                 state3.setString(4,coa.getidCard());
                 state3.setString(5,id);
@@ -100,54 +100,119 @@ public class ApplicationDao {
             DBUtil.closeConn(conn);
         }
     }
-    public String setAth_Id(String sex)
+    public String setAth_Id(AthleteBean ath, String id)
     {
         Connection conn = DBUtil.getConnection();
-        PreparedStatement s1,s2;
+        PreparedStatement s1,s2,s3,s4;
         try{
             conn.setAutoCommit(false);
-            if(sex=="男")
+            s3 = conn.prepareStatement("select host from team natural join athletes where team_id = ?");
+            s3.setString(1,id);
+            ResultSet set = s3.executeQuery();
+            if(set.next())
             {
-                s1 = conn.prepareStatement("SELECT COUNT(*) FROM athletes GROUP BY athsex having athsex='男'");
-                ResultSet set1 = s1.executeQuery();
-                if(set1.next())
+                int a = set.getInt("host");
+                if(a==0)
                 {
-                    int i = set1.getInt(1) * 2 + 1;
-                    if(i>99){
-                        return String.valueOf(i);
-                    }else if(i>9){
-                        String id = "0"+ i;
-                        return id;
-                    }else{
-                        String id = "00" + i;
-                        return id;
+                    if(ath.getSex()=="男")
+                    {
+                        s1 = conn.prepareStatement("select count(*) from natural join athletes where host = 0 group by athsex having athsex='男'");
+                        ResultSet set1 = s1.executeQuery();
+                        if(set1.next())
+                        {
+                            int i = set1.getInt(1) * 2 + 1;
+                            if(i>99){
+                                return String.valueOf(i);
+                            }else if(i>9){
+                                String ath_id = "0"+ i;
+                                return ath_id;
+                            }else{
+                                String ath_id = "00" + i;
+                                return ath_id;
+                            }
+                        }
+                        else
+                        {
+                            return "001";
+                        }
+                    }
+                    else if(ath.getSex()=="女")
+                    {
+                        s2 = conn.prepareStatement("select count(*) from natural join athletes where host = 0 group by athsex having athsex='女'");
+                        ResultSet set2 = s2.executeQuery();
+                        if(set2.next())
+                        {
+                            int i = set2.getInt(1) * 2;
+                            if(i>99){
+                                return String.valueOf(i);
+                            }else if(i>9){
+                                String ath_id = "0"+ i;
+                                return ath_id;
+                            }else{
+                                String ath_id = "00" + i;
+                                return ath_id;
+                            }
+                        }
+                        else
+                        {
+                            return "000";
+                        }
+                    }
+                    else
+                    {
+                        return "xxxx";
                     }
                 }
                 else
                 {
-                    return "001";
-                }
-            }
-            else if(sex=="女")
-            {
-                s2 = conn.prepareStatement("SELECT COUNT(*) FROM athletes GROUP BY athsex having athsex='女'");
-                ResultSet set2 = s2.executeQuery();
-                if(set2.next())
-                {
-                    int i = set2.getInt(1) * 2;
-                    if(i>99){
-                        return String.valueOf(i);
-                    }else if(i>9){
-                        String id = "0"+ i;
-                        return id;
-                    }else{
-                        String id = "00" + i;
-                        return id;
+                    if(ath.getSex()=="男")
+                    {
+                        s1 = conn.prepareStatement("select count(*) from natural join athletes where host > 0 group by athsex having athsex='男'");
+                        ResultSet set1 = s1.executeQuery();
+                        if(set1.next())
+                        {
+                            int i = 999 - set1.getInt(1) * 2;
+                            if(i>99){
+                                return String.valueOf(i);
+                            }else if(i>9){
+                                String ath_id = "0"+ i;
+                                return ath_id;
+                            }else{
+                                String ath_id = "00" + i;
+                                return ath_id;
+                            }
+                        }
+                        else
+                        {
+                            return "999";
+                        }
                     }
-                }
-                else
-                {
-                    return "000";
+                    else if(ath.getSex()=="女")
+                    {
+                        s2 = conn.prepareStatement("select count(*) from natural join athletes where host > 0 group by athsex having athsex='女'");
+                        ResultSet set2 = s2.executeQuery();
+                        if(set2.next())
+                        {
+                            int i = 999 - set2.getInt(1) * 2 - 1;
+                            if(i>99){
+                                return String.valueOf(i);
+                            }else if(i>9){
+                                String ath_id = "0"+ i;
+                                return ath_id;
+                            }else{
+                                String ath_id = "00" + i;
+                                return ath_id;
+                            }
+                        }
+                        else
+                        {
+                            return "998";
+                        }
+                    }
+                    else
+                    {
+                        return "xxxx";
+                    }
                 }
             }
             else
@@ -163,6 +228,25 @@ public class ApplicationDao {
             DBUtil.closeConn(conn);
         }
     }
+    public String judgeAge(int age)
+    {
+        if(age==7||age==8)
+        {
+            return "7-8";
+        }
+        else if(age==9||age==10)
+        {
+            return "9-10";
+        }
+        else if(age==11||age==12)
+        {
+            return "11-12";
+        }
+        else
+        {
+            return "0-100";
+        }
+    }
     public void inputAthlete(String id)
     {
         Connection conn=null;
@@ -174,11 +258,11 @@ public class ApplicationDao {
             for (AthleteBean ath:
                     bean.getAthleteBeanList()) {
                 state4 = conn.prepareStatement("insert into athletes values(?,?,?,?,?,?,?,?)");
-                String athlete_id = setAth_Id(ath.getSex());
+                String athlete_id = setAth_Id(ath,id);
                 state4.setString(1,athlete_id);
                 state4.setString(2,ath.getName());
                 state4.setString(3,ath.getidCard());
-                state4.setString(4,ath.getAge());
+                state4.setInt(4,ath.getAge());
                 state4.setString(5,ath.getSex());
                 state4.setString(6,ath.getGrade());
                 state4.setString(7,id);
@@ -190,8 +274,9 @@ public class ApplicationDao {
                 for (Item_list item:
                      ath.getItem_lists()) {
                     state6=conn.prepareStatement("select item_id from m_item where item_name = ? and age= ? and sex= ?");
+                    String a = judgeAge(ath.getAge());
                     state6.setString(1,item.getItem());
-                    state6.setString(2,ath.getAge());
+                    state6.setString(2,a);
                     state6.setString(3,ath.getSex());
                     ResultSet set = state6.executeQuery();
                     String item_id;
