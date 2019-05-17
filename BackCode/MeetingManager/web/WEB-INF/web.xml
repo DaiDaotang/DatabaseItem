@@ -131,4 +131,12 @@
         <servlet-name>GetPersonInfo</servlet-name>
         <url-pattern>/GetPersonInfo</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>GetCompetition</servlet-name>
+        <servlet-class>com.servlet.GetCompetition</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetCompetition</servlet-name>
+        <url-pattern>/GetCompetition</url-pattern>
+    </servlet-mapping>
 </web-app>
