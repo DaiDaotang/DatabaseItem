@@ -104,7 +104,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
       }
     }
     ,pass: [
-      /^[\S]{6,12}$/
+      /^[\S]{5,18}$/
       ,'密码必须6到12位，且不能出现空格'
     ]
     ,content: function(value){
@@ -113,7 +113,9 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   });
   
   //监听提交
-  form.on('submit(demo1)', function(data){
+    form.on('submit(demo1)', function (data) {
+        window.localStorage.account = data.field.username;
+        window.localStorage.password = data.field.password;
 	$.ajax({
   		type:"POST",
         url:"http://localhost:8080/LoginServlet",
