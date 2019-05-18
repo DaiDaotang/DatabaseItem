@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -39,7 +39,7 @@
 					<input class="layui-input" name="item_select" id="athlete_select"></input>
 				</div>
 				<div class="layui-input-inline">
-					<button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
+					<button class="layui-btn" lay-submit="" lay-filter="find_btn" name="find_btn" id="find_btn"><i class="layui-icon layui-icon-search"></i></button>
 				</div>
 			</div>
 		</form>
@@ -74,7 +74,8 @@
 			,title:'组别表'
 			,contentType:'application/json'
 			,method:"POST"
-			,deal:function(res){
+            , deal: function (res) {
+                console.log(res);
 				return{
 					code:0,msg:"",count:1000,data:res.resData
 				}
@@ -85,7 +86,10 @@
 					itemName:result[0],
 					age:result[2],
 					sex:result[1]
-				}
+                },
+                "reqPageInfo": {
+                    "pageSize": 1000
+                }
 			}
 			,cols: [[
 				{type:'radio'}
@@ -104,7 +108,8 @@
 			,title:'运动员列表'
 			,contentType:'application/json'
 			,method:"POST"
-			,deal:function(res){
+            , deal: function (res) {
+                console.log(res);
 				return{
 					code:0,msg:"",count:1000,data:res.resData
 				}
@@ -112,12 +117,15 @@
 			,where:{
 				"reqId":"",
 				"reqParam":{
-					itemName:result[0],
-					ageDelivery:result[2],
-					sex:result[1],
-					com_id:result[4]
+					"itemName":result[0],
+					"ageDelivery":result[2],
+					"sex":result[1],
+					"com_id":result[4]
 					//组号
-				}
+                },
+                "reqPageInfo":{
+                    "pageSize":1000
+                }
 			}
 			,cols: [[
 				{field:'id', width:80, title: '排名', sort: true}
@@ -142,18 +150,22 @@
 				result[3] = [];
 				console.log(result);
 				table.render(param_gameType(result));
-				table.render(param_playerDetails(result));
-                //return false;
+                //table.render(param_playerDetails(result));
+                //window.event.returnValue = false;
+                return false;
             });
 			
 			//改变单选框内容
             form.on('select(select_gender)', function (data) {
                 console.log(data.value); //得到被选中的值
+                result[1] = data.value;
                 if (data.value == '男') {
                     document.getElementById('select_item').innerHTML = "<option value='单杠'>单杠</option><option value='双杠'>双杠</option><option value='吊环'>吊环</option><option value='跳马'>跳马</option><option value='自由体操'>自由体操</option><option value='鞍马'>鞍马</option><option value='蹦床'>蹦床</option>"
+                    result[0] = "单杠";
                     form.render('select');
                 } else if (data.value == '女') {
                     document.getElementById('select_item').innerHTML = "<option value='跳马'>跳马</option><option value='高低杠'>高低杠</option><option value='平衡木'>平衡木</option><option value='自由体操'>自由体操</option><option value='蹦床'>蹦床</option>"
+                    result[0] = "跳马";
                     form.render('select');
                 }
                 
