@@ -55,7 +55,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label form-label-self">账户</label>
 				<div class="layui-input-block input-item-self">
-					<input type="text" name="username" lay-verify="title" autocomplete="off" placeholder="请输入账户名" class="layui-input">
+					<input type="text" name="username" autocomplete="off" placeholder="请输入账户名" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -80,7 +80,7 @@
 	  
 			<div class="layui-form-item">
 				<button class="layui-btn button-self button-self-1" lay-submit="" lay-filter="demo1">登陆</button>
-				<button class="layui-btn button-self button-self-2" 			  lay-filter="demo2">游客登陆</button>
+				<button class="layui-btn button-self button-self-2" lay-submit="" lay-filter="demo2">游客登陆</button>
 			</div>
 		</div>
 	</form>
@@ -97,22 +97,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   
   //创建一个编辑器
   var editIndex = layedit.build('LAY_demo_editor');
- 
-  //自定义登陆规则
-  form.verify({
-    title: function(value){
-      if(value.length == 0){
-        return '账号名不可为空';
-      }
-    }
-    ,pass: [
-      /^[\S]{5,18}$/
-      ,'密码必须6到12位，且不能出现空格'
-    ]
-    ,content: function(value){
-      layedit.sync(editIndex);
-    }
-  });
+s
   
   //监听提交
     form.on('submit(demo1)', function (data) {
@@ -166,8 +151,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     return false;
   });
 
-    form.on('submit(demo2)', function (data) {
-
+    form.on('submit(demo2)', function (obj) {
+        console.log('ok');
+        window.localStorage.authority = '游客'
+        window.location.href = './tbSearch.html';
+        window.event.returnValue = false;
+        return false;
     });
 
   //表单初始赋值

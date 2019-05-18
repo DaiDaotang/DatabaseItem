@@ -16,7 +16,7 @@
     </style>
 </head>
 <body>
-	<div class="layui-tab">
+    <div class="layui-tab">
         <ul class="layui-tab-title">
             <li class="layui-this">赛事查询</li>
             <li>运动员查询</li>
@@ -121,13 +121,22 @@
                 </div>
             </div>
         </div>
-	</div>	
+
+        <div id="team_only_change_password">
+            <button class="layui-btn" lay-submit="" lay-filter="change_password_btn" id="change_password_btn" name="change_password_btn" style="position:absolute; top: 8px; right: 10px;"><i class="layui-icon layui-icon-password"></i></button>
+        </div>
+    </div>	
           
 	<script src="layui/layui.js" charset="utf-8"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 --> 
  
 	<script>
-	
+
+        if (window.localStorage.authority == "游客") {
+            document.getElementById('team_only').style.display = 'none';
+            document.getElementById('team_only_change_password').style.display = 'none';
+        }
+
 		var result = [
 			""    //itemName 0
 			,""   //sex		1
@@ -276,7 +285,7 @@
 			]]
 			,page: false
 		}};
-		
+        
 		
 		 //元素
 		layui.use('element', function () {
@@ -372,7 +381,7 @@
             
 		});
 
-        //对内信息
+        //队内信息
         layui.use('table', function (res) {
             var table = layui.table;
             var team_id = window.localStorage.id
@@ -408,6 +417,18 @@
             table.render(param_team_member_info);
         });
 
+        /////////////////////////////////////////////////////////////////////修改密码
+        layui.use('layer', function () {
+            var $ = layui.jquery
+                , layer = layui.layer;
+            $(document).on('click', '#change_password_btn', function () {
+                var strUrl = window.location.href;
+                var arrUrl = strUrl.split("/");
+                var strPage = arrUrl[arrUrl.length - 1];
+                window.localStorage.temp_web_url = strPage;
+                window.window.location.href = "./change_password.html";
+            });
+        });
 	</script>
 
 </body>
