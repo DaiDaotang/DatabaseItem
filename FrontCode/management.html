@@ -185,6 +185,10 @@
                 </div>
             </div>
         </div>
+
+        <div>
+            <button class="layui-btn" lay-submit="" lay-filter="change_password_btn" id="change_password_btn" name="change_password_btn" style="position:fixed; margin-top: 10px; margin-right: 10px;"><i class="layui-icon layui-icon-password"></i></button>
+        </div>
     </div>
 
     <script src="layui/layui.js" charset="utf-8"></script>
@@ -721,6 +725,18 @@
             //表格刷新
             table.render(param_signed_up_team);
         })
+
+        layui.use('layer', function () {
+            var $ = layui.jquery
+                , layer = layui.layer;
+            $(document).on('click', '#change_password_btn', function () {
+                var strUrl = window.location.href;
+                var arrUrl = strUrl.split("/");
+                var strPage = arrUrl[arrUrl.length - 1];
+                window.localStorage.temp_web_url = strPage;
+                window.window.location.href = "./change_password.html";
+            });
+        });
     </script>
 
 </body>
