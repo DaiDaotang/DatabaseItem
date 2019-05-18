@@ -8,35 +8,35 @@ public class ApplicationBean {
     private List<CoachBean> coach = null;
     private List<AthleteBean> athlete = null;
 
-    public List<CaptainBean> getCaptainBeanList() {
+    public List<CaptainBean> getCaptain() {
         return captain;
     }
 
-    public void setCaptainBeanList(List<CaptainBean> captainBeanList) {
-        this.captain = captainBeanList;
+    public void setCaptain(List<CaptainBean> captain) {
+        this.captain = captain;
     }
 
-    public List<DoctorBean> getDoctorBeanList() {
+    public List<DoctorBean> getDoctor() {
         return doctor;
     }
 
-    public void setDoctorBeanList(List<DoctorBean> doctorBeanList) {
-        this.doctor = doctorBeanList;
+    public void setDoctor(List<DoctorBean> doctor) {
+        this.doctor = doctor;
     }
 
-    public List<CoachBean> getCoachBeanList() {
+    public List<CoachBean> getCoach() {
         return coach;
     }
 
-    public void setCoachBeanList(List<CoachBean> coachBeanList) {
-        this.coach = coachBeanList;
+    public void setCoach(List<CoachBean> coach) {
+        this.coach = coach;
     }
 
-    public List<AthleteBean> getAthleteBeanList() {
+    public List<AthleteBean> getAthlete() {
         return athlete;
     }
 
-    public void setAthleteBeanList(List<AthleteBean> athleteBeanList) {
-        this.athlete= athleteBeanList;
+    public void setAthlete(List<AthleteBean> athlete) {
+        this.athlete= athlete;
     }
 }
