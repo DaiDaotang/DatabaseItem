@@ -1,5 +1,5 @@
 package com.bean;
-
+import java.util.*;
 public class PersonBean {
     private String name;
     private String id;
@@ -9,6 +9,15 @@ public class PersonBean {
     private String age;
     private String sex;
     private String culScore;
+    private List<Item_list> items;
+
+    public List<Item_list> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item_list> items) {
+        this.items = items;
+    }
 
     public String getName() {
         return name;
@@ -73,4 +82,5 @@ public class PersonBean {
     public void setCulScore(String culScore) {
         this.culScore = culScore;
     }
+
 }

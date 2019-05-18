@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -144,7 +144,10 @@
 					"itemName":res[0],
 					"age":res[2],
 					"sex":res[1]
-				}
+                },
+                "reqPageInfo": {
+                    "pageSize":1000
+                }
 			}
 			,cols: [[
 				{type:'radio'}
@@ -166,7 +169,7 @@
 			,method:"POST"
 			,deal:function(res){
 				return{
-					code:0,msg:"",count:1000,data:res.resData
+					code:0,msg:"",count:1000,data:res.resData.list
 				}
 			}
 			,where:{
@@ -177,7 +180,10 @@
 					"sex":res[1],
 					"com_id":res[4]
 					//组号
-				}
+                },
+                "reqPageInfo": {
+                    "pageSize": 1000
+                }
 			}
 			,cols: [[
 				
@@ -200,14 +206,17 @@
 			,method:"POST"
 			,deal:function(res){
 				return{
-					code:0,msg:"",count:1000,data:res.resData
+					code:0,msg:"",count:1000,data:res.resData.list
 				}
 			}
 			,where:{
 				"reqId":"",
 				"reqParam":{
 					"ath_name":res[5]
-				}
+                },
+                "reqPageInfo": {
+                    "pageSize": 1000
+                }
 			}
 			,cols: [[
 				{field:'ath_id', width:120, title: '运动员编号'}
@@ -230,14 +239,17 @@
 			,method:"POST"
 			,deal:function(res){
 				return{
-					code:0,msg:"",count:1000,data:res.resData
+					code:0,msg:"",count:1000,data:res.resData.list
 				}
 			}
 			,where:{
 				"reqId":"",
 				"reqParam":{
 					"team_name":res[6]
-				}
+                },
+                "reqPageInfo": {
+                    "pageSize": 1000
+                }
 			}
 			,cols: [[
 				{field:'team_name', width:120, title: '队伍'}		
@@ -247,7 +259,7 @@
 				,{field:'type', width:80, title: '类型'}
 				,{field:'rank', width:120, title: '排名'}
 				,{field:'result', width:120, title: '成绩'}
-				,{field:'team_rank', width:120, title: '代表队名次'}
+				//,{field:'team_rank', width:120, title: '代表队名次'}
 			]]
 			,page: false
 		}};

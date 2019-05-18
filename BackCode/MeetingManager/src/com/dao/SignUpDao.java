@@ -1,6 +1,7 @@
 package com.dao;
 
 import com.DBUtil.DBUtil;
+import com.bean.Item_list;
 import com.bean.PersonBean;
 import com.bean.RequestBean;
 import com.bean.SignUpBean;
@@ -65,6 +66,7 @@ public class SignUpDao {
                 bean.setSex(set.getString(5));
                 bean.setCulScore(set.getString(6));
                 bean.setPosition("运动员");
+                getItemList(bean);
                 list.add(bean);
             }
             PreparedStatement state2 = conn.prepareStatement("select c_name,tel,identification from captain where team_id = ?");
@@ -106,6 +108,30 @@ public class SignUpDao {
         }finally {
             DBUtil.closeConn(conn);
             return list;
+        }
+    }
+
+    private void getItemList(PersonBean bean){
+        List<Item_list> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement state;
+        try{
+            conn = DBUtil.getConnection();
+            state = conn.prepareStatement("select item_name from enrollment natural join m_item where ath_id = ?");
+            state.setString(1,bean.getId());
+            ResultSet set = state.executeQuery();
+            Item_list item;
+            while(set.next()){
+                item = new Item_list();
+                item.setItem(set.getString(1));
+                list.add(item);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            bean.setItems(list);
+            DBUtil.closeConn(conn);
         }
     }
 
