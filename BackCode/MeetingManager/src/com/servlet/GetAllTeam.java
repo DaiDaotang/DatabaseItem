@@ -1,9 +1,9 @@
 package com.servlet;
 
-import com.bean.TeamBean;
+import com.bean.*;
 import com.bean.RequestBean;
 import com.bean.ResponseBean;
-import com.dao.GetTeamDao;
+import com.dao.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -18,8 +18,8 @@ import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.List;
 
-@WebServlet(name = "GetTeam﻿")
-public class GetTeam extends HttpServlet {
+@WebServlet(name = "GetAllTeam")
+public class GetAllTeam extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request,response);
     }
@@ -28,21 +28,24 @@ public class GetTeam extends HttpServlet {
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        BufferedReader in = request.getReader();
-        String content = in.readLine();
-
-
+        BufferedReader reader = request.getReader();
+        String content = reader.readLine();
         Gson gson = new Gson();
         Type requestType = new TypeToken<RequestBean>(){}.getType();
-        RequestBean requestBean = gson.fromJson(content,requestType);
-        GetTeamDao dao = new GetTeamDao();
-        ResponseBean<List<TeamBean>> responseBean = new ResponseBean<>();
-        responseBean.setReqId(requestBean.getReqId());
-        responseBean.setResData(dao.returnTeamList());
-        Type responseType = new TypeToken<ResponseBean<List<TeamBean>>>(){}.getType();
-        String resp = gson.toJson(responseBean,responseType);
-        try{
-            out.print(resp);
+        RequestBean reqBean = gson.fromJson(content,requestType);
+        ResponseBean<List<TeamBean>> resBean = new ResponseBean<>();
+        try {
+
+            GetTeamDao dao = new GetTeamDao();
+            List<TeamBean> list = dao.returnTeamList();
+
+
+
+            resBean.setReqId(reqBean.getReqId());
+            resBean.setResData(list);
+            resBean.setSuccess(true);
+            Type resType = new TypeToken<ResponseBean<List<TeamBean>>>(){}.getType();
+            out.print(gson.toJson(resBean,resType));
         }catch (Exception e){
             e.printStackTrace();
         }
