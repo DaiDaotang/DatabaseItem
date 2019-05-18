@@ -149,7 +149,7 @@ public class SignUpDao {
             state.setString(1,bean.getAccount());
             state.setString(2,String.valueOf(setID()));
             state.executeUpdate();
-            String sql2 ="INSERT INTO team (TEAM_ID,TEAM_NAME, PASSWORD,host) VALUES (?,?,'12345',?)";
+            String sql2 ="INSERT INTO team (TEAM_ID,TEAM_NAME, host) VALUES (?,?,?)";
             state2 = conn.prepareStatement(sql2);
             state2.setString(1,setID());
             state2.setString(2,bean.getName());
