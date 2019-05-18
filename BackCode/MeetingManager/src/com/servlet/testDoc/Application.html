@@ -12,43 +12,55 @@ $END$
         url:"http://localhost:8080/ApplicationServlet",
         async:true,
         data:JSON.stringify({
-            "reqId":"000",
+            "reqId":"006",
             "reqParam":{
-                "captainBeanList":[{
+                "captain":[{
                     "name":"qwe",
-                    "idCard":"7789",
+                    "idCard":"112",
                     "tel":"987"
                 }],
-                "doctorBeanList":[{
+                "doctor":[{
                     "name":"qwe",
-                    "idCard":"7789",
+                    "idCard":"223",
                     "tel":"987"
                 }],
-                "coachBeanList":[{
+                "coach":[{
                     "name":"qwe",
-                    "idCard":"7789",
+                    "idCard":"45",
                     "tel":"987"
                 }],
-                "athleteBeanList":[{
+                "athlete":[{
                     "name":"qwe",
-                    "idCard":"7789",
+                    "idCard":"98",
                     "tel":"987",
-                    "age":"9-10",
+                    "age": 9,
                     "grade":"www",
                     "item":[{
                         "item":"ss",
                         "item":"sa"
                     }]
-                }]
+                },
+                    {
+                        "name":"qe",
+                        "idCard":"99",
+                        "tel":"7",
+                        "age": 9,
+                        "grade":"www",
+                        "item":[{
+                            "item":"ss",
+                            "item":"sa"
+                        }]
+                    }
+                ]
             }
         }),
         dataType:"json",
-        success:function(res){
-            console.log(res);
-        },
-        err:function(err){
-            console.log(err);
-        }
+    success:function(res){
+        console.log(res);
+    },
+    err:function(err){
+        console.log(err);
+    }
     });
     console.log("fail");
 </script>

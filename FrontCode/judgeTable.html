@@ -65,24 +65,50 @@
 		<button class="layui-btn" lay-submit="" id="passed_btn" data-type="reload">通过</button>
 	</div>  
 	<script id="barDemo" type="text/html">
-		<a class="layui-btn layui-btn-xs" lay-event="edit">通过</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">打回</a>
+		<a class="layui-btn layui-btn-xs" lay-event="pass">通过</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="turnBack">打回</a>
 	</script>
 
 	<script src="layui/layui.js" charset="utf-8"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 	<script>
+	var result = [
+		""    //itemName 0
+		,""   //sex		1
+		,"7-8"//age		2
+		,[]		//athlete list 
+		,""   //com_id	4
+		,""   //ath_name	5
+		,""   //team_name	6
+		,""   //ath_id		7
+		,""   //score		8
+	];
+	
+	
 	var param_gameType = function(res){return{
 		elem: '#gameType'
 		,id:'table_gameType'
-		,url:'user.json'
+		,url:'http://localhost:8080/GetCompetition'
+		,title:'组别表'
+		,contentType:'application/json'
+		,method:"POST"
+		,deal:function(res){
+			return{
+				code:0,msg:"",count:1000,data:res.resData
+			}
+		}
+		,where:{
+			"reqId":window.localStorage.id,
+			"reqParam":{
+				"authority":window.localStorage.authority
+			}
+		}
 		,cols: [[
 			{type:'radio'}
-			,{field:'gameType', width:200, title: '组别'}
-			,{field:'gameTime', width:150, title: '时间'}
-			,{field:'group', width:150, title: '组号'}
-			,{field:'state', width:150, title: '状态'}
-			
+			,{field:'com_id', width:80, title: '裁判组'}
+			,{field:'sex', width:120, title: '性别'}
+			,{field:'age', width:120, title: '年龄'}
+			,{field:'item_name', width:120, title: '比赛'}
 		]]
 		,page: false
 	}};
@@ -90,18 +116,39 @@
 	var param_scoring = function(res){return{
 		elem: '#final_scoring'
 		,id:'table_scoring'
-		,url:'user.json'
+		,url:'http://localhost:8080/GetScores2'
+		,title:'组别表'
+		,contentType:'application/json'
+		,method:"POST"
+		,deal:function(res){
+		////////////////////
+			var result = {
+				
+			}
+			
+			return{
+				code:0,msg:"",count:1000,data:res.resData
+				
+			}
+		////////////////////	
+		}
+		,where:{
+			"reqId":window.localStorage.id,
+			"reqParam":{
+				"com_id":res[4]
+			}
 		,cols: [[
-			{field:'gameType', width:120, title: '组别'}
-			,{field:'playerId', width:120, title: '运动员编号'}
-			,{field:'playerName', width:120, title: '运动员'}
+			{field:'ath_id', width:120, title: '运动员编号'}
+			,{field:'ath_name', width:120, title: '运动员'}
+			,{field:'scores', width:120, title: '成绩', edit: 'text'}
+			//昊哥操作一下///////////
 			,{field:'judge1',width:70,title:'裁判1'}
 			,{field:'judge2',width:70,title:'裁判2'}
 			,{field:'judge3',width:70,title:'裁判3'}
 			,{field:'judge4',width:70,title:'裁判4'}
-			,{field:'judge5',width:70,title:'裁判5'}
-			,{field:'D',width:60,title:'D'}
-			,{field:'P',width:60,title:'P'}
+			////////////////////////
+			,{field:'D',width:60,title:'D',edit:'text'}
+			,{field:'P',width:60,title:'P',edit:'text'}
 			,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
 		]]
 		,page: false
@@ -113,8 +160,8 @@
 			,layer = layui.layer
 			,form = layui.form;
   
-		table.render(param_gameType("11"));
-		table.render(param_scoring("12"));
+		table.render(param_gameType(result));
+		table.render(param_scoring(result));
 		
 		//监听单元格编辑
 		table.on('edit(final_scoring)', function(obj){
@@ -137,19 +184,12 @@
 		//监听查询
 		form.on('submit(choose_btn)', function (data) {
 			layer.msg("按钮点击了");
-			table.render(param_gameType("aa"));
-			table.render(param_scoring("bb"));
+			//table.render(param_gameType("aa"));
+			//table.render(param_scoring("bb"));
+			//这里感觉要加一个接口  达到选择项目 年龄 性别  可以从getcompetion的列表中查询到	刷新
 		
 			return false;
 		});
-		
-		//监听下一个打分的按钮
-		form.on('submit(submit_btn)',function(){
-			table.render(param_scoring("12"));
-			layer.msg("next");
-		});
-		
-		
 		
 			
 		//改变单选框内容
@@ -164,6 +204,45 @@
 			}
                 
 		});
+		
+		
+		//监听行工具事件
+		table.on('tool(final_scoring)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+			var data = obj.data //获得当前行数据
+			,layEvent = obj.event; //获得 lay-event 对应的值
+			console.log(data);
+			if(layEvent === 'pass'){
+				//ajax代码
+				
+				$.ajax({
+					type: "POST"
+					, url: "http://localhost:8080/GiveDP"
+					, async: true
+					, data: JSON.stringify({
+						"reqId": window.localStorage.id,
+						,"reqParam": {
+							"ath_id": data.ath_id
+							,"com_id": result[4]
+							,"D": parseFloat(data.D)
+							,"P":parseFloat(data.P)
+							,"pass":true
+						}
+					})
+					, dataType: "json"
+					, success: function (res) {
+						layer.msg("give mark success!");
+					}
+					,error: function (err) {
+						console.log(this.data);
+						console.log(err);
+					}
+				});
+				
+				layer.msg('已提交');
+			}else if(lay-event == 'turnBack'){
+				layer.msg("打回重新打分");
+			};
+	    });
   
 	});
 		
