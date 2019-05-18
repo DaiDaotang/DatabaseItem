@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <style type="text/css">
+        .div-self {
+            width: auto;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="div-self">
+        <table class="layui-hide" id="team_info_self" lay-filter="team_info_self"></table>
+    </div>
+    <script src="layui/layui.js" charset="utf-8"></script>
+    <script src="jquery-3.3.1.min.js" charset="utf-8"></script>
+    <script>
+        var team_id = window.localStorage.id
+            , team_name = window.localStorage.name;
+
+        var param_team_member_info = {
+            elem: '#team_info_self'
+            , url: 'http://localhost:8080/GetPersonInfo'
+            , method: 'POST'
+            , where: {
+                'reqId': team_id
+            }
+            , contentType: 'application/json'
+            , title: '对内信息'
+            , toolbar: true
+            , width: 
+            , deal: function (res) {
+                return {
+                    code: 0
+                    , msg: ""
+                    , count: 1000
+                    , data: res.resData
+                }
+            }
+            , cols: [[
+                { field: 'position', width: 70, title: '职务' }
+                , { field: 'name', width: 100, title: '名字' }
+                , { field: 'sex', width: 50, title: '性别 ' }
+                , { field: 'tel', width: 100, title: '电话号' }
+                , { field: 'id_card', width: 100, title: '身份证' }
+            ]]
+        }
+
+        layui.use('table', function (res) {
+            table.render(param_team_member_info);
+        });
+    </script>
+
+</body>
+</html>
