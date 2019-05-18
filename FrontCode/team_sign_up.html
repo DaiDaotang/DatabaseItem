@@ -214,8 +214,8 @@
                     }),
                     dataType: "json",
                     success: function (res) {
-                        //传回的数据，可以是res.resData.username
-                        console.log(res);
+                        layer.msg('报名成功')
+                        window.location.href="./tbSearch.html"
                     },
                     err: function (err) {
                         console.log(err);
