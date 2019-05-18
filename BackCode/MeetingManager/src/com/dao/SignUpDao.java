@@ -54,7 +54,7 @@ public class SignUpDao {
         PersonBean bean;
         try{
             conn = DBUtil.getConnection();
-            PreparedStatement state = conn.prepareStatement("select ath_id,athname,identification,athage,athsex,cul_goal from athletes where team_id = ?");
+            PreparedStatement state = conn.prepareStatement("select ath_id,athname,identification,athage,athsex,cul_goal,tel from athletes where team_id = ?");
             state.setString(1,team_id);
             ResultSet set = state.executeQuery();
             while(set.next()){
@@ -65,6 +65,7 @@ public class SignUpDao {
                 bean.setAge(set.getString(4));
                 bean.setSex(set.getString(5));
                 bean.setCulScore(set.getString(6));
+                bean.setTel(set.getString(7));
                 bean.setPosition("运动员");
                 getItemList(bean);
                 list.add(bean);
@@ -80,7 +81,7 @@ public class SignUpDao {
                 bean.setPosition("领队");
                 list.add(bean);
             }
-            PreparedStatement state3 = conn.prepareStatement("select d_name,tel,identification from captain where team_id = ?");
+            PreparedStatement state3 = conn.prepareStatement("select d_name,tel,identification from doctor where team_id = ?");
             state3.setString(1,team_id);
             ResultSet set3 = state3.executeQuery();
             while(set3.next()){
@@ -91,7 +92,7 @@ public class SignUpDao {
                 bean.setPosition("队医");
                 list.add(bean);
             }
-            PreparedStatement state4 = conn.prepareStatement("select co_name,tel,identification,sex from captain where team_id = ?");
+            PreparedStatement state4 = conn.prepareStatement("select co_name,tel,identification,sex from coach where team_id = ?");
             state4.setString(1,team_id);
             ResultSet set4 = state4.executeQuery();
             while(set4.next()){

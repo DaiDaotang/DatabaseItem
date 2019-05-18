@@ -154,7 +154,7 @@ public class RefereeDao {
             PreparedStatement state,state2;
             try{
                 conn.setAutoCommit(false);
-                String sql = "update participation set status = 3,result = (D+P) where com_id = ? ";
+                String sql = "update participation set status = 3 where com_id = ? ";
                 state = conn.prepareStatement(sql);
                 state.setString(1,s.getCom_id());
                 int i = state.executeUpdate();
@@ -171,6 +171,7 @@ public class RefereeDao {
                 DBUtil.rollback(conn);
                 return false;
             }finally {
+                ArrangeFinal(s.getCom_id());
                 DBUtil.closeConn(conn);
             }
         }else {
@@ -207,7 +208,9 @@ public class RefereeDao {
                 sql = "select com_id,item_name,sex,age from competition natural join m_item where ref_group_id in (select ref_group_id from refgroup where group_leader = ?) and exists (select * from participation where competition.com_id = com_id and status = 1)";
                 break;
             case "裁判长":
-                sql = "select com_id,item_name,sex,age from competition natural join m_item where item_id in (select item_id from m_item where chief_ref = ?) and exists (select * from participation where competition.com_id = com_id and status = 2)";
+                sql = "select com_id,item_name,sex,age from competition natural join m_item where item_id in (" +
+                        "select item_id from m_item where chief_ref = ?) and exists (" +
+                        "select * from participation where competition.com_id = com_id and status = 2)";
                 break;
         }
         Connection conn = null;
@@ -426,6 +429,43 @@ public class RefereeDao {
                 state2.executeUpdate();
             }
             conn.commit();
+        }catch (SQLException e){
+            e.printStackTrace();
+            DBUtil.rollback(conn);
+        }finally {
+            DBUtil.closeConn(conn);
+        }
+    }
+
+    private void ArrangeFinal(String com_id){
+        Connection conn = null;
+        PreparedStatement state1,state2,state3,state4;
+        try{
+            conn = DBUtil.getConnection();
+            state1 = conn.prepareStatement("select item_id,ref_group_id from competition where com_id = ? and not exist (select * from participation natural join competition where (status < 3 or finals = 'Y') and item_id = competition.item_id)");
+            state1.setString(1,com_id);
+            ResultSet set = state1.executeQuery();
+            if(set.next()){
+                String item_id = set.getString(1);
+                String ref_group = set.getString(2);
+                state2 = conn.prepareStatement("update into compeition values (?,?,?,'Y',?)");
+                state2.setString(1,"FI"+item_id);
+                state2.setString(2,item_id);
+                state2.setString(3,ref_group);
+                state2.setString(4,"2019-05-31");
+                state2.executeUpdate();
+                state3 = conn.prepareStatement("insert into participation (ath_id,com_id)values (?,?)");
+                state4 = conn.prepareStatement("select ath_id from participation natural join competition where rank < 4 and item_id = ?");
+                state4.setString(1,item_id);
+                ResultSet set2 = state4.executeQuery();
+                while(set2.next()){
+                    state3.setString(1,set2.getString(1));
+                    state3.setString(2,"FI"+item_id);
+                    state3.executeUpdate();
+                }
+            }else{
+                return;
+            }
         }catch (SQLException e){
             e.printStackTrace();
             DBUtil.rollback(conn);
