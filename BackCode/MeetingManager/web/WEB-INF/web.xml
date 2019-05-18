@@ -140,11 +140,11 @@
         <url-pattern>/GetCompetition</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>GetTeam﻿</servlet-name>
-        <servlet-class>com.servlet.GetTeam</servlet-class>
+        <servlet-name>GetAllTeam</servlet-name>
+        <servlet-class>com.servlet.GetAllTeam</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>GetTeam﻿</servlet-name>
-        <url-pattern>/GetTeam﻿</url-pattern>
+        <servlet-name>GetAllTeam</servlet-name>
+        <url-pattern>/GetAllTeam</url-pattern>
     </servlet-mapping>
 </web-app>

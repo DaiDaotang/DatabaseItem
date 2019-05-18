@@ -264,6 +264,7 @@ layui.define(["laytpl", "laypage", "layer", "form", "util"], function(e) {
 			var r = {};
 			//r[l.pageName] = e, r[l.limitName] = a.limit;
 			var d = t.extend(r, a.where);
+			//console.log(d);
 			if(!a.deal){
 				a.deal = function(res){
 					return res

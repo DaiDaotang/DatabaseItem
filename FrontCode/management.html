@@ -44,7 +44,7 @@
         margin-top: 0px !important;
     }
     .table_signed_self{
-        margin-left: 600px!important;
+        margin-left: 300px!important;
     }
     .div-self {
         margin: 0 auto;
@@ -120,31 +120,32 @@
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                         <legend>裁判组长</legend>
                     </fieldset>
-                    <div class="layui-form-item layui-input-inline layui-inline">
-                        <label class="layui-form-label">姓名</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="judge_master_name" autocomplete="off" lay-verify="required" placeholder="请输入姓名" class="layui-input" id="judge_master_name" lay-filter="judge_master_name">
+                    <div style="width: 1300px; margin: 0 auto;">
+                        <div class="layui-form-item layui-input-inline layui-inline">
+                            <label class="layui-form-label">姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="judge_master_name" autocomplete="off" lay-verify="required" placeholder="请输入姓名" class="layui-input" id="judge_master_name" lay-filter="judge_master_name">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-input-inline layuis-inline">
+                            <label class="layui-form-label">身份证</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="judge_master_idcard" autocomplete="off" lay-verify="required" placeholder="请输入身份证号" class="layui-input" id="judge_master_idcard" lay-filter="judge_master_idcard">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-input-inline layui-inline">
+                            <label class="layui-form-label">电话</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="judge_master_tel" autocomplete="off" lay-verify="required" placeholder="请输入电话号" class="layui-input" id="judge_master_tel" lay-filter="judge_master_tel">
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-input-inline layui-inline">
+                            <label class="layui-form-label">账号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="judge_master_account" autocomplete="off" lay-verify="required" placeholder="请输入电话号" class="layui-input" id="judge_master_account" lay-filter="judge_master_account">
+                            </div>
                         </div>
                     </div>
-                    <div class="layui-form-item layui-input-inline layuis-inline">
-                        <label class="layui-form-label">身份证</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="judge_master_idcard" autocomplete="off" lay-verify="required" placeholder="请输入身份证号" class="layui-input" id="judge_master_idcard" lay-filter="judge_master_idcard">
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-input-inline layui-inline">
-                        <label class="layui-form-label">电话</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="judge_master_tel" autocomplete="off" lay-verify="required" placeholder="请输入电话号" class="layui-input" id="judge_master_tel" lay-filter="judge_master_tel">
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-input-inline layui-inline">
-                        <label class="layui-form-label">账号</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="judge_master_account" autocomplete="off" lay-verify="required" placeholder="请输入电话号" class="layui-input" id="judge_master_account" lay-filter="judge_master_account">
-                        </div>
-                    </div>
-
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                         <legend>裁判组员</legend>
                     </fieldset>
@@ -155,7 +156,7 @@
                 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>注册队伍</legend>
                 </fieldset>
-                <div>
+                <div style="width: 1200px; margin: 0 auto;">
                     <form class="layui-form layui-form-pane signup_self layui-input-inline" action="" id="Sign_up_team">
                         <div class="layui-form-item">
                             <label class="layui-form-label">队伍名称</label>
@@ -185,6 +186,10 @@
                 </div>
             </div>
         </div>
+
+        <div>
+            <button class="layui-btn" lay-submit="" lay-filter="change_password_btn" id="change_password_btn" name="change_password_btn" style="position:absolute; top: 8px; right: 10px;"><i class="layui-icon layui-icon-password"></i></button>
+        </div>
     </div>
 
     <script src="layui/layui.js" charset="utf-8"></script>
@@ -204,10 +209,8 @@
     </script>
     <script>    
         /////////////////////////////////////////////////////////////////////reqId                          //改
-        var id_management = "123";
+        var id_management = window.localStorage.id;
         /////////////////////////////////////////////////////////////////////赛事安排
-        var minTime = "2017-1-11"
-            , maxTime = "2017-12-31";
         var data_kid = []
             , data_kid_name = []
             , data_judge = ""
@@ -566,7 +569,7 @@
             });
         });
 
-        ////////////////////////////////////////////////////////////////////裁判录入
+        /////////////////////////////////////////////////////////////////////裁判录入
         //form区
         layui.use('form', function () {
             var form = layui.form;
@@ -581,7 +584,7 @@
                 , temp_name = "";
 
             for (var i = 0; i < 4; i++) {
-                document.getElementById("Sign_up_judge").innerHTML += '<div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">姓名</label ><div class="layui-input-inline"><input type="text" id="judge_name_' + i + '" lay-filter="judge_name_' + i + '" name="judge_name_' + i + '" autocomplete="off" placeholder="请输入姓名" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layuis-inline"><label class="layui-form-label">身份证</label><div class="layui-input-inline"><input type="text" id="judge_idcard_' + i + '" lay-filter="judge_idcard_' + i + '" name="judge_idcard_' + i + '" autocomplete="off" placeholder="请输入身份证号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">电话</label><div class="layui-input-inline"><input type="text" id="judge_tel_' + i + '" lay-filter="judge_tel_' + i + '" name="judge_tel_' + i + '" autocomplete="off" placeholder="请输入电话号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">账号</label ><div class="layui-input-inline"><input type="text" id="judge_account_' + i + '" lay-filter="judge_account_' + i + '" name="judge_account_' + i + '" autocomplete="off" placeholder="请输入账号" class="layui-input"></div></div></div>'
+                document.getElementById("Sign_up_judge").innerHTML += '<div style="width: 1300px; margin: 0 auto;"><div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">姓名</label ><div class="layui-input-inline"><input type="text" id="judge_name_' + i + '" lay-filter="judge_name_' + i + '" name="judge_name_' + i + '" autocomplete="off" placeholder="请输入姓名" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layuis-inline"><label class="layui-form-label">身份证</label><div class="layui-input-inline"><input type="text" id="judge_idcard_' + i + '" lay-filter="judge_idcard_' + i + '" name="judge_idcard_' + i + '" autocomplete="off" placeholder="请输入身份证号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">电话</label><div class="layui-input-inline"><input type="text" id="judge_tel_' + i + '" lay-filter="judge_tel_' + i + '" name="judge_tel_' + i + '" autocomplete="off" placeholder="请输入电话号" class="layui-input"></div></div><div class="layui-form-item layui-input-inline layui-inline"><label class="layui-form-label">账号</label ><div class="layui-input-inline"><input type="text" id="judge_account_' + i + '" lay-filter="judge_account_' + i + '" name="judge_account_' + i + '" autocomplete="off" placeholder="请输入账号" class="layui-input"></div></div></div></div>'
             }
             document.getElementById("Sign_up_judge").innerHTML += '<center><button class="layui-btn" lay-submit="" lay-filter="sign_up_judge_btn"><i class="layui-icon layui-icon-upload"></i></button></center>'
 
@@ -648,12 +651,12 @@
         /////////////////////////////////////////////////////////////////////队伍注册
         var param_signed_up_team = {
             elem: '#signed_up_team'
-            , url: ''//'http://localhost:8080/SignUpServlet'
+            , url: 'http://localhost:8080/GetAllTeam'
             , method: "POST"
             , where: { "reqId": id_management }
             , contentType: 'application/json'//必加
             , title: '已注册队伍列表'
-            , width: 300
+            , width: 303
             , height: 400
             , deal: function (res) {
                 return { code: 0, msg: "", count: 1000, data: res.resData }
@@ -721,6 +724,19 @@
             //表格刷新
             table.render(param_signed_up_team);
         })
+
+        /////////////////////////////////////////////////////////////////////修改密码
+        layui.use('layer', function () {
+            var $ = layui.jquery
+                , layer = layui.layer;
+            $(document).on('click', '#change_password_btn', function () {
+                var strUrl = window.location.href;
+                var arrUrl = strUrl.split("/");
+                var strPage = arrUrl[arrUrl.length - 1];
+                window.localStorage.temp_web_url = strPage;
+                window.window.location.href = "./change_password.html";
+            });
+        });
     </script>
 
 </body>

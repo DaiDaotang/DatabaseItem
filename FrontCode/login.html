@@ -67,12 +67,14 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label form-label-self">账户类型</label>
 				<div class="layui-input-block input-item-self">
-					<select name="sort" lay-filter="aihao">
-						<option value=""></option>
-						<option value="代表队">代表队</option>
-						<option value="裁判">裁判</option>
-						<option value="管理员">管理员</option>
-					</select>
+                    <select name="sort" lay-filter="aihao">
+                        <option value=""></option>
+                        <option value="代表队">代表队</option>
+                        <option value="裁判">裁判</option>
+                        <option value="总裁判">总裁判</option>
+                        <option value="裁判长">裁判长</option>
+                        <option value="管理员">管理员</option>
+                    </select>
 				</div>
 			</div>
 	  
@@ -104,7 +106,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
       }
     }
     ,pass: [
-      /^[\S]{6,12}$/
+      /^[\S]{5,18}$/
       ,'密码必须6到12位，且不能出现空格'
     ]
     ,content: function(value){
@@ -113,7 +115,9 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   });
   
   //监听提交
-  form.on('submit(demo1)', function(data){
+    form.on('submit(demo1)', function (data) {
+        window.localStorage.account = data.field.username;
+        window.localStorage.password = data.field.password;
 	$.ajax({
   		type:"POST",
         url:"http://localhost:8080/LoginServlet",
@@ -132,12 +136,28 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   			console.log(res);
   			window.localStorage.id = res.reqId;
   			window.localStorage.authority = res.resData.authority;
-  			window.localStorage.name = res.resData.name;
-  			if(res.resData.authority=="管理员"){
-  				window.location.href="./management.html";
-  			}else{
-  				//todo:跳转到非管理员页面
-  			}
+                window.localStorage.name = res.resData.name;
+                if (!res.isSuccess) {
+                    //todo:提示登录失败
+                    return;
+                }
+                else
+                    layer.msg('登陆成功！')
+                if (res.resData.authority == "管理员") {
+                    window.location.href = "./management.html";
+                    window.event.returnValue = false;
+                } else if (res.resData.authority == "代表队" && res.resData.isSignUp) {
+                    window.location.href="./tbSearch.html"
+                } else if (res.resData.authority == "代表队" && !res.resData.isSignUp) {
+                    window.location.href = "./team_ask_for_count.html";
+                    window.event.returnValue = false;
+                } else if (res.resData.authority == "裁判") {
+
+                } else if (res.resData.authority == "总裁判") {
+
+                } else if (res.resData.authority == "裁判长") {
+
+                }
   		},
   		err:function(err){
   			console.log(err);
@@ -145,7 +165,11 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   	});
     return false;
   });
- 
+
+    form.on('submit(demo2)', function (data) {
+
+    });
+
   //表单初始赋值
   form.val('example', {
     "username": ""

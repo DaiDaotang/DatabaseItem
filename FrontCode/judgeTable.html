@@ -8,14 +8,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="layui/css/layui.css"  media="all">
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+  
 </head>
+
 <body>
 
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-    <legend>小组总裁判</legend>
-</fieldset>
-<div style="width: 100%; position: relative; left:15%;">
-<form class="layui-form layui-form-pane" action="">
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+		<legend>小组总裁判</legend>
+	</fieldset>
+	<div style="text-align: center;">
+		<div class="layui-input-inline">
+			<table class="layui-hide" id="gameType" lay-filter="gameType"></table>
+		</div>
+	</div>
+	
+	<div style="width: 100%; position: relative;left:10%;">
+	<form class="layui-form layui-form-pane" action="">
         <div class="layui-form-item">
             <label class="layui-form-label">项目</label>
             <div class="layui-input-inline">
@@ -36,52 +44,130 @@
                     <option value="11-12">11-12岁</option>
                 </select>
             </div>
+			<label class="layui-form-label">组号</label>
+				<div class="layui-input-inline">
+					<input class="layui-input" name="group" id="group"></input>
+				</div>
             <div class="layui-input-inline">
-                <button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
+                <button class="layui-btn" lay-submit="" lay-filter="choose_btn"><i class="layui-icon layui-icon-search"></i></button>
             </div>
         </div>
     </form>
-</div>
-<div style="text-align: center;">
-  <div class="layui-inline">
-		<table class="layui-table" lay-data="{url:'user.json', id:'judge'}" lay-filter="judge">
-			<thead>
-				<tr>
-				<th lay-data="{field:'gameType', width:200}">组别</th>
-				<th lay-data="{field:'playerId', width:120, sort: true}">运动员编号</th>
-				<th lay-data="{field:'playerName', width:120}">运动员</th>
-				<th lay-data="{field:'judgeId', width:100}">裁判组号</th>
-				<th lay-data="{field:'judge1', width:80}">裁判1</th>
-				<th lay-data="{field:'judge2', width:80}">裁判2</th>
-				<th lay-data="{field:'judge3', width:80}">裁判3</th>
-				<th lay-data="{field:'judge4', width:80}">裁判4</th>
-				<th lay-data="{field:'judge5', width:80}">裁判5</th>
-				<th lay-data="{field:'averageScore', width:100}">平均分</th>
-				<th lay-data="{field:'extraScore', width:100, edit: 'text'}">奖惩分</th>
-				<th lay-data="{field:'finalScore', width:120, sort: true}">最后得分</th>
-				</tr>
-			</thead>
-		</table>
-   </div>
-</div>
+	</div>
+	
+	<center>
+		<div class="layui-input-inline">
+			<table class="layui-hide" id="final_scoring" lay-filter="final_scoring"></table>
+		</div>
+	</center>
+	<div style="text-align: center;">
+		<button class="layui-btn" lay-submit="" id="failed_btn" data-type="reload">未通过</button>        
+		<button class="layui-btn" lay-submit="" id="passed_btn" data-type="reload">通过</button>
+	</div>  
+	<script id="barDemo" type="text/html">
+		<a class="layui-btn layui-btn-xs" lay-event="edit">通过</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">打回</a>
+	</script>
 
-         
-          
-<script src="layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-<script>
-layui.use('table', function(){
-  var table = layui.table;
+	<script src="layui/layui.js" charset="utf-8"></script>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script>
+	var param_gameType = function(res){return{
+		elem: '#gameType'
+		,id:'table_gameType'
+		,url:'user.json'
+		,cols: [[
+			{type:'radio'}
+			,{field:'gameType', width:200, title: '组别'}
+			,{field:'gameTime', width:150, title: '时间'}
+			,{field:'group', width:150, title: '组号'}
+			,{field:'state', width:150, title: '状态'}
+			
+		]]
+		,page: false
+	}};
+	
+	var param_scoring = function(res){return{
+		elem: '#final_scoring'
+		,id:'table_scoring'
+		,url:'user.json'
+		,cols: [[
+			{field:'gameType', width:120, title: '组别'}
+			,{field:'playerId', width:120, title: '运动员编号'}
+			,{field:'playerName', width:120, title: '运动员'}
+			,{field:'judge1',width:70,title:'裁判1'}
+			,{field:'judge2',width:70,title:'裁判2'}
+			,{field:'judge3',width:70,title:'裁判3'}
+			,{field:'judge4',width:70,title:'裁判4'}
+			,{field:'judge5',width:70,title:'裁判5'}
+			,{field:'D',width:60,title:'D'}
+			,{field:'P',width:60,title:'P'}
+			,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
+		]]
+		,page: false
+	}};
+	
+	
+	layui.use('table', function(){
+		var table = layui.table
+			,layer = layui.layer
+			,form = layui.form;
   
-  //监听单元格编辑
-  table.on('edit(judge)', function(obj){
-    var value = obj.value //得到修改后的值
-    ,data = obj.data //得到所在行所有键值
-    ,field = obj.field; //得到字段
-    layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
-  });
-});
-</script>
+		table.render(param_gameType("11"));
+		table.render(param_scoring("12"));
+		
+		//监听单元格编辑
+		table.on('edit(final_scoring)', function(obj){
+			var value = obj.value //得到修改后的值
+			,data = obj.data //得到所在行所有键值
+			,field = obj.field; //得到字段
+			layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+		});
+		
+		
+	});
+	
+	//form区
+	layui.use(['form','table'], function () {
+		var form = layui.form
+			, layer = layui.layer
+			, table = layui.table
+			, $ = layui.$;
 
+		//监听查询
+		form.on('submit(choose_btn)', function (data) {
+			layer.msg("按钮点击了");
+			table.render(param_gameType("aa"));
+			table.render(param_scoring("bb"));
+		
+			return false;
+		});
+		
+		//监听下一个打分的按钮
+		form.on('submit(submit_btn)',function(){
+			table.render(param_scoring("12"));
+			layer.msg("next");
+		});
+		
+		
+		
+			
+		//改变单选框内容
+		form.on('select(select_gender)', function (data) {
+			console.log(data.value); //得到被选中的值
+			if (data.value == '男') {
+				document.getElementById('select_item').innerHTML = "<option value='单杠'>单杠</option><option value='双杠'>双杠</option><option value='吊环'>吊环</option><option value='跳马'>跳马</option><option value='自由体操'>自由体操</option><option value='鞍马'>鞍马</option><option value='蹦床'>蹦床</option>"
+				form.render('select');
+			} else if (data.value == '女') {
+				document.getElementById('select_item').innerHTML = "<option value='跳马'>跳马</option><option value='高低杠'>高低杠</option><option value='平衡木'>平衡木</option><option value='自由体操'>自由体操</option><option value='蹦床'>蹦床</option>"
+				form.render('select');
+			}
+                
+		});
+  
+	});
+		
+
+	</script>
 </body>
 </html>
