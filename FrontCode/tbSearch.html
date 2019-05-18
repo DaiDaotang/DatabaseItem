@@ -42,10 +42,6 @@
 								<option value="11-12">11-12岁</option>
 							</select>
 						</div>
-						<label class="layui-form-label">运动员</label>
-						<div class="layui-input-inline">
-							<input class="layui-input" name="item_select" id="athlete_select"></input>
-						</div>
 						<div class="layui-input-inline">
 							<button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
 						</div>
@@ -107,10 +103,7 @@
 				</div>
 				<div style="text-align: center;">
 					<div class="layui-input-inline">
-						<table class="layui-hide" id="gameType" lay-filter="gameType"></table>
-					</div>
-					<div class="layui-input-inline">
-						<table class="layui-hide" name="playerDetails" id="playerDetails" lay-filter="playerDetails"></table>
+						<table class="layui-hide" id="team" lay-filter="team"></table>
 					</div>
 				</div>
 			</div>
@@ -148,16 +141,16 @@
 			,where:{
 				"reqId":"",
 				"reqParam":{
-					"itemName":result[0],
-					"age":result[2],
-					"sex":result[1]
+					"itemName":res[0],
+					"age":res[2],
+					"sex":res[1]
 				}
 			}
 			,cols: [[
 				{type:'radio'}
 				,{field:'com_id', width:120, title: '组号'}
-				,{field:'ref_group_id', width:120, title: '裁判组'}
-				,{field:'time', width:120, title: '时间'}
+				,{field:'ref_group_id', width:80, title: '裁判组'}
+				,{field:'time', width:200, title: '时间'}
 				,{field:'amount', width:120, title: '人数'}
 			]]
 			,page: false
@@ -179,26 +172,28 @@
 			,where:{
 				"reqId":"",
 				"reqParam":{
-					"itemName":result[0],
-					"ageDelivery":result[2],
-					"sex":result[1],
-					"com_id":result[4]
+					"itemName":res[0],
+					"ageDelivery":res[2],
+					"sex":res[1],
+					"com_id":res[4]
 					//组号
 				}
 			}
 			,cols: [[
-				{field:'id', width:80, title: '排名', sort: true}
-				,{field:'ath_id', width:120, title: '运动员编号'}
+				
+				{field:'ath_id', width:120, title: '运动员编号'}
 				,{field:'ath_name', width:120, title: '运动员'}
 				,{field:'team_name', width:120, title: '队伍'}
-				,{field:'final_result', width:120, title: '最后成绩', sort: true}
+				,{field:'type', width:120, title: '类型'}
+				,{field:'rank', width:80, title: '排名', sort: true}
+				,{field:'result', width:120, title: '成绩', sort: true}
 			]]
 			,page: false
 		}};
 		
 		var param_playerDetails_pname = function(res){return{
 			elem: '#playerDetails_pname'
-			,id:'table_playerDetails'
+			,id:'table_playerDetails_pname'
 			,url:'http://localhost:8080/GetResultByAthlete'
 			,title:'运动员列表'
 			,contentType:'application/json'
@@ -211,15 +206,48 @@
 			,where:{
 				"reqId":"",
 				"reqParam":{
-					"ath_name":""
+					"ath_name":res[5]
 				}
 			}
 			,cols: [[
-				{field:'id', width:80, title: '排名', sort: true}
-				,{field:'ath_id', width:120, title: '运动员编号'}
+				{field:'ath_id', width:120, title: '运动员编号'}
 				,{field:'ath_name', width:120, title: '运动员'}
 				,{field:'team_name', width:120, title: '队伍'}
-				,{field:'final_result', width:120, title: '最后成绩', sort: true}
+				,{field:'item_name', width:150, title: '比赛'}
+				,{field:'type', width:120, title: '类型'}
+				,{field:'rank', width:80, title: '排名'}
+				,{field:'result', width:120, title: '成绩'}
+			]]
+			,page: false
+		}};
+		
+		var param_team = function(res){return{
+			elem: '#team'
+			,id:'team'
+			,url:'http://localhost:8080/GetResultByTeam'
+			,title:'队伍列表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				return{
+					code:0,msg:"",count:1000,data:res.resData
+				}
+			}
+			,where:{
+				"reqId":"",
+				"reqParam":{
+					"team_name":res[6]
+				}
+			}
+			,cols: [[
+				{field:'team_name', width:120, title: '队伍'}		
+				,{field:'ath_id', width:120, title: '运动员编号'}
+				,{field:'ath_name', width:120, title: '运动员'}
+				,{field:'item_name', width:120, title: '项目'}
+				,{field:'type', width:80, title: '类型'}
+				,{field:'rank', width:120, title: '排名'}
+				,{field:'result', width:120, title: '成绩'}
+				,{field:'team_rank', width:120, title: '代表队名次'}
 			]]
 			,page: false
 		}};
@@ -241,7 +269,7 @@
            
 			
 			
-            //监听查询
+            //监听项目查询
             form.on('submit(find_btn)', function (data) {
 				result[3] = [];
 				console.log(result);
@@ -252,15 +280,26 @@
 				return false;
             });
 			
-			//监听查询
+			//监听运动员查询
             form.on('submit(find_btn_ath)', function (data) {
 				result[3] = [];
-				result
+				console.log(data.field.athlete_input);
+				result[5]=data.field.athlete_input;
 				console.log(result);
-				table.render(param_gameType(result));
-				table.render(param_playerDetails(result));
-                
-				return true;
+				table.render(param_playerDetails_pname(result));
+                window.event.returnValue = false;
+				return false;
+            });
+			
+			//监听运动员查询
+            form.on('submit(find_btn_team)', function (data) {
+				result[3] = [];
+				console.log(data.field.team_input);
+				result[6]=data.field.team_input;
+				console.log(result);
+				table.render(param_team(result));
+                window.event.returnValue = false;
+				return false;
             });
 			
 			//改变单选框内容
