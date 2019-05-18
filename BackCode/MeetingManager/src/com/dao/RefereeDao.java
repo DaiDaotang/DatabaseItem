@@ -473,4 +473,47 @@ public class RefereeDao {
             DBUtil.closeConn(conn);
         }
     }
+
+    public double GetTeamSumScore(String team_id,String item_id){
+        Connection conn = null;
+        double score = 0;
+        try{
+            conn = DBUtil.getConnection();
+            conn.setAutoCommit(false);
+            PreparedStatement state1 = conn.prepareStatement("select score from scores natural join competition where item_id = ? and ath_id in (select ath_id from athletes where team_id = ?)");
+            state1.setString(1,item_id);
+            state1.setString(2,team_id);
+            ResultSet set1 = state1.executeQuery();
+            while(set1.next()){
+                score += set1.getDouble(1);
+            }
+        }catch (SQLException e){
+            DBUtil.rollback(conn);
+            e.printStackTrace();
+        }finally {
+            DBUtil.closeConn(conn);
+            return score;
+        }
+    }
+
+    public double GetAthleteSumItem(String ath_id){
+        Connection conn = null;
+        double score = 0;
+        try{
+            conn = DBUtil.getConnection();
+            conn.setAutoCommit(false);
+            PreparedStatement state1 = conn.prepareStatement("select score from scores where ath_id = ?");
+            state1.setString(1,ath_id);
+            ResultSet set1 = state1.executeQuery();
+            while(set1.next()){
+                score += set1.getDouble(1);
+            }
+        }catch (SQLException e){
+            DBUtil.rollback(conn);
+            e.printStackTrace();
+        }finally {
+            DBUtil.closeConn(conn);
+            return score;
+        }
+    }
 }
