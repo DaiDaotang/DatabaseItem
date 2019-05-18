@@ -133,7 +133,7 @@ public class CheckResultDao {
         try{
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
-            pStatement = conn.prepareStatement("select ath_id,athname,result,finals,rank,team_id from competition natural join participation natural join athletes natural join m_item where team_id in(select team_id from team where team_name like ?)");
+            pStatement = conn.prepareStatement("select ath_id,athname,result,finals,rank,team_id ,item_name from competition natural join participation natural join athletes natural join m_item where team_id in(select team_id from team where team_name like ?)");
             pStatement.setString(1,"%"+team_name+"%");
             resultSet = pStatement.executeQuery();
             ResultBean result;

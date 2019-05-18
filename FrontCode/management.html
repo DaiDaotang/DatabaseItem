@@ -651,12 +651,12 @@
         /////////////////////////////////////////////////////////////////////队伍注册
         var param_signed_up_team = {
             elem: '#signed_up_team'
-            , url: ''//'http://localhost:8080/SignUpServlet'
+            , url: 'http://localhost:8080/GetAllTeam'
             , method: "POST"
             , where: { "reqId": id_management }
             , contentType: 'application/json'//必加
             , title: '已注册队伍列表'
-            , width: 300
+            , width: 303
             , height: 400
             , deal: function (res) {
                 return { code: 0, msg: "", count: 1000, data: res.resData }
