@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -81,6 +81,7 @@
 						<table class="layui-hide" name="playerDetails_pname" id="playerDetails_pname" lay-filter="playerDetails_pname"></table>
 					</div>
 				</div>
+
 			</div>
 			
 			
@@ -133,7 +134,8 @@
 			,title:'组别表'
 			,contentType:'application/json'
 			,method:"POST"
-			,deal:function(res){
+            , deal: function (res) {
+                console.log(res);
 				return{
 					code:0,msg:"",count:1000,data:res.resData
 				}
@@ -141,10 +143,20 @@
 			,where:{
 				"reqId":"",
 				"reqParam":{
+<<<<<<< HEAD
 					"itemName":res[0],
 					"age":res[2],
 					"sex":res[1]
 				}
+=======
+					itemName:result[0],
+					age:result[2],
+					sex:result[1]
+                },
+                "reqPageInfo": {
+                    "pageSize": 1000
+                }
+>>>>>>> 02715067d4610ee1e4643d33ef64d5c4331eb1a8
 			}
 			,cols: [[
 				{type:'radio'}
@@ -164,7 +176,8 @@
 			,title:'运动员列表'
 			,contentType:'application/json'
 			,method:"POST"
-			,deal:function(res){
+            , deal: function (res) {
+                console.log(res);
 				return{
 					code:0,msg:"",count:1000,data:res.resData
 				}
@@ -177,7 +190,10 @@
 					"sex":res[1],
 					"com_id":res[4]
 					//组号
-				}
+                },
+                "reqPageInfo":{
+                    "pageSize":1000
+                }
 			}
 			,cols: [[
 				
@@ -260,13 +276,15 @@
 		});		
 		
 		//form区
-        layui.use(['form', 'table'],  function () {
+        layui.use(['form', 'table','layedit'],  function () {
             var form = layui.form
                 , layer = layui.layer
                 , table = layui.table
-                , $ = layui.$;
+                , $ = layui.$
+                , layedit = layui.layedit;
 
-           
+            var editIndex = layedit.build('LAY_demo_editor');
+
 			
 			
             //监听项目查询
@@ -305,14 +323,16 @@
 			//改变单选框内容
             form.on('select(select_gender)', function (data) {
                 console.log(data.value); //得到被选中的值
-				result[1]=data.value;
+                result[1] = data.value;
                 if (data.value == '男') {
 					result[0]="单杠";
                     document.getElementById('select_item').innerHTML = "<option value='单杠'>单杠</option><option value='双杠'>双杠</option><option value='吊环'>吊环</option><option value='跳马'>跳马</option><option value='自由体操'>自由体操</option><option value='鞍马'>鞍马</option><option value='蹦床'>蹦床</option>"
+                    result[0] = "单杠";
                     form.render('select');
                 } else if (data.value == '女') {
 					result[0]="跳马";
                     document.getElementById('select_item').innerHTML = "<option value='跳马'>跳马</option><option value='高低杠'>高低杠</option><option value='平衡木'>平衡木</option><option value='自由体操'>自由体操</option><option value='蹦床'>蹦床</option>"
+                    result[0] = "跳马";
                     form.render('select');
                 }
                 

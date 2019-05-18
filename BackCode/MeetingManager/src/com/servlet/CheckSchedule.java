@@ -50,6 +50,7 @@ public class CheckSchedule extends HttpServlet {
             resBean.setReqId(reqBean.getReqId());
             resBean.setSuccess(true);
             Type resType = new TypeToken<ResponseBean<List<ScheduleBean>>>(){}.getType();
+            System.out.println(gson.toJson(resBean,resType));
             out.print(gson.toJson(resBean,resType));
         }catch (Exception e){
             e.printStackTrace();
