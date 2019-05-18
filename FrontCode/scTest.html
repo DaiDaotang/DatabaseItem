@@ -173,10 +173,8 @@
 		//获取radio行的数据
 		table.on("radio(gameType)",function(data){
 			console.log(data.data)
-			result[7] = data.data.ath_id;
 			result[4] = data.data.com_id;
 			console.log(result[4]);
-			console.log(result[7]);
 			table.render(param_scoring(result));
 				
 		});
@@ -198,6 +196,28 @@
 			console.log(data);
 			if(layEvent === 'submit_oneScore'){
 				//ajax代码
+				
+				$.ajax({
+					type: "POST"
+					, url: "http://localhost:8080/GiveMark"
+					, async: true
+					, data: JSON.stringify({
+						"reqId": window.localStorage.id,
+						,"reqParam": {
+							"ath_id": data.ath_id
+							,"com_id": result[7]
+							,"scores": parseFloat(data.scores)
+						}
+					})
+					, dataType: "json"
+					, success: function (res) {
+						layer.msg("give mark success!");
+					}
+					,error: function (err) {
+						console.log(this.data);
+						console.log(err);
+					}
+				});
 				
 				layer.msg('已提交');
 			};

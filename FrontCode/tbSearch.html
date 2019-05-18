@@ -21,7 +21,7 @@
             <li class="layui-this">赛事查询</li>
             <li>运动员查询</li>
             <li>团队查询</li>
-            <li id="team_only">对内信息</li>
+            <li id="team_only">队内信息</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
@@ -116,7 +116,7 @@
             </div>
 
             <div class="layui-tab-item">
-                <div class="div-self">
+                <div class="div-self" style="width: 700px;">
                     <table class="layui-hide div-self " id="team_info_self" lay-filter="team_info_self"></table>
                 </div>
             </div>
@@ -396,7 +396,7 @@
                 , contentType: 'application/json'
                 , title: '对内信息'
                 , toolbar: true
-                , width: 700
+                , width: 707
             , deal: function (res) {
                     return {
                         code: 0
