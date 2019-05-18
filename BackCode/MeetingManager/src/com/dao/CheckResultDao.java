@@ -50,8 +50,8 @@ public class CheckResultDao {
         try{
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
-            pStatement = conn.prepareStatement("select ath_id,result,finals,rank ,item_name from competition natural join participation natural join m_item where ath_id in(select ath_id from athletes where athname = ?)");
-            pStatement.setString(1,ath_name);
+            pStatement = conn.prepareStatement("select athname,ath_id,result,finals,rank ,item_name from athletes natural join competition natural join participation natural join m_item where ath_id in(select ath_id from athletes where athname like ?)");
+            pStatement.setString(1,"%"+ath_name+"%");
             resultSet = pStatement.executeQuery();
             ResultBean result;
             int index = 0,size = 0;
@@ -63,7 +63,7 @@ public class CheckResultDao {
                 }
                 size++;
                 result = new ResultBean();
-                result.setAth_name(ath_name);
+                result.setAth_name(resultSet.getString("athname"));
                 result.setAth_id(resultSet.getString("ath_id"));
                 result.setItem_name(resultSet.getString("item_name"));
                 GetTeamMessage(result);
@@ -133,8 +133,8 @@ public class CheckResultDao {
         try{
             conn = DBUtil.getConnection();
             conn.setAutoCommit(false);
-            pStatement = conn.prepareStatement("select ath_id,athname,result,finals,rank,team_id,item_name from competition natural join participation natural join athletes natural join m_item where team_id in(select team_id from team where team_name = ?)");
-            pStatement.setString(1,team_name);
+            pStatement = conn.prepareStatement("select ath_id,athname,result,finals,rank,team_id from competition natural join participation natural join athletes natural join m_item where team_id in(select team_id from team where team_name like ?)");
+            pStatement.setString(1,"%"+team_name+"%");
             resultSet = pStatement.executeQuery();
             ResultBean result;
             int index = 0,size = 0;
