@@ -22,39 +22,6 @@
 		</div>
 	</div>
 	
-	<div style="width: 100%; position: relative;left:10%;">
-	<form class="layui-form layui-form-pane" action="">
-        <div class="layui-form-item">
-            <label class="layui-form-label">项目</label>
-            <div class="layui-input-inline">
-                <select name="gender_select" lay-filter="select_gender">
-                    <option value="">请选择性别</option>
-                    <option value="男">男</option>
-                    <option value="女">女</option>
-                </select>
-            </div>
-			<!--这里可以选择体操的项目-->
-            <div class="layui-input-inline">
-                <select name="item_select" id="select_item"></select>
-            </div>
-            <div class="layui-input-inline">
-				<select name="age_select" id="select_age">
-                    <option value="7-8">7-8岁</option>
-                    <option value="9-10">9-10岁</option>
-                    <option value="11-12">11-12岁</option>
-                </select>
-            </div>
-			<label class="layui-form-label">组号</label>
-				<div class="layui-input-inline">
-					<input class="layui-input" name="group" id="group"></input>
-				</div>
-            <div class="layui-input-inline">
-                <button class="layui-btn" lay-submit="" lay-filter="choose_btn"><i class="layui-icon layui-icon-search"></i></button>
-            </div>
-        </div>
-    </form>
-	</div>
-	
 	<center>
 		<div class="layui-input-inline">
 			<table class="layui-hide" id="final_scoring" lay-filter="final_scoring"></table>
@@ -98,8 +65,8 @@
 			}
 		}
 		,where:{
-			"reqId":window.localStorage.id,
-			"reqParam":{
+			"reqId":window.localStorage.id
+			,"reqParam":{
 				"authority":window.localStorage.authority
 			}
 		}
@@ -133,10 +100,11 @@
 		////////////////////	
 		}
 		,where:{
-			"reqId":window.localStorage.id,
-			"reqParam":{
+			"reqId":window.localStorage.id
+			,"reqParam":{
 				"com_id":res[4]
 			}
+		}
 		,cols: [[
 			{field:'ath_id', width:120, title: '运动员编号'}
 			,{field:'ath_name', width:120, title: '运动员'}
@@ -170,41 +138,6 @@
 			,field = obj.field; //得到字段
 			layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
 		});
-		
-		
-	});
-	
-	//form区
-	layui.use(['form','table'], function () {
-		var form = layui.form
-			, layer = layui.layer
-			, table = layui.table
-			, $ = layui.$;
-
-		//监听查询
-		form.on('submit(choose_btn)', function (data) {
-			layer.msg("按钮点击了");
-			//table.render(param_gameType("aa"));
-			//table.render(param_scoring("bb"));
-			//这里感觉要加一个接口  达到选择项目 年龄 性别  可以从getcompetion的列表中查询到	刷新
-		
-			return false;
-		});
-		
-			
-		//改变单选框内容
-		form.on('select(select_gender)', function (data) {
-			console.log(data.value); //得到被选中的值
-			if (data.value == '男') {
-				document.getElementById('select_item').innerHTML = "<option value='单杠'>单杠</option><option value='双杠'>双杠</option><option value='吊环'>吊环</option><option value='跳马'>跳马</option><option value='自由体操'>自由体操</option><option value='鞍马'>鞍马</option><option value='蹦床'>蹦床</option>"
-				form.render('select');
-			} else if (data.value == '女') {
-				document.getElementById('select_item').innerHTML = "<option value='跳马'>跳马</option><option value='高低杠'>高低杠</option><option value='平衡木'>平衡木</option><option value='自由体操'>自由体操</option><option value='蹦床'>蹦床</option>"
-				form.render('select');
-			}
-                
-		});
-		
 		
 		//监听行工具事件
 		table.on('tool(final_scoring)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
@@ -243,10 +176,9 @@
 				layer.msg("打回重新打分");
 			};
 	    });
+		
   
 	});
-		
-
 	</script>
 </body>
 </html>
