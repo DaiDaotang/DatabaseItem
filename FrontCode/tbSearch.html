@@ -8,6 +8,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="layui/css/layui.css"  media="all">
   <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <style type="text/css">
+        .div-self {
+            width: 650px;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
 	<div class="layui-tab">
@@ -15,99 +21,106 @@
             <li class="layui-this">赛事查询</li>
             <li>运动员查询</li>
             <li>团队查询</li>
+            <li id="team_only">对内信息</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-					<legend>赛事查询</legend>
-				</fieldset>
-				<div style="width: 100%; position: relative;left:11%;">
-				<form class="layui-form layui-form-pane" action="" id="searchForm">
-					<div class="layui-form-item">
-						<div class="layui-input-inline">
-							<select name="gender_select" lay-filter="select_gender">
-								<option value="">请选择性别</option>
-								<option value="男">男</option>
-								<option value="女">女</option>
-							</select>
-						</div>
-						<label class="layui-form-label">项目</label>
-						<div class="layui-input-inline">
-							<select name="item_select" id="select_item" lay-filter="select_item"></select>
-						</div>
-						<div class="layui-input-inline">
-							<select name="age_select" id="select_age" lay-filter="select_age">
-								<option value="7-8">7-8岁</option>
-								<option value="9-10">9-10岁</option>
-								<option value="11-12">11-12岁</option>
-							</select>
-						</div>
-						<div class="layui-input-inline">
-							<button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
-						</div>
-					</div>
-				</form>
-				</div>
-				<div style="text-align: center;">
-					<div class="layui-input-inline">
-						<table class="layui-hide" id="gameType" lay-filter="gameType"></table>
-					</div>
-					<div class="layui-input-inline">
-						<table class="layui-hide" name="playerDetails" id="playerDetails" lay-filter="playerDetails"></table>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="layui-tab-item">
-				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-					<legend>运动员查询</legend>
-				</fieldset>
-				<div style="width: 100%; position: relative;left:11%;">
-				<form class="layui-form layui-form-pane" action="" id="searchForm">
-					<div class="layui-form-item">
-						<label class="layui-form-label">运动员</label>
-						<div class="layui-input-inline">
-							<input class="layui-input" name="athlete_input" id="athlete_input"></input>
-						</div>
-						<div class="layui-input-inline">
-							<button class="layui-btn" lay-submit="" lay-filter="find_btn_ath"><i class="layui-icon layui-icon-search"></i></button>
-						</div>
-					</div>
-				</form>
-				</div>
-				<div style="text-align: center;">
-					<div class="layui-input-inline">
-						<table class="layui-hide" name="playerDetails_pname" id="playerDetails_pname" lay-filter="playerDetails_pname"></table>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="layui-tab-item">
-				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-					<legend>代表队查询</legend>
-				</fieldset>
-				<div style="width: 100%; position: relative;left:11%;">
-				<form class="layui-form layui-form-pane" action="" id="searchForm">
-					<div class="layui-form-item">
-						<label class="layui-form-label">代表队名</label>
-						<div class="layui-input-inline">
-							<input class="layui-input" name="team_input" id="team_input"></input>
-						</div>
-						<div class="layui-input-inline">
-							<button class="layui-btn" lay-submit="" lay-filter="find_btn_team"><i class="layui-icon layui-icon-search"></i></button>
-						</div>
-					</div>
-				</form>
-				</div>
-				<div style="text-align: center;">
-					<div class="layui-input-inline">
-						<table class="layui-hide" id="team" lay-filter="team"></table>
-					</div>
-				</div>
-			</div>
-		</div>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>赛事查询</legend>
+                </fieldset>
+                <div style="width: 100%; position: relative;left:11%;">
+                    <form class="layui-form layui-form-pane" action="" id="searchForm">
+                        <div class="layui-form-item">
+                            <div class="layui-input-inline">
+                                <select name="gender_select" lay-filter="select_gender">
+                                    <option value="">请选择性别</option>
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select>
+                            </div>
+                            <label class="layui-form-label">项目</label>
+                            <div class="layui-input-inline">
+                                <select name="item_select" id="select_item" lay-filter="select_item"></select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <select name="age_select" id="select_age" lay-filter="select_age">
+                                    <option value="7-8">7-8岁</option>
+                                    <option value="9-10">9-10岁</option>
+                                    <option value="11-12">11-12岁</option>
+                                </select>
+                            </div>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit="" lay-filter="find_btn"><i class="layui-icon layui-icon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div style="text-align: center;">
+                    <div class="layui-input-inline">
+                        <table class="layui-hide" id="gameType" lay-filter="gameType"></table>
+                    </div>
+                    <div class="layui-input-inline">
+                        <table class="layui-hide" name="playerDetails" id="playerDetails" lay-filter="playerDetails"></table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="layui-tab-item">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>运动员查询</legend>
+                </fieldset>
+                <div style="width: 100%; position: relative;left:11%;">
+                    <form class="layui-form layui-form-pane" action="" id="searchForm">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">运动员</label>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" name="athlete_input" id="athlete_input"></input>
+                            </div>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit="" lay-filter="find_btn_ath"><i class="layui-icon layui-icon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div style="text-align: center;">
+                    <div class="layui-input-inline">
+                        <table class="layui-hide" name="playerDetails_pname" id="playerDetails_pname" lay-filter="playerDetails_pname"></table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="layui-tab-item">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>代表队查询</legend>
+                </fieldset>
+                <div style="width: 100%; position: relative;left:11%;">
+                    <form class="layui-form layui-form-pane" action="" id="searchForm">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">代表队名</label>
+                            <div class="layui-input-inline">
+                                <input class="layui-input" name="team_input" id="team_input"></input>
+                            </div>
+                            <div class="layui-input-inline">
+                                <button class="layui-btn" lay-submit="" lay-filter="find_btn_team"><i class="layui-icon layui-icon-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div style="text-align: center;">
+                    <div class="layui-input-inline">
+                        <table class="layui-hide" id="team" lay-filter="team"></table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-tab-item">
+                <div class="div-self">
+                    <table class="layui-hide div-self " id="team_info_self" lay-filter="team_info_self"></table>
+                </div>
+            </div>
+        </div>
 	</div>	
           
 	<script src="layui/layui.js" charset="utf-8"></script>
@@ -358,7 +371,43 @@
 			});
             
 		});
-  
+
+        //对内信息
+        layui.use('table', function (res) {
+            var table = layui.table;
+            var team_id = window.localStorage.id
+                , team_name = window.localStorage.name;
+            var param_team_member_info = {
+                elem: '#team_info_self'
+                , url: 'http://localhost:8080/GetPersonInfo'
+                , method: 'POST'
+                , where: {
+                    'reqId': team_id
+                }
+                , contentType: 'application/json'
+                , title: '对内信息'
+                , toolbar: true
+                , width: 700
+            , deal: function (res) {
+                    return {
+                        code: 0
+                        , msg: ""
+                        , count: 1000
+                        , data: res.resData
+                    }
+                }
+                , cols: [[
+                    { field: 'position', width: 100, title: '职务' }
+                    , { field: 'name', width: 150, title: '名字' }
+                    , { field: 'sex', width: 100, title: '性别 ' }
+                    , { field: 'tel', width: 150, title: '电话号' }
+                    , { field: 'id_card', width: 200, title: '身份证' }
+                ]]
+            }
+
+            table.render(param_team_member_info);
+        });
+
 	</script>
 
 </body>
