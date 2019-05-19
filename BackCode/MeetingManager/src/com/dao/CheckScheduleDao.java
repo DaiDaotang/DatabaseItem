@@ -90,7 +90,7 @@ public class CheckScheduleDao {
             conn.setAutoCommit(false);
             String sex=bean.getSex();
             String age=bean.getAge();
-            if(sex == "" || age == ""){
+            if(sex.equals("") || age.equals("")){
                 return null;
             }
             state1=conn.prepareStatement("select item_id from m_item where age= ? and sex= ?");

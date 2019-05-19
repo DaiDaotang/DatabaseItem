@@ -28,7 +28,7 @@ public class GetAthleteDao {
             String itemName=bean.getItemName();
             String sex=bean.getSex();
             String age=bean.getAge();
-            if(itemName == "" || sex == "" || age == ""){
+            if(itemName.equals("") || sex.equals("") || age.equals("")){
                 return null;
             }
             state1=conn.prepareStatement("select item_id from m_item where item_name = ? and age= ? and sex= ?");

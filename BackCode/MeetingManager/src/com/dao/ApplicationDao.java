@@ -196,7 +196,7 @@ public class ApplicationDao {
                 String athlete_id;
                 if(host==0)
                 {
-                    if(ath.getSex()=="男")
+                    if(ath.getSex().equals("男"))
                     {
                         int i = (c1 + d1) * 2 + 1;
                         d1++;
@@ -208,7 +208,7 @@ public class ApplicationDao {
                             athlete_id = "00" + i;
                         }
                     }
-                    else if(ath.getSex()=="女")
+                    else if(ath.getSex().equals("女"))
                     {
                         int i = (c2 + d2) * 2;
                         d2++;
@@ -227,7 +227,7 @@ public class ApplicationDao {
                 }
                 else
                 {
-                    if(ath.getSex()=="男")
+                    if(ath.getSex().equals("男"))
                     {
                         int i = 999 - (c3 + d3) * 2;
                         d3++;
@@ -239,7 +239,7 @@ public class ApplicationDao {
                             athlete_id = "00" + i;
                         }
                     }
-                    else if(ath.getSex()=="女")
+                    else if(ath.getSex().equals("女"))
                     {
                         int i = 999 - (c4 + d4) * 2 - 1;
                         d4++;
