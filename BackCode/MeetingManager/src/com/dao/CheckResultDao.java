@@ -70,7 +70,7 @@ public class CheckResultDao {
                 String isFinal = resultSet.getString("finals");
                 result.setRank(String.valueOf(resultSet.getInt("rank")));
                 result.setRank(String.valueOf(resultSet.getInt("result")));
-                if(isFinal=="Y"){
+                if(isFinal.equals("Y")){
                     result.setType("决赛");
                 }else{
                     result.setType("预赛");
@@ -154,7 +154,7 @@ public class CheckResultDao {
                 String isFinal = resultSet.getString("finals");
                 result.setRank(String.valueOf(resultSet.getInt("rank")));
                 result.setRank(String.valueOf(resultSet.getInt("result")));
-                if(isFinal=="Y"){
+                if(isFinal.equals("Y")){
                     result.setType("决赛");
                 }else{
                     result.setType("预赛");
@@ -211,7 +211,7 @@ public class CheckResultDao {
                 String isFinal = resultSet.getString("finals");
                 result.setRank(String.valueOf(resultSet.getInt("rank")));
                 result.setRank(String.valueOf(resultSet.getInt("result")));
-                if(isFinal=="Y"){
+                if(isFinal.equals("Y")){
                     result.setType("决赛");
                 }else{
                     result.setType("预赛");
