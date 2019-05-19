@@ -154,7 +154,7 @@
                         , "age": parseInt(document.getElementById('ath_age_' + i).value)
                         , "sex": document.getElementById('ath_sex_' + i).value
                         , "tel": document.getElementById('ath_tel_' + i).value
-                        , "grade": document.getElementById('ath_grade_' + i).value
+                        , "grade": parseFloat(document.getElementById('ath_grade_' + i).value)
                         , "item": []
                     }
                     if (temp.sex == "男") {
@@ -185,7 +185,7 @@
                             temp.item.push({ "item": "跳马" })
                         }
                         if (res.field["GDG_" + i] == 'on') {
-                            temp.item.push({ "item": "高低杆" })
+                            temp.item.push({ "item": "高低杠" })
                         }
                         if (res.field["PHM_" + i] == 'on') {
                             temp.item.push({ "item": "平衡木" })
@@ -215,13 +215,15 @@
                     dataType: "json",
                     success: function (res) {
                         layer.msg('报名成功')
-                        window.location.href="./tbSearch.html"
+                        window.event.returnValue = false;
+                        //window.location.href="./tbSearch.html"
                     },
                     err: function (err) {
                         console.log(err);
+                        window.event.returnValue = false;
                     }
                 });
-                return true;
+                return false;
             });
         });
     </script>

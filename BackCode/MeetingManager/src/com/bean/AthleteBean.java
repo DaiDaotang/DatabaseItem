@@ -8,7 +8,7 @@ public class AthleteBean {
     private int age;
     private String sex;
     private String tel;
-    private String grade;
+    private float grade;
     private List<Item_list> item = null;
     public void setName(String name)
     {
@@ -50,11 +50,11 @@ public class AthleteBean {
     {
         return tel;
     }
-    public void setGrade(String grade)
+    public void setGrade(float grade)
     {
         this.grade=grade;
     }
-    public String getGrade()
+    public float getGrade()
     {
         return grade;
     }

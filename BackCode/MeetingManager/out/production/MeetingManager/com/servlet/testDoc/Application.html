@@ -12,7 +12,7 @@ $END$
         url:"http://localhost:8080/ApplicationServlet",
         async:true,
         data:JSON.stringify({
-            "reqId":"006",
+            "reqId":"002",
             "reqParam":{
                 "captain":[{
                     "name":"qwe",
@@ -27,31 +27,64 @@ $END$
                 "coach":[{
                     "name":"qwe",
                     "idCard":"45",
-                    "tel":"987"
+                    "tel":"987",
+                    "sex":"男"
                 }],
                 "athlete":[{
-                    "name":"qwe",
+                    "name":"男1",
                     "idCard":"98",
                     "tel":"987",
                     "age": 9,
-                    "grade":"www",
+                    "sex":"男"
+                    "grade":0,
                     "item":[{
+                        "item":"ss",
+                        "item":"sa"
+                    }]
+                },{
+                    "name":"男2",
+                    "idCard":"99",
+                    "tel":"987",
+                    "age": 9,
+                    "grade":0,
+                    "item":[{
+                        "item":"ss",
+                        "item":"sa"
+                    }]
+                },{
+                    "name":"男3",
+                        "idCard":"100",
+                        "tel":"987",
+                        "age": 9,
+                        "grade":0,
+                        "item":[{
                         "item":"ss",
                         "item":"sa"
                     }]
                 },
                     {
-                        "name":"qe",
-                        "idCard":"99",
-                        "tel":"7",
+                        "name":"女1",
+                        "idCard":"101",
+                        "tel":"987",
                         "age": 9,
-                        "grade":"www",
+                        "grade":0,
+                        "item":[{
+                            "item":"ss",
+                            "item":"sa"
+                        }]
+                    },{
+                        "name":"女3",
+                        "idCard":"103",
+                        "tel":"987",
+                        "age": 9,
+                        "grade":0,
                         "item":[{
                             "item":"ss",
                             "item":"sa"
                         }]
                     }
-                ]
+
+    ]
             }
         }),
         dataType:"json",

@@ -261,7 +261,7 @@ public class ApplicationDao {
                 state4.setString(3,ath.getidCard());
                 state4.setInt(4,ath.getAge());
                 state4.setString(5,ath.getSex());
-                state4.setString(6,ath.getGrade());
+                state4.setFloat(6,ath.getGrade());
                 state4.setString(7,id);
                 state4.setString(8,ath.getTel());
                 int x = state4.executeUpdate();

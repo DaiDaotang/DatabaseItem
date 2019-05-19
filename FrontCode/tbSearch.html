@@ -655,7 +655,7 @@
 		
 		
 		//小组总裁判//////////////////////////////////////////////////////////////////
-		var param_gameType = function(res){return{
+		var param_gameType2 = function(res){return{
 			elem: '#gameType2'
 			,id:'table_gameType2'
 			,url:'http://localhost:8080/GetCompetition'
@@ -902,7 +902,7 @@
 			});
 
 			//监听通过按钮
-			table.on(submit(passed_btn)){
+			table.on("submit(passed_btn)",function(data){
 				$.ajax({
 					type: "POST"
 					, url: "http://localhost:8080/ReviewScores"
@@ -923,7 +923,7 @@
 						console.log(err);
 					}
 				});
-			}
+			})
 			
 			
 		});
