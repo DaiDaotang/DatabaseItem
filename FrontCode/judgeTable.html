@@ -89,12 +89,26 @@
 		,method:"POST"
 		,deal:function(res){
 		////////////////////
-			var result = {
-				
-			}
-			
+            var scoreList = [{
+
+            }];
+            scoreList.splice(0, 1);
+            for (var i = 0; i < res.resData.length; i++) {
+                scoreList.push({
+                    ath_id: res.resData[i].ath_id,
+                    ath_name: res.resData[i].ath_name,
+                    com_id: res.resData[i].com_id,
+                    team_name: res.resData[i].team_name,
+                    D: res.resData[i].D,
+                    P: res.resData[i].P,
+                    judge1: res.resData[i].scores[0].score,
+                    judge2: res.resData[i].scores[1].score,
+                    judge3: res.resData[i].scores[2].score,
+                    judge4: res.resData[i].scores[3].score
+                })
+            }
 			return{
-				code:0,msg:"",count:1000,data:res.resData
+                code: 0, msg: "", count: 1000, data: scoreList
 				
 			}
 		////////////////////	
