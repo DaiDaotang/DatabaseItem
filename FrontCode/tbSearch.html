@@ -22,6 +22,9 @@
             <li>运动员查询</li>
             <li>团队查询</li>
             <li id="team_only">队内信息</li>
+			<li id="judge1_only">小组裁判</li>
+			<li id="judge2_only">小组裁判长</li>
+			<li id="judge3_only">小组总裁判</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
@@ -115,39 +118,131 @@
                 </div>
             </div>
 
-            <div class="layui-tab-item">
+
+			<div class="layui-tab-item">
+				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+                    <legend>队内信息</legend>
+                </fieldset>
                 <div class="div-self" style="width: 700px;">
                     <table class="layui-hide div-self " id="team_info_self" lay-filter="team_info_self"></table>
                 </div>
             </div>
-        </div>
 
+
+			<div class="layui-tab-item">
+				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+					<legend>小组裁判评分</legend>
+				</fieldset>
+		
+				<div style="text-align: center;">
+					<div class="layui-input-inline">
+						<table class="layui-hide" id="gameType1" lay-filter="gameType1"></table>
+					</div>
+					<div class="layui-input-inline">
+						<table class="layui-hide" id="scoring1" lay-filter="scoring1"></table>
+					</div>
+				</div>
+				<center>
+				<div class="layui-input-inline">
+					<button class="layui-btn" lay-submit="" lay-filter="return_btn">完成</button>
+				</div>
+				</center>
+			</div>	
+
+
+			<div class="layui-tab-item">
+				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+					<legend>小组总裁判</legend>
+				</fieldset>
+				<div style="text-align: center;">
+					<div class="layui-input-inline">
+						<table class="layui-hide" id="gameType2" lay-filter="gameType2"></table>
+					</div>
+					<div class="layui-input-inline">
+						<table class="layui-hide" id="final_scoring" lay-filter="final_scoring"></table>
+					</div>
+				</div>
+		
+				<div style="text-align: center;">       
+					<button class="layui-btn" id="finished_btn" lay-filter="finished_btn">完成</button>
+				</div>  
+			</div>		
+           
+			<div class="layui-tab-item">
+				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+					<legend>小组裁判长</legend>
+				</fieldset>
+				<div style="text-align: center;">
+					<div class="layui-input-inline">
+						<table class="layui-hide" id="gameType3" lay-filter="gameType3"></table>
+					</div>
+					<div class="layui-input-inline">
+						<table class="layui-hide" id="final_scoring3" lay-filter="final_scoring3"></table>
+					</div>
+				</div>
+		
+				<div style="text-align: center;">
+					<button class="layui-btn" lay-submit="" id="failed_btn" lay-filter="failed_btn">未通过</button>        
+					<button class="layui-btn" lay-submit="" id="passed_btn" data-type="passed_btn">通过</button>
+				</div>  
+			</div>		
+		    
+        </div>
+		
+		
+		
+		
+		
         <div id="team_only_change_password">
             <button class="layui-btn" lay-submit="" lay-filter="change_password_btn" id="change_password_btn" name="change_password_btn" style="position:absolute; top: 8px; right: 10px;"><i class="layui-icon layui-icon-password"></i></button>
         </div>
     </div>	
-          
+    <script id="barDemo1" type="text/html">
+		<a class="layui-btn layui-btn-xs" lay-event="submit_oneScore">提交</a>	
+	</script>
+	<script id="barDemo2" type="text/html">
+		<a class="layui-btn layui-btn-xs" lay-event="pass">通过</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="turnBack">打回</a>
+	</script>
 	<script src="layui/layui.js" charset="utf-8"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 --> 
  
 	<script>
-
+		//权限显示	
         if (window.localStorage.authority == "游客") {
             document.getElementById('team_only').style.display = 'none';
             document.getElementById('team_only_change_password').style.display = 'none';
-        }
+        } 
+		
+		if(window.localStorage.authority != "代表队") {
+			document.getElementById('team_only').style.display = 'none';
+		}
+		
+		if(window.localStorage.authority != "裁判") {
+			document.getElementById('judge1_only').style.display = 'none';
+		}
+		
+		if(window.localStorage.authority != "总裁判") {
+			document.getElementById('judge2_only').style.display = 'none';
+		}
+		
+		if(window.localStorage.authority != "裁判长") {
+			document.getElementById('judge3_only').style.display = 'none';
+		}
 
 		var result = [
 			""    //itemName 0
 			,""   //sex		1
 			,"7-8"//age		2
-			,[]
+			,[]		//athlete list 
 			,""   //com_id	4
 			,""   //ath_name	5
 			,""   //team_name	6
+			,""   //ath_id		7
+			,""   //score		8
 		];
 		
-		//url 可能要重新写
+		//查询部分//////////////////////////////////////////////////////////////////////////////////////////////////////////
 		var param_gameType = function(res){return{
 			elem: '#gameType'
 			,id:'table_gameType'
@@ -380,8 +475,9 @@
 			});
             
 		});
+		/////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //队内信息
+        //队内信息//////////////////////////////////////////////////////////////////////////////////////
         layui.use('table', function (res) {
             var table = layui.table;
             var team_id = window.localStorage.id
@@ -429,6 +525,413 @@
                 window.window.location.href = "./change_password.html";
             });
         });
+		////////////////////////////////////////////////////////////////////////////////
+		
+		//小组裁判/////////////////////////////////////////////////////////////////////////
+		
+		var param_gameType1 = function(res){return{
+				elem: '#gameType1'
+				,id:'table_gameType1'
+				,url:'http://localhost:8080/GetCompetition'
+				,title:'组别表'
+				,contentType:'application/json'
+				,method:"POST"
+				,deal:function(res){
+					return{
+						code:0,msg:"",count:1000,data:res.resData
+					}
+				}
+				,where:{
+					"reqId":window.localStorage.id,
+					"reqParam":{
+						"authority":window.localStorage.authority
+					}
+				}
+				,cols: [[
+					{type:'radio'}
+					,{field:'com_id', width:80, title: '裁判组'}
+					,{field:'sex', width:120, title: '性别'}
+					,{field:'age', width:120, title: '年龄'}
+					,{field:'item_name', width:120, title: '比赛'}
+				]]
+				,page: false
+			}
+		};
+	
+		var param_scoring1 = function(res){return{
+				elem: '#scoring1'
+				,id:'table_scoring1'
+				,url:'http://localhost:8080/GetScores1'
+				,title:'运动员列表'
+				,contentType:'application/json'
+				,method:"POST"
+				,deal:function(res){
+					return{
+						code:0,msg:"",count:1000,data:res.resData
+					}
+				}
+				,where:{
+					"reqId":window.localStorage.id,
+					"reqParam":{
+						"com_id":res[4]
+						//组号
+					}
+				}
+				,cols: [[
+					{field:'ath_id', width:120, title: '运动员编号'}
+					,{field:'ath_name', width:120, title: '运动员'}
+					,{field:'scores', width:120, title: '成绩', edit: 'text'}
+					,{fixed: 'right', title:'操作', toolbar: '#barDemo1', width:80}
+				]]
+					,page: false
+			}
+		};
+
+	
+	
+		layui.use('table', function(){
+			var table = layui.table
+				,layer = layui.layer
+				,form = layui.form;
+		
+			//init the table
+			table.render(param_gameType1(result));
+			table.render(param_scoring1(result));
+	  
+			//监听单元格编辑
+			table.on('edit(scoring1)', function(obj){
+				var value = obj.value //得到修改后的值
+				,data = obj.data //得到所在行所有键值
+				,field = obj.field; //得到字段
+				layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+			});
+			
+			//获取radio行的数据
+			table.on("radio(gameType1)",function(data){
+				console.log(data.data)
+				result[4] = data.data.com_id;
+				console.log(result[4]);
+				table.render(param_scoring(result));
+					
+			});
+			
+			//监听行工具事件
+			table.on('tool(scoring1)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+				var data = obj.data //获得当前行数据
+				,layEvent = obj.event; //获得 lay-event 对应的值
+				console.log(data);
+				if(layEvent == 'submit_oneScore'){
+					//ajax代码
+					
+					$.ajax({
+						type: "POST"
+						, url: "http://localhost:8080/GiveMark"
+						, async: true
+						, data: JSON.stringify({
+							"reqId": window.localStorage.id
+							,"reqParam": {
+								"ath_id": data.ath_id
+								,"com_id": result[7]
+								,"scores": parseFloat(data.scores)
+							}
+						})
+						, dataType: "json"
+						, success: function (res) {
+							layer.msg("give mark success!");
+						}
+						,error: function (err) {
+							console.log(this.data);
+							console.log(err);
+						}
+					});
+					
+					layer.msg('已提交');
+				};
+			});
+		
+		});
+		
+		//////////////////////////////////////////////////////////////////////////////
+		
+		
+		//小组总裁判//////////////////////////////////////////////////////////////////
+		var param_gameType = function(res){return{
+			elem: '#gameType2'
+			,id:'table_gameType2'
+			,url:'http://localhost:8080/GetCompetition'
+			,title:'组别表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				return{
+					code:0,msg:"",count:1000,data:res.resData
+				}
+			}
+			,where:{
+				"reqId":window.localStorage.id
+				,"reqParam":{
+					"authority":window.localStorage.authority
+				}
+			}
+			,cols: [[
+				{type:'radio'}
+				,{field:'com_id', width:80, title: '裁判组'}
+				,{field:'sex', width:120, title: '性别'}
+				,{field:'age', width:120, title: '年龄'}
+				,{field:'item_name', width:120, title: '比赛'}
+			]]
+			,page: false
+		}};
+	
+		var param_scoring2 = function(res){return{
+			elem: '#final_scoring'
+			,id:'table_scoring2'
+			,url:'http://localhost:8080/GetScores2'
+			,title:'组别表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				var scoreList = [{
+
+				}];
+				scoreList.splice(0, 1);
+				for (var i = 0; i < res.resData.length; i++) {
+					scoreList.push({
+						ath_id: res.resData[i].ath_id,
+						ath_name: res.resData[i].ath_name,
+						com_id: res.resData[i].com_id,
+						team_name: res.resData[i].team_name,
+						D: res.resData[i].D,
+						P: res.resData[i].P,
+						judge1: res.resData[i].scores[0].score,
+						judge2: res.resData[i].scores[1].score,
+						judge3: res.resData[i].scores[2].score,
+						judge4: res.resData[i].scores[3].score
+					})
+				}
+				return{
+					code: 0, msg: "", count: 1000, data: scoreList
+					
+				}	
+			}
+			,where:{
+				"reqId":window.localStorage.id
+				,"reqParam":{
+					"com_id":res[4]
+				}
+			}
+			,cols: [[
+				{field:'ath_id', width:120, title: '运动员编号'}
+				,{field:'ath_name', width:120, title: '运动员'}
+				,{field:'judge1',width:70,title:'裁判1'}
+				,{field:'judge2',width:70,title:'裁判2'}
+				,{field:'judge3',width:70,title:'裁判3'}
+				,{field:'judge4',width:70,title:'裁判4'}
+				,{field:'D',width:60,title:'D',edit:'text'}
+				,{field:'P',width:60,title:'P',edit:'text'}
+				,{fixed: 'right', title:'操作', toolbar: '#barDemo2', width:120}
+			]]
+			,page: false
+		}};
+		
+	
+		layui.use('table', function(){
+			var table = layui.table
+				,layer = layui.layer
+				,form = layui.form;
+	  
+			table.render(param_gameType2(result));
+			table.render(param_scoring2(result));
+			
+			//获取radio行的数据
+			table.on("radio(gameType2)",function(data){
+				console.log(data.data)
+				result[4] = data.data.com_id;
+				console.log(result[4]);
+				table.render(param_scoring2(result));
+					
+			});
+			
+			//监听单元格编辑
+			table.on('edit(final_scoring)', function(obj){
+				var value = obj.value //得到修改后的值
+				,data = obj.data //得到所在行所有键值
+				,field = obj.field; //得到字段
+				layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
+			});
+			
+			//监听行工具事件
+			table.on('tool(final_scoring)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+				var data = obj.data //获得当前行数据
+				,layEvent = obj.event; //获得 lay-event 对应的值
+				console.log(data);
+				if(layEvent === 'pass'){
+					//ajax代码
+					
+					$.ajax({
+						type: "POST"
+						, url: "http://localhost:8080/GiveDP"
+						, async: true
+						, data: JSON.stringify({
+							"reqId": window.localStorage.id
+							,"reqParam": {
+								"ath_id": data.ath_id
+								,"com_id": result[4]
+								,"D": parseFloat(data.D)
+								,"P":parseFloat(data.P)
+								,"pass":true
+							}
+						})
+						, dataType: "json"
+						, success: function (res) {
+							layer.msg("give mark success!");
+						}
+						,error: function (err) {
+							console.log(this.data);
+							console.log(err);
+						}
+					});
+					
+					layer.msg('已提交');
+				}else if(lay-event == 'turnBack'){
+					layer.msg("打回重新打分");
+				};
+			});
+			
+	  
+		});
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//小组裁判长/////////////////////////////////////////////////////////////////////////////////
+		var param_gameType3 = function(res){return{
+			elem: '#gameType3'
+			,id:'table_gameType3'
+			,url:'http://localhost:8080/GetCompetition'
+			,title:'组别表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				return{
+					code:0,msg:"",count:1000,data:res.resData
+				}
+			}
+			,where:{
+				"reqId":window.localStorage.id
+				,"reqParam":{
+					"authority":window.localStorage.authority
+				}
+			}
+			,cols: [[
+				{type:'radio'}
+				,{field:'com_id', width:80, title: '裁判组'}
+				,{field:'sex', width:120, title: '性别'}
+				,{field:'age', width:120, title: '年龄'}
+				,{field:'item_name', width:120, title: '比赛'}
+			]]
+			,page: false
+		}};
+	
+		var param_scoring3 = function(res){return{
+			elem: '#final_scoring3'
+			,id:'table_scoring3'
+			,url:'http://localhost:8080/GetScores3'
+			,title:'组别表'
+			,contentType:'application/json'
+			,method:"POST"
+			,deal:function(res){
+				var scoreList = [{
+
+				}];
+				scoreList.splice(0, 1);
+				for (var i = 0; i < res.resData.length; i++) {
+					scoreList.push({
+						ath_id: res.resData[i].ath_id,
+						ath_name: res.resData[i].ath_name,
+						com_id: res.resData[i].com_id,
+						team_name: res.resData[i].team_name,
+						D: res.resData[i].D,
+						P: res.resData[i].P,
+						judge1: res.resData[i].scores[0].score,
+						judge2: res.resData[i].scores[1].score,
+						judge3: res.resData[i].scores[2].score,
+						judge4: res.resData[i].scores[3].score
+					})
+				}
+				return{
+					code: 0, msg: "", count: 1000, data: scoreList
+					
+				}	
+			}
+			,where:{
+				"reqId":window.localStorage.id
+				,"reqParam":{
+					"com_id":res[4]
+				}
+			}
+			,cols: [[
+				{field:'ath_id', width:120, title: '运动员编号'}
+				,{field:'ath_name', width:120, title: '运动员'}
+				,{field:'judge1',width:70,title:'裁判1'}
+				,{field:'judge2',width:70,title:'裁判2'}
+				,{field:'judge3',width:70,title:'裁判3'}
+				,{field:'judge4',width:70,title:'裁判4'}
+				,{field:'D',width:60,title:'D'}
+				,{field:'P',width:60,title:'P'}
+			]]
+			,page: false
+		}};
+		
+	
+		layui.use('table', function(){
+			var table = layui.table
+				,layer = layui.layer
+				,form = layui.form;
+			
+			//init the table
+			table.render(param_gameType3(result));
+			table.render(param_scoring3(result));
+
+			//获取radio行的数据
+			table.on("radio(gameType3)",function(data){
+				console.log(data.data)
+				result[4] = data.data.com_id;
+				console.log(result[4]);
+				table.render(param_scoring3(result));
+					
+			});
+
+			//监听通过按钮
+			table.on(submit(passed_btn)){
+				$.ajax({
+					type: "POST"
+					, url: "http://localhost:8080/ReviewScores"
+					, async: true
+					, data: JSON.stringify({
+						"reqId": window.localStorage.id
+						,"reqParam": {
+							"com_id": result[4]
+							,"pass":true
+						}
+					})
+					, dataType: "json"
+					, success: function (res) {
+						layer.msg("give mark success!");
+					}
+					,error: function (err) {
+						console.log(this.data);
+						console.log(err);
+					}
+				});
+			}
+			
+			
+		});
+		
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////
 	</script>
 
 </body>

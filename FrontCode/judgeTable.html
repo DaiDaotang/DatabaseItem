@@ -20,13 +20,12 @@
 		<div class="layui-input-inline">
 			<table class="layui-hide" id="gameType" lay-filter="gameType"></table>
 		</div>
-	</div>
-	
-	<center>
 		<div class="layui-input-inline">
 			<table class="layui-hide" id="final_scoring" lay-filter="final_scoring"></table>
 		</div>
-	</center>
+	</div>
+	
+		
 	<div style="text-align: center;">
 		<button class="layui-btn" lay-submit="" id="failed_btn" data-type="reload">未通过</button>        
 		<button class="layui-btn" lay-submit="" id="passed_btn" data-type="reload">通过</button>
@@ -122,13 +121,10 @@
 		,cols: [[
 			{field:'ath_id', width:120, title: '运动员编号'}
 			,{field:'ath_name', width:120, title: '运动员'}
-			,{field:'scores', width:120, title: '成绩', edit: 'text'}
-			//昊哥操作一下///////////
 			,{field:'judge1',width:70,title:'裁判1'}
 			,{field:'judge2',width:70,title:'裁判2'}
 			,{field:'judge3',width:70,title:'裁判3'}
 			,{field:'judge4',width:70,title:'裁判4'}
-			////////////////////////
 			,{field:'D',width:60,title:'D',edit:'text'}
 			,{field:'P',width:60,title:'P',edit:'text'}
 			,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:120}
