@@ -107,16 +107,16 @@
 		}
 	};
 
-	//init the table
-		table.render(param_gameType(result));
-		table.render(param_scoring(result));
+	
 	
 	layui.use('table', function(){
 		var table = layui.table
 			,layer = layui.layer
 			,form = layui.form;
 		
-		
+		//init the table
+		table.render(param_gameType(result));
+		table.render(param_scoring(result));
   
 		//监听单元格编辑
 		table.on('edit(scoring)', function(obj){
@@ -140,7 +140,7 @@
 			var data = obj.data //获得当前行数据
 			,layEvent = obj.event; //获得 lay-event 对应的值
 			console.log(data);
-			if(layEvent === 'submit_oneScore'){
+			if(layEvent == 'submit_oneScore'){
 				//ajax代码
 				
 				$.ajax({
@@ -168,42 +168,6 @@
 				layer.msg('已提交');
 			};
 	    });
-		
-		
-		//监听行工具事件
-		table.on('tool(scoring)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-			var data = obj.data //获得当前行数据
-			,layEvent = obj.event; //获得 lay-event 对应的值
-			console.log(data);
-			if(layEvent === 'submit_oneScore'){
-				//ajax代码
-				
-				$.ajax({
-					type: "POST"
-					, url: "http://localhost:8080/GiveMark"
-					, async: true
-					, data: JSON.stringify({
-						"reqId": window.localStorage.id
-						,"reqParam": {
-							"ath_id": data.ath_id
-							,"com_id": result[7]
-							,"scores": parseFloat(data.scores)
-						}
-					})
-					, dataType: "json"
-					, success: function (res) {
-						layer.msg("give mark success!");
-					}
-					,error: function (err) {
-						console.log(this.data);
-						console.log(err);
-					}
-				});
-				
-				layer.msg('已提交');
-			};
-	    });
-
 		
 	});
   
