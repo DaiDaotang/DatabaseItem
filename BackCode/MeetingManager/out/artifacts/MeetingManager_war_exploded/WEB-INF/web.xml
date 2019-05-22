@@ -68,6 +68,22 @@
         <url-pattern>/GiveMark</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>GiveDP</servlet-name>
+        <servlet-class>com.servlet.GiveDP</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GiveDP</servlet-name>
+        <url-pattern>/GiveDP</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ReviewScores</servlet-name>
+        <servlet-class>com.servlet.ReviewScores</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReviewScores</servlet-name>
+        <url-pattern>/ReviewScores</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>SignUpServlet</servlet-name>
         <servlet-class>com.servlet.SignUpServlet</servlet-class>
     </servlet>
@@ -154,5 +170,13 @@
     <servlet-mapping>
         <servlet-name>GetAllTeam</servlet-name>
         <url-pattern>/GetAllTeam</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetAthleteResult</servlet-name>
+        <servlet-class>com.servlet.GetAthleteResult</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetAthleteResult</servlet-name>
+        <url-pattern>/GetAthleteResult</url-pattern>
     </servlet-mapping>
 </web-app>

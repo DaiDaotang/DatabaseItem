@@ -21,10 +21,11 @@
             <li class="layui-this">赛事查询</li>
             <li>运动员查询</li>
             <li>团队查询</li>
+            <li>运动员排名</li>
             <li id="team_only">队内信息</li>
-			<li id="judge1_only">小组裁判</li>
-			<li id="judge2_only">小组裁判长</li>
-			<li id="judge3_only">小组总裁判</li>
+            <li id="judge1_only">小组裁判</li>
+            <li id="judge2_only">小组裁判长</li>
+            <li id="judge3_only">小组总裁判</li>
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
@@ -119,6 +120,12 @@
             </div>
 
 
+            <div class="layui-tab-item">
+                <div style="width: 750px; margin: 50px auto;">
+                    <table class="layui-hide" id="ath_grade_all" lay-filter="ath_grade_all"></table>
+                </div>
+            </div>
+
 			<div class="layui-tab-item">
 				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
                     <legend>队内信息</legend>
@@ -152,7 +159,7 @@
 
 			<div class="layui-tab-item">
 				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-					<legend>小组总裁判</legend>
+					<legend>裁判长</legend>
 				</fieldset>
 				<div style="text-align: center;">
 					<div class="layui-input-inline">
@@ -170,7 +177,7 @@
            
 			<div class="layui-tab-item">
 				<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
-					<legend>小组裁判长</legend>
+					<legend>小组总裁判</legend>
 				</fieldset>
 				<div style="text-align: center;">
 					<div class="layui-input-inline">
@@ -182,8 +189,8 @@
 				</div>
 		
 				<div style="text-align: center;">
-					<button class="layui-btn" lay-submit="" id="failed_btn" lay-filter="failed_btn">未通过</button>        
-					<button class="layui-btn" lay-submit="" id="passed_btn" data-type="passed_btn">通过</button>
+					<button class="layui-btn" lay-submit="" name="failed_btn" id="failed_btn" lay-filter="failed_btn">未通过</button>        
+					<button class="layui-btn" lay-submit="" name="passed_btn" id="passed_btn" data-type="passed_btn">通过</button>
 				</div>  
 			</div>		
 		    
@@ -513,7 +520,7 @@
             table.render(param_team_member_info);
         });
 
-        /////////////////////////////////////////////////////////////////////修改密码
+        //修改密码///////////////////////////////////////////////////////////////////
         layui.use('layer', function () {
             var $ = layui.jquery
                 , layer = layui.layer;
@@ -526,7 +533,9 @@
             });
         });
 		////////////////////////////////////////////////////////////////////////////////
-		
+
+        
+
 		//小组裁判/////////////////////////////////////////////////////////////////////////
 		
 		var param_gameType1 = function(res){return{
@@ -549,10 +558,10 @@
 				}
 				,cols: [[
 					{type:'radio'}
-					,{field:'com_id', width:80, title: '裁判组'}
-					,{field:'sex', width:120, title: '性别'}
-					,{field:'age', width:120, title: '年龄'}
-					,{field:'item_name', width:120, title: '比赛'}
+					,{field:'com_id', width:200, title: '比赛小组'}
+					,{field:'sex', width:80, title: '性别'}
+					,{field:'age', width:80, title: '年龄'}
+					,{field:'item_name', width:80, title: '比赛'}
 				]]
 				,page: false
 			}
@@ -589,10 +598,11 @@
 
 	
 	
-		layui.use('table', function(){
+		layui.use(['table','jquery'], function(){
 			var table = layui.table
 				,layer = layui.layer
-				,form = layui.form;
+                , form = layui.form
+                , $ = layui.$;
 		
 			//init the table
 			table.render(param_gameType1(result));
@@ -603,7 +613,6 @@
 				var value = obj.value //得到修改后的值
 				,data = obj.data //得到所在行所有键值
 				,field = obj.field; //得到字段
-				layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改为：'+ value);
 			});
 			
 			//获取radio行的数据
@@ -611,7 +620,7 @@
 				console.log(data.data)
 				result[4] = data.data.com_id;
 				console.log(result[4]);
-				table.render(param_scoring(result));
+				table.render(param_scoring1(result));
 					
 			});
 			
@@ -631,13 +640,13 @@
 							"reqId": window.localStorage.id
 							,"reqParam": {
 								"ath_id": data.ath_id
-								,"com_id": result[7]
-								,"scores": parseFloat(data.scores)
+								,"com_id": result[4]
+								,"score": parseFloat(data.scores)
 							}
 						})
 						, dataType: "json"
 						, success: function (res) {
-							layer.msg("give mark success!");
+							
 						}
 						,error: function (err) {
 							console.log(this.data);
@@ -735,10 +744,11 @@
 		}};
 		
 	
-		layui.use('table', function(){
+		layui.use(['table','jquery'], function(){
 			var table = layui.table
 				,layer = layui.layer
-				,form = layui.form;
+                , form = layui.form
+                , $ = layui.$;
 	  
 			table.render(param_gameType2(result));
 			table.render(param_scoring2(result));
@@ -765,7 +775,7 @@
 				var data = obj.data //获得当前行数据
 				,layEvent = obj.event; //获得 lay-event 对应的值
 				console.log(data);
-				if(layEvent === 'pass'){
+				if(layEvent == 'pass'){
 					//ajax代码
 					
 					$.ajax({
@@ -784,7 +794,7 @@
 						})
 						, dataType: "json"
 						, success: function (res) {
-							layer.msg("give mark success!");
+                            layer.msg('已提交');
 						}
 						,error: function (err) {
 							console.log(this.data);
@@ -792,9 +802,34 @@
 						}
 					});
 					
-					layer.msg('已提交');
-				}else if(lay-event == 'turnBack'){
-					layer.msg("打回重新打分");
+					
+                } else if (layEvent == 'turnBack') {
+
+                    $.ajax({
+                        type: "POST"
+                        , url: "http://localhost:8080/GiveDP"
+                        , async: true
+                        , data: JSON.stringify({
+                            "reqId": window.localStorage.id
+                            , "reqParam": {
+                                "ath_id": data.ath_id
+                                , "com_id": result[4]
+                                , "D": parseFloat(data.D)
+                                , "P": parseFloat(data.P)
+                                , "pass": false
+                            }
+                        })
+                        , dataType: "json"
+                        , success: function (res) {
+                            layer.msg("打回重新打分");
+                        }
+                        , error: function (err) {
+                            console.log(this.data);
+                            console.log(err);
+                        }
+                    });
+
+					
 				};
 			});
 			
@@ -883,7 +918,7 @@
 		}};
 		
 	
-		layui.use('table', function(){
+		layui.use(['table','jquery'], function(){
 			var table = layui.table
 				,layer = layui.layer
 				,form = layui.form;
@@ -900,31 +935,6 @@
 				table.render(param_scoring3(result));
 					
 			});
-
-			//监听通过按钮
-			table.on("submit(passed_btn)",function(data){
-				$.ajax({
-					type: "POST"
-					, url: "http://localhost:8080/ReviewScores"
-					, async: true
-					, data: JSON.stringify({
-						"reqId": window.localStorage.id
-						,"reqParam": {
-							"com_id": result[4]
-							,"pass":true
-						}
-					})
-					, dataType: "json"
-					, success: function (res) {
-						layer.msg("give mark success!");
-					}
-					,error: function (err) {
-						console.log(this.data);
-						console.log(err);
-					}
-				});
-			})
-			
 			
 		});
 		
@@ -932,6 +942,115 @@
 		
 		
 		//////////////////////////////////////////////////////////////////////////////////////
+
+        //总裁判通过/////////////////////////////////////////////////////////////////////////////////
+        layui.use(['layer', 'table','jquery'], function () {
+            var $ = layui.$
+                , table = layui.table
+                , layer = layui.layer;
+            $(document).on('click', '#passed_btn', function () {
+                console.log("123456");
+                //监听通过按钮
+                $.ajax({
+                    type: "POST"
+                    , url: "http://localhost:8080/ReviewScores"
+                    , async: true
+                    , data: JSON.stringify({
+                        "reqId": window.localStorage.id
+                        , "reqParam": {
+                            "com_id": result[4]
+                            , "pass": true
+                        }
+                    })
+                    , dataType: "json"
+                    , success: function (res) {
+                        layer.msg("give mark success!");
+                    }
+                    , error: function (err) {
+                        console.log(this.data);
+                        console.log(err);
+                    }
+                });
+
+                table.render(param_gameType3(result));
+                table.render(param_scoring3(result));
+                layer.msg("通过");
+            });
+        });
+
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        //总裁判未通过/////////////////////////////////////////////////////////////////////////////////
+        layui.use(['layer', 'table', 'jquery'], function () {
+            var $ = layui.$
+                , table = layui.table
+                , layer = layui.layer;
+            $(document).on('click', '#passed_btn', function () {
+                console.log("qqqqqqq");
+                //监听未通过按钮
+                $.ajax({
+                    type: "POST"
+                    , url: "http://localhost:8080/ReviewScores"
+                    , async: true
+                    , data: JSON.stringify({
+                        "reqId": window.localStorage.id
+                        , "reqParam": {
+                            "com_id": result[4]
+                            , "pass": true
+                        }
+                    })
+                    , dataType: "json"
+                    , success: function (res) {
+                        layer.msg("give mark success!");
+                    }
+                    , error: function (err) {
+                        console.log(this.data);
+                        console.log(err);
+                    }
+                });
+
+                table.render(param_gameType3(result));
+                table.render(param_scoring3(result));
+            });
+        });
+
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        //运动员排名
+        var url_search_all_ath_grade = "http://localhost:8080/GetAthleteResult";
+        var field_id = "ath_id"
+            , field_ath_name = "ath_name"
+            , field_team_name = "team_name"
+            , field_ath_age = "age"
+            , field_ath_sex = "sex"
+            , field_grade = "result";
+        var param_ath_grade_all = {
+            elem: '#ath_grade_all'
+            , url: url_search_all_ath_grade
+            , title: '运动员排名'
+            , toolbar: true
+            , contentType: 'application/json'
+            , method: "POST"
+            , where: { "reqId": window.localStorage.id }
+            , deal: function (res) {
+                return { code: 0, msg: "", count: 1000, data: res.resData }
+            }
+            , cols: [[
+                { field: field_id, width: 100, title: 'ID', unresize: true, sort: true }
+                , { field: field_ath_name, width: 150, title: '名称' }
+                , { field: field_ath_age, width: 100, title: '年龄', sort: true }
+                , { field: field_ath_sex, width: 100, title: '性别', sort: true }
+                , { field: field_team_name, width: 150, title: '代表队' }
+                , { field: field_grade, width: 150, title: '成绩', sort: true }
+            ]]
+        }
+
+        layui.use('table', function () {
+            var table = layui.table;
+            table.render(param_ath_grade_all);
+        })
+        
+
 	</script>
 
 </body>

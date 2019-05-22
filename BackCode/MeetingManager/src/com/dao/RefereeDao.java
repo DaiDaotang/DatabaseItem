@@ -496,6 +496,32 @@ public class RefereeDao {
         }
     }
 
+    public List<ResultBean> getAthleteResult(){
+        Connection conn = null;
+        List<ResultBean> list = new ArrayList<>();
+        try {
+            conn = DBUtil.getConnection();
+            PreparedStatement state = conn.prepareStatement("select ath_id,athname,athsex,athage,team_name from athletes natural join team");
+            ResultSet set = state.executeQuery();
+            ResultBean r;
+            while(set.next()){
+                r = new ResultBean();
+                r.setTeam_name(set.getString("team_name"));
+                r.setAth_id(set.getString("ath_id"));
+                r.setAth_name(set.getString("athname"));
+                r.setAge(set.getInt("athage"));
+                r.setSex(set.getString("athsex"));
+                r.setResult(String.valueOf(GetAthleteSumItem(r.getAth_id())));
+                list.add(r);
+            }
+        }catch (SQLException E){
+            E.printStackTrace();
+        }finally {
+            DBUtil.closeConn(conn);
+            return list;
+        }
+    }
+
     public double GetAthleteSumItem(String ath_id){
         Connection conn = null;
         double score = 0;

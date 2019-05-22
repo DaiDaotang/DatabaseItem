@@ -291,7 +291,7 @@ public class ApplicationDao {
                     state5.setString(3,id);
                     int y = state5.executeUpdate();
                     if(y<1){
-                        System.err.println(item_id);
+                        System.err.println(item.getItem());
                     }
                 }
             }

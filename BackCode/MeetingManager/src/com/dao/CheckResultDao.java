@@ -210,7 +210,7 @@ public class CheckResultDao {
                 GetTeamMessage(result);
                 String isFinal = resultSet.getString("finals");
                 result.setRank(String.valueOf(resultSet.getInt("rank")));
-                result.setRank(String.valueOf(resultSet.getInt("result")));
+                result.setResult(String.valueOf(resultSet.getInt("result")));
                 if(isFinal.equals("Y")){
                     result.setType("决赛");
                 }else{

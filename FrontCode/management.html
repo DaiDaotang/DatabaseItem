@@ -562,7 +562,7 @@
                         return (value - 1) / 2 + ':30';
                 }
                 , change: function (value) {
-                    var temp1 = value % 2 == 0? value / 2 + ':00' : (value - 1) / 2 + ':30';
+                    var temp1 = (value % 2 == 0? value / 2 + ':00' : (value - 1) / 2 + ':30');
                     data_time = temp1;
                     console.log(data_time)
                 }
